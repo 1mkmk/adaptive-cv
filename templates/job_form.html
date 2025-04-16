@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Post a Job{% endblock %}
+
+{% block content %}
+    <h1>Post a New Job</h1>
+    
+    <div class="tabs">
+        <button id="manualTabBtn" class="tab-btn active" onclick="switchTab('manual')">Manual Entry</button>
+        <button id="urlTabBtn" class="tab-btn" onclick="switchTab('url')">Import from URL</button>
+    </div>
+    
+    <div id="manualForm" class="tab-content">
+        <form action="/jobs/create" method="POST">
+            <div class="form-group">
+                <label for="title">Job Title:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="company">Company:</label>
+                <input type="text" id="company" name="company" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Job Description:</label>
+                <textarea id="description" name="description" rows="5" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="requirements">Requirements:</label>
+                <textarea id="requirements" name="requirements" rows="5" required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Post Job</button>
+        </form>
+    </div>
+    
+    <div id="urlForm" class="tab-content" style="display: none;">
+        <form action="/jobs/create" method="POST">
+            <div class="form-group">
+                <label for="job_url">Job Posting URL:</label>
+                <input type="url" id="job_url" name="job_url" placeholder="https://example.com/job-posting" required>
+                <p class="help-text">Paste a URL to a job posting and we'll extract the information automatically.</p>
+            </div>
+            
+            <button type="submit" class="submit-btn">Import Job</button>
+        </form>
+    </div>
+    
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function switchTab(tab) {
+        const manualForm = document.getElementById('manualForm');
+        const urlForm = document.getElementById('urlForm');
+        const manualBtn = document.getElementById('manualTabBtn');
+        const urlBtn = document.getElementById('urlTabBtn');
+        
+        if (tab === 'manual') {
+            manualForm.style.display = 'block';
+            urlForm.style.display = 'none';
+            manualBtn.classList.add('active');
+            urlBtn.classList.remove('active');
+        } else {
+            manualForm.style.display = 'none';
+            urlForm.style.display = 'block';
+            manualBtn.classList.remove('active');
+            urlBtn.classList.add('active');
+        }
+    }
+</script>
+{% endblock %}

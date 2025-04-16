@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ job.title }} - {{ job.company }}{% endblock %}
+
+{% block content %}
+    <div class="job-detail">
+        <h1>{{ job.title }}</h1>
+        <h2>{{ job.company }} - {{ job.location }}</h2>
+        <p class="date">Posted: {{ job.created_at }}</p>
+        
+        {% if job.source_url %}
+        <p class="source">
+            Source: <a href="{{ job.source_url }}" target="_blank">{{ job.source_url }}</a>
+        </p>
+        {% endif %}
+        
+        <div class="job-section">
+            <h3>Job Description</h3>
+            <p>{{ job.description }}</p>
+        </div>
+        
+        <div class="job-section">
+            <h3>Requirements</h3>
+            <p>{{ job.requirements }}</p>
+        </div>
+        
+        <div class="actions">
+            <a href="/jobs" class="back-btn">Back to Jobs</a>
+            <a href="/jobs/history" class="history-btn">View History</a>
+        </div>
+    </div>
+{% endblock %}

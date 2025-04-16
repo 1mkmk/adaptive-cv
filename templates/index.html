@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block title %}AI CV Creator{% endblock %}
+
+{% block content %}
+    <h1>AI CV Creator</h1>
+    
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('profile')">Profile</button>
+        <button class="tab-btn" onclick="showTab('generator')">Generate CV</button>
+    </div>
+    
+    <!-- Profile Tab -->
+    <div id="profileTab" class="tab-content">
+        <h2>CV Profile</h2>
+        <form id="profileForm" method="POST" action="/save-profile" enctype="multipart/form-data">
+            <!-- Personal Details -->
+            <div class="form-section">
+                <h3>Personal Details</h3>
+                <div class="form-group">
+                    <label for="full_name">Full Name:</label>
+                    <input type="text" id="full_name" name="full_name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address">
+                </div>
+            </div>
+            
+            <!-- Photo Upload -->
+            <div class="form-section">
+                <h3>Profile Photo</h3>
+                <div class="form-group">
+                    <label for="photo">Upload Photo:</label>
+                    <input type="file" id="photo" name="photo" accept="image/*">
+                </div>
+                <div id="photoPreview" class="photo-preview"></div>
+            </div>
+            
+            <!-- Education -->
+            <div class="form-section">
+                <h3>Education</h3>
+                <div id="education-container">
+                    <!-- Education entries will be added here -->
+                </div>
+                <button type="button" class="add-btn" onclick="addEducation()">Add Education</button>
+            </div>
+            
+            <!-- Skills -->
+            <div class="form-section">
+                <h3>Skills</h3>
+                <div class="form-group">
+                    <label for="skills">List your skills (comma separated):</label>
+                    <textarea id="skills" name="skills" rows="3"></textarea>
+                </div>
+            </div>
+            
+            <!-- Languages -->
+            <div class="form-section">
+                <h3>Languages</h3>
+                <div id="languages-container">
+                    <!-- Language entries will be added here -->
+                </div>
+                <button type="button" class="add-btn" onclick="addLanguage()">Add Language</button>
+            </div>
+            
+            <!-- Certifications -->
+            <div class="form-section">
+                <h3>Certifications</h3>
+                <div id="certifications-container">
+                    <!-- Certification entries will be added here -->
+                </div>
+                <button type="button" class="add-btn" onclick="addCertification()">Add Certification</button>
+            </div>
+            
+            <button type="submit" class="save-btn">Save Profile</button>
+        </form>
+    </div>
+    
+    <!-- CV Generator Tab -->
+    <div id="generatorTab" class="tab-content" style="display: none;">
+        <h2>Generate CV with AI</h2>
+        <p>Enter your skills and experience to generate a professional CV</p>
+        <textarea id="user_input" placeholder="Enter your skills, experience, and education..."></textarea>
+        <button onclick="generateCV()" class="generate-btn">Generate CV</button>
+        <div id="result"></div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/cv.js') }}"></script>
+<script>
+    // Tab switching
+    function showTab(tabName) {
+        const tabs = document.querySelectorAll('.tab-content');
+        const buttons = document.querySelectorAll('.tab-btn');
+        
+        tabs.forEach(tab => tab.style.display = 'none');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(tabName + 'Tab').style.display = 'block';
+        document.querySelector(`button[onclick="showTab('${tabName}')"]`).classList.add('active');
+    }
+    
+    // Education section
+    function addEducation() {
+        const container = document.getElementById('education-container');
+        const index = container.children.length;
+        
+        const educationEntry = document.createElement('div');
+        educationEntry.className = 'education-entry';
+        educationEntry.innerHTML = `
+            <div class="form-group">
+                <label for="edu_institution_${index}">Institution:</label>
+                <input type="text" id="edu_institution_${index}" name="edu_institution[]">
+            </div>
+            <div class="form-group">
+                <label for="edu_degree_${index}">Degree/Certificate:</label>
+                <input type="text" id="edu_degree_${index}" name="edu_degree[]">
+            </div>
+            <div class="form-group">
+                <label for="edu_years_${index}">Years:</label>
+                <input type="text" id="edu_years_${index}" name="edu_years[]" placeholder="e.g. 2018-2022">
+            </div>
+            <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+        `;
+        
+        container.appendChild(educationEntry);
+    }
+    
+    // Language section
+    function addLanguage() {
+        const container = document.getElementById('languages-container');
+        const index = container.children.length;
+        
+        const langEntry = document.createElement('div');
+        langEntry.className = 'language-entry';
+        langEntry.innerHTML = `
+            <div class="form-group inline-group">
+                <label for="language_${index}">Language:</label>
+                <input type="text" id="language_${index}" name="language[]">
+                
+                <label for="proficiency_${index}">Proficiency:</label>
+                <select id="proficiency_${index}" name="proficiency[]">
+                    <option value="Native">Native</option>
+                    <option value="Fluent">Fluent</option>
+                    <option value="Advanced">Advanced</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Basic">Basic</option>
+                </select>
+                <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove()">Remove</button>
+            </div>
+        `;
+        
+        container.appendChild(langEntry);
+    }
+    
+    // Certification section
+    function addCertification() {
+        const container = document.getElementById('certifications-container');
+        const index = container.children.length;
+        
+        const certEntry = document.createElement('div');
+        certEntry.className = 'certification-entry';
+        certEntry.innerHTML = `
+            <div class="form-group">
+                <label for="cert_name_${index}">Certificate Name:</label>
+                <input type="text" id="cert_name_${index}" name="cert_name[]">
+            </div>
+            <div class="form-group">
+                <label for="cert_issuer_${index}">Issuer:</label>
+                <input type="text" id="cert_issuer_${index}" name="cert_issuer[]">
+            </div>
+            <div class="form-group">
+                <label for="cert_year_${index}">Year:</label>
+                <input type="text" id="cert_year_${index}" name="cert_year[]">
+            </div>
+            <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+        `;
+        
+        container.appendChild(certEntry);
+    }
+    
+    // Photo preview
+    document.getElementById('photo').addEventListener('change', function(e) {
+        const preview = document.getElementById('photoPreview');
+        preview.innerHTML = '';
+        
+        if (this.files && this.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.className = 'profile-photo-preview';
+                preview.appendChild(img);
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+    
+    // Add initial blank entries
+    window.addEventListener('DOMContentLoaded', (event) => {
+        addEducation();
+        addLanguage();
+    });
+</script>
+{% endblock %}
