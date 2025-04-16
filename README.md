@@ -2,7 +2,7 @@
 
 AdaptiveCV creates a CV tailored to the expectations of the employer, just as a chameleon adapts in nature.
 
-![AdaptiveCV Logo](assets/adaptivecv-logo.png)
+![AdaptiveCV Logo](assets/adaptivecv-logo.jpg)
 
 ## Installation
 
