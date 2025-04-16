@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router';
 import Header from './components/layout/header';
 import Footer from './components/layout/footer';
 import Sidebar from './components/layout/sidebar';
@@ -15,12 +15,12 @@ const App: React.FC = () => {
         <Header />
         <Sidebar />
         <main>
-          <Switch>
-            <Route path="/" exact component={Index} />
-            <Route path="/editor" component={Editor} />
-            <Route path="/templates" component={Templates} />
-            <Route path="/preview" component={Preview} />
-          </Switch>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/editor" element={<Editor />} />
+            <Route path="/templates" element={<Templates />} />
+            <Route path="/preview" element={<Preview />} />
+          </Routes>
         </main>
         <Footer />
       </div>
