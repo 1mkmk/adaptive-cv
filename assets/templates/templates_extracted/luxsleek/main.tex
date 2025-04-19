@@ -1,0 +1,191 @@
+% !TeX spellcheck = en_GB
+% !TeX program = pdflatex
+%
+% LuxSleek-CV 1.1 LaTeX template
+% Author: Andreï V. Kostyrka, University of Luxembourg
+%
+% 1.1: added tracking and letter-spacing for prettier lower caps, added `~` for language levels
+% 1.0: initial release
+%
+% This template fills the gap in the available variety of templates
+% by proposing something that is not a custom class, not using any
+% hard-coded settings deeply hidden in style files, and provides
+% a handful of custom command definitions that are as transparent as it gets.
+% Developed at the University of Luxembourg.
+%
+% *NOTHING IS HARCODED, and never should be.*
+%
+% Target audience: applicants in the IT industry, or business in general
+%
+% The main strength of this template is, it explicitly showcases how
+% to break the flow of text to achieve the most flexible right alignment
+% of dates for multiple configurations.
+
+\documentclass[11pt, a4paper]{article} 
+
+\usepackage[T1]{fontenc}     % We are using pdfLaTeX,
+\usepackage[utf8]{inputenc}  % hence this preparation
+\usepackage[british]{babel}  
+\usepackage[left = 0mm, right = 0mm, top = 0mm, bottom = 0mm]{geometry}
+\usepackage[stretch = 25, shrink = 25, tracking=true, letterspace=30]{microtype}  
+\usepackage{graphicx}        % To insert pictures
+\usepackage{xcolor}          % To add colour to the document
+\usepackage{marvosym}        % Provides icons for the contact details
+
+\usepackage{enumitem}        % To redefine spacing in lists
+\setlist{parsep = 0pt, topsep = 0pt, partopsep = 1pt, itemsep = 1pt, leftmargin = 6mm}
+
+\usepackage{FiraSans}        % Change this to use any font, but keep it simple
+\renewcommand{\familydefault}{\sfdefault}
+
+\definecolor{cvblue}{HTML}{304263}
+
+%%%%%%% USER COMMAND DEFINITIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+% These are the real workhorses of this template
+\newcommand{\dates}[1]{\hfill\mbox{\textbf{#1}}} % Bold stuff that doesn’t got broken into lines
+\newcommand{\is}{\par\vskip.5ex plus .4ex} % Item spacing
+\newcommand{\smaller}[1]{{\small$\diamond$\ #1}}
+\newcommand{\headleft}[1]{\vspace*{3ex}\textsc{\textbf{#1}}\par%
+    \vspace*{-1.5ex}\hrulefill\par\vspace*{0.7ex}}
+\newcommand{\headright}[1]{\vspace*{2.5ex}\textsc{\Large\color{cvblue}#1}\par%
+     \vspace*{-2ex}{\color{cvblue}\hrulefill}\par}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[colorlinks = true, urlcolor = white, linkcolor = white]{hyperref}
+
+\begin{document}
+
+% Style definitions -- killing the unnecessary space and adding the skips explicitly
+\setlength{\topskip}{0pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\fboxsep}{0pt}
+\pagestyle{empty}
+\raggedbottom
+
+\begin{minipage}[t]{0.33\textwidth} %% Left column -- outer definition
+%  Left column -- top dark rectangle
+\colorbox{cvblue}{\begin{minipage}[t][5mm][t]{\textwidth}\null\hfill\null\end{minipage}}
+
+\vspace{-.2ex} % Eliminates the small gap
+\colorbox{cvblue!90}{\color{white}  %% LEFT BOX
+\kern0.09\textwidth\relax% Left margin provided explicitly
+\begin{minipage}[t][293mm][t]{0.82\textwidth}
+\raggedright
+\vspace*{2.5ex}
+
+\Large Guillaume \textbf{\textsc{Ouancaux}} \normalsize 
+
+% Centering without extra vertical spacing
+\null\hfill\includegraphics[width=0.65\textwidth]{oval-transparent.png}\hfill\null
+
+\vspace*{0.5ex} % Extra space after the picture
+
+\headleft{Profile}
+Innovative and passionate \textbf{data analyst} with over 15~years of experience in the chocolate and confectionery industry, seeking to leverage extensive background in data analysis, flavour profiling, and market trends.
+Proficient in Python programming, I have successfully developed and maintained multiple scalable and efficient software applications.
+Demonstrated strong problem-solving skills by implementing optimised algorithms and data structures in Python, significantly improving system performance.
+
+\headleft{Contact details}
+\small % To fit more content
+\MVAt\ {\small wonky.william123@gmail.com} \\[0.4ex]
+\Mobilefone\ +352\,123\,456\,789 \\[0.5ex]
+\Mundus\ \href{https://github.com/WillyWonka}{github.com/WillyWonka} \\[0.1ex]
+\Letter\ 49 Paddocks Spring, Farthingtonshire SG2 9UD, UK
+\normalsize
+
+\headleft{Personal information}
+%Year of birth: \textbf{1861} \\[0.5ex]
+Citizenship: \textbf{United Kingdom} \\[0.5ex]
+Family: \textbf{Single without children} \\[0.5ex]
+Languages: \textbf{French}~(B2), \textbf{Luxembourgish}~(A2), \textbf{German}~(A1), \textbf{English}~(native)
+
+\headleft{Skills}
+\begin{itemize}
+\item Python, SQL, PySpark
+\item R, Matlab, Azure Databricks
+\item MS Word, Excel, PowerPoint
+\item Communication and team collaboration
+\end{itemize} 
+
+\end{minipage}%
+\kern0.09\textwidth\relax%%Right margin provided explicitly to stretch the colourbox
+}
+\end{minipage}% Right column
+\hskip2.5em% Left margin for the white area
+\begin{minipage}[t]{0.56\textwidth}
+\setlength{\parskip}{0.8ex}% Adds spaces between paragraphs; use \\ to add new lines without this space. Shrink this amount to fit more data vertically
+
+\vspace{2ex}
+
+\headright{Experience}
+
+\textsc{Senior data scientist} at \textit{Shockelasrull (Luxembourg).}  \dates{2021.04--pres.} \\
+\smaller{Natural language processing, topic modelling, olfactory analysis,  building chained processes, automation of reports.}
+
+\is % Item spacing -- defined in the preamble
+\textsc{Data scientist} at \textit{Chocky-Facky SA (United Kingdom).}  \dates{2019.02--2020.11} \\
+\smaller{Predictive models for consumer taste preferences, market trend analysis, advanced data visualisation, negotiations with stakeholders.}
+
+\is
+\textsc{Data analyst} at \textit{Chocolate River Factory (France).}  \dates{2018.02--2018.12} \\
+\smaller{Data collection processes, extensive research on carbonation levels, collaboration with product development teams.}
+
+\is
+\textsc{Research support} at \textit{Everlasting Gobstopper Ltd.\ (Mongolia).} \\ 
+% \null is necessary here because this is a manually enforced break
+% and \dates start with an \hfill that needs a \nukk
+\null\dates{2016.05--2018.01} \\[-\baselineskip]
+\smaller{Developing and implementing methods for inferring \\
+causal networks from time-series, analysis of customer feedback data, mathematical optimisation,  machine learning.}
+
+\is
+\textsc{Research intern} at \textit{Snozzberry Farms (Italy).} \dates{2015.04--2015.07} \\
+\smaller{Dashboard creation with BI tools, analysis of competitor strategies.}
+
+\is
+\textsc{Researcher} at \textit{Whipple-Scrumptious Fudgemallow Delight Inc.\ (Guadeloupe).} \dates{2013.09--2015.01} \\
+\smaller{Econometric modelling, market data analysis, translation.} 
+
+\is
+\textsc{Intern in logistics management} at \textit{Candy Confections (Egypt).} \\  
+\smaller{Data management with Microsoft Excel.} \dates{2012.04--2012.12}
+
+\is
+\textsc{Editor} at \textit{BEANS Publishing LLC (Japan).} \dates{2009.03--2011.10} \\
+\smaller{Editorial work on dentistry literature, proofreading.} 
+
+
+\headright{Education}
+
+\textsc{Master in Economics.} Mathematical Methods of Economic Analysis. \textit{University of Sweets and Treats}. \dates{2013--2015} \\
+\smaller{Thesis title: \textit{The Effect of Beverage Sugar Content on Their Shelf Life.}} \\
+\smaller{Econometric analysis, survival analysis, panel and time-series models.}
+
+\is
+\textsc{Bachelor of Science in Biology.} Faculty of Experimental Confectionery. \textit{Bolzmann State Technical University}.  \dates{2006--2010} \\
+\smaller{Mathematical modelling, numerical methods, mathematical optimisation.}
+
+
+\headright{Additional education}
+
+\textsc{Stanford introduction to food and health.}
+\textit{Coursera.} \dates{2021} \\
+\smaller{Contemporary trends in eating, cooking workshop, future directions in health.}
+
+\is
+\textsc{Topical courses -- Master in Chocolate Sculpting.}
+\textit{University of Cocoa.} \dates{2015--2017} \\
+\smaller{Data science, statistics and probability,  food science, agricultural science, optimal stopping theory, cultural studies in food.}
+
+
+\headright{Hobbies}
+
+\textit{Music:} imitating birds on the banjo, composing and decomposing (morally).
+
+\textit{Poetry:} inventing rhymes, surreal art.
+
+\textit{Miscellaneous:} zoology, mycology, trainspotting, 1930s horror films.
+\end{minipage}
+
+\end{document}

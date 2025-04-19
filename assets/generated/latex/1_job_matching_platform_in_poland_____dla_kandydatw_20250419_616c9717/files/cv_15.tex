@@ -1,0 +1,140 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Wenneker Resume/CV
+% LaTeX Template
+% Version 1.1 (19/6/2016)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com) with extensive modifications by 
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a4paper,12pt]{memoir} % Font and paper size
+
+\input{structure.tex} % Include the file specifying document layout and packages
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CONTACT INFORMATION 
+%----------------------------------------------------------------------------------------
+
+\userinformation{ % Set the content that goes into the sidebar of each page
+\begin{flushright}
+\includegraphics[width=0.6\columnwidth]{./photos/photo.png}\\[\baselineskip] % Your photo
+\small % Smaller font size
+MACIEJ KASIK \\ % Your name
+\url{maciejkasik@gmail.com} \\ % Your email address
+\url{linkedin.com/in/maciejkasik} \\ % Your LinkedIn
++48 888 403 809 \\ % Your phone number
+\Sep % Some whitespace
+\textbf{Location} \\
+Wrocław, Poland \\ % Your city
+\end{flushright}
+}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\userinformation % Print your information in the left column
+
+\framebreak % End of the first column
+
+%----------------------------------------------------------------------------------------
+%	HEADING
+%----------------------------------------------------------------------------------------
+
+\cvheading{Maciej Kasik} % Large heading - your name
+
+\cvsubheading{QA Automation Test Engineer} % Subheading - your occupation/specialization
+
+%----------------------------------------------------------------------------------------
+%	ABOUT ME
+%----------------------------------------------------------------------------------------
+
+\aboutme{Career Objective}{Detail-oriented QA Automation Test Engineer with experience in developing Java automated scripts using Selenium library and Cucumber BDD. Skilled in executing regression tests, verifying website user journeys, and collaborating within agile teams. Seeking to leverage automation testing expertise at Dla kandydatów to ensure high-quality software delivery.}
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION
+%----------------------------------------------------------------------------------------
+
+\CVSection{Education}
+
+%------------------------------------------------
+
+\CVItem{2025 - Present, \textit{Master in Computer Science}}{Politechnika Wrocławska}
+
+%------------------------------------------------
+
+\CVItem{2021 - 2025, \textit{Bachelor in Systems Engineering}}{Politechnika Wrocławska}
+
+%------------------------------------------------
+
+\Sep % Extra whitespace after the end of a major section
+
+%----------------------------------------------------------------------------------------
+%	EXPERIENCE
+%----------------------------------------------------------------------------------------
+
+\CVSection{Experience}
+
+%------------------------------------------------
+
+\CVItem{Jun 2017 - Aug 2017, \textit{Intern}, Cotucotam.pl}{
+\begin{itemize}
+	\item Designed and developed a new platform version using ReactJS, enhancing performance and scalability.
+	\item Conducted testing and debugging to ensure platform reliability.
+\end{itemize}
+}
+
+%------------------------------------------------
+
+\Sep % Extra whitespace after the end of a major section
+
+%----------------------------------------------------------------------------------------
+%	SKILLS
+%----------------------------------------------------------------------------------------
+
+\CVSection{Skills}
+
+%------------------------------------------------
+
+\CVItem{Technical Skills}
+{\begin{itemize}
+	\item Java, Selenium, Cucumber BDD
+	\item Automation Testing
+	\item Git, Bitbucket, SourceTree
+	\item Java EE, Spring, Hibernate
+	\item Docker, Kubernetes
+	\item AWS, Azure, GCP
+\end{itemize}}
+
+%------------------------------------------------
+
+\CVItem{Additional Skills}
+{\begin{itemize}
+	\item Python, TypeScript
+	\item React, React Native, Flutter
+	\item PowerBI, Excel
+	\item Decision Making, Creativity
+	\item Distributed Computing, Parallel Computing
+	\item Constraint Programming, Dynamic Programming
+	\item Eagerness to Learn
+\end{itemize}}
+
+%------------------------------------------------
+
+\Sep % Extra whitespace after the end of a major section
+
+%----------------------------------------------------------------------------------------
+
+\end{document}

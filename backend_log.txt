@@ -1,0 +1,445 @@
+=== BACKEND SERVER START - Sat Apr 19 16:12:25 CEST 2025 ===
+Working directory: /Users/maciejkasik/Desktop/adaptive-cv/backend
+Python version: Python 3.13.3
+Installed packages:
+Package            Version
+------------------ -----------
+aiofiles           24.1.0
+aiohappyeyeballs   2.6.1
+aiohttp            3.11.16
+aiosignal          1.3.2
+annotated-types    0.7.0
+anyio              4.9.0
+attrs              25.3.0
+beautifulsoup4     4.13.4
+bs4                0.0.2
+certifi            2025.1.31
+charset-normalizer 3.4.1
+click              8.1.8
+dnspython          2.7.0
+email_validator    2.2.0
+fastapi            0.115.12
+frozenlist         1.6.0
+h11                0.14.0
+httpcore           1.0.8
+httpx              0.28.1
+idna               3.10
+iniconfig          2.1.0
+Jinja2             3.1.6
+Markdown           3.8
+MarkupSafe         3.0.2
+multidict          6.4.3
+numpy              2.2.4
+openai             0.28.1
+opencv-python      4.11.0.86
+ordered-set        4.1.0
+packaging          24.2
+pdf2image          1.17.0
+pillow             11.2.1
+pip                25.0.1
+pluggy             1.5.0
+propcache          0.3.1
+pydantic           2.11.3
+pydantic_core      2.33.1
+PyLaTeX            1.4.2
+PyMuPDF            1.25.5
+pypdf              5.4.0
+PyPDF2             3.0.1
+pytesseract        0.3.13
+pytest             8.3.5
+python-dateutil    2.9.0.post0
+python-dotenv      1.1.0
+python-multipart   0.0.20
+requests           2.32.3
+setuptools         78.1.0
+six                1.17.0
+sniffio            1.3.1
+soupsieve          2.6
+SQLAlchemy         2.0.40
+starlette          0.46.2
+tika               3.1.0
+tqdm               4.67.1
+typing_extensions  4.13.2
+typing-inspection  0.4.0
+urllib3            2.4.0
+uvicorn            0.34.1
+yarl               1.20.0
+Environment variables:
+NVM_INC=/Users/maciejkasik/.nvm/versions/node/v22.14.0/include/node
+TERM_PROGRAM=vscode
+NVM_CD_FLAGS=-q
+TERM=xterm-256color
+SHELL=/bin/zsh
+TMPDIR=/var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/
+TERM_PROGRAM_VERSION=1.99.1
+OLDPWD=/Users/maciejkasik/Desktop/adaptive-cv
+ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+MallocNanoZone=0
+NVM_DIR=/Users/maciejkasik/.nvm
+USER=maciejkasik
+COMMAND_MODE=unix2003
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.WHSQETsprq/Listeners
+__CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0
+VIRTUAL_ENV=/Users/maciejkasik/Desktop/adaptive-cv/.venv
+PYDEVD_DISABLE_FILE_VALIDATION=1
+PATH=/Users/maciejkasik/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.13/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Users/maciejkasik/.vscode/extensions/ms-python.python-2025.4.0-darwin-arm64/python_files/deactivate/zsh:/Users/maciejkasik/Desktop/adaptive-cv/.venv/bin:/Users/maciejkasik/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.13/bin
+LaunchInstanceID=B80F488E-DA75-4876-8CF8-298F0503B637
+__CFBundleIdentifier=com.microsoft.VSCode
+PWD=/Users/maciejkasik/Desktop/adaptive-cv/backend
+LANG=en_US.UTF-8
+BUNDLED_DEBUGPY_PATH=/Users/maciejkasik/.vscode/extensions/ms-python.debugpy-2025.6.0-darwin-arm64/bundled/libs/debugpy
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=
+XPC_FLAGS=0x0
+XPC_SERVICE_NAME=0
+VSCODE_DEBUGPY_ADAPTER_ENDPOINTS=/Users/maciejkasik/.vscode/extensions/ms-python.debugpy-2025.6.0-darwin-arm64/.noConfigDebugAdapterEndpoints/endpoint-2df6567cf54823e2.txt
+SHLVL=2
+HOME=/Users/maciejkasik
+VSCODE_GIT_ASKPASS_MAIN=/private/var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/AppTranslocation/B2E04092-7563-4815-8386-7C6781235811/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
+LOGNAME=maciejkasik
+VSCODE_GIT_IPC_HANDLE=/var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/vscode-git-12f5562b06.sock
+VSCODE_ENV_PREPEND=PATH=/Users/maciejkasik/.vscode/extensions/ms-python.python-2025.4.0-darwin-arm64/python_files/deactivate/zsh\x3a/Users/maciejkasik/Desktop/adaptive-cv/.venv/bin\x3a:PS1=.venv
+NVM_BIN=/Users/maciejkasik/.nvm/versions/node/v22.14.0/bin
+VSCODE_GIT_ASKPASS_NODE=/private/var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/AppTranslocation/B2E04092-7563-4815-8386-7C6781235811/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin)
+GIT_ASKPASS=/private/var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/AppTranslocation/B2E04092-7563-4815-8386-7C6781235811/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+VSCODE_ENV_REPLACE=VIRTUAL_ENV=/Users/maciejkasik/Desktop/adaptive-cv/.venv:VIRTUAL_ENV_PROMPT=.venv
+SECURITYSESSIONID=186a3
+VIRTUAL_ENV_PROMPT=.venv
+COLORTERM=truecolor
+_=/usr/bin/env
+=== STARTING SERVER ===
+Found 10 template ZIP files
+Generating preview for Deedy Resume Reversed.zip...
+Processing template: Deedy Resume Reversed
+Temporary directory: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/template_deedy_resume_reversed_amk9u3zn
+Found main TeX file: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/template_deedy_resume_reversed_amk9u3zn/deedy_resume-reversed.tex
+Compiling deedy_resume-reversed.tex with pdflatex...
+Failed to generate PDF for deedy_resume-reversed.tex
+Cleaned up temporary directory: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/template_deedy_resume_reversed_amk9u3zn
+Preview already exists for LuxSleek-CV.zip, skipping
+Generating preview for Academic CV Template.zip...
+Processing template: Academic CV Template
+Temporary directory: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/template_academic_87sru1bh
+Found main TeX file: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/template_academic_87sru1bh/main.tex
+Compiling main.tex with pdflatex...
+Failed to generate PDF for main.tex
+Cleaned up temporary directory: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/template_academic_87sru1bh
+Preview already exists for LaTeXTemplates_wenneker-resume-cv_v1.1.zip, skipping
+Preview already exists for Recreating Business Insider's CV of Marissa Mayer.zip, skipping
+Preview already exists for Simple Hipster CV.zip, skipping
+Generating preview for AltaCV Template.zip...
+Processing template: AltaCV Template
+Temporary directory: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/template_alta_632plx87
+Found main TeX file: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/template_alta_632plx87/pubs-num.tex
+Compiling pubs-num.tex with pdflatex...
+Failed to generate PDF for pubs-num.tex
+Cleaned up temporary directory: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/template_alta_632plx87
+Preview already exists for RenderCV sb2nov Theme.zip, skipping
+Preview already exists for A Customised CurVe CV.zip, skipping
+Preview already exists for FAANGPath Simple Template.zip, skipping
+Successfully processed 7 of 10 templates
+INFO:     Will watch for changes in these directories: ['/Users/maciejkasik/Desktop/adaptive-cv/backend']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [28984] using StatReload
+INFO:app.routers.profile:OpenAI API key loaded directly from .env file (length: 164)
+INFO:app.main:Configuring CORS with origins: ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:3000', 'http://127.0.0.1:3000', '*']
+INFO:app.database:Creating database tables...
+INFO:app.database:Database tables created successfully
+INFO:     Started server process [28987]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+
+     _             _   _            _______      __
+    /\      | |           | | (_)          / ____\ \    / /
+   /  \   __| | __ _ _ __ | |_ ___   _____| |     \ \  / / 
+  / /\ \ / _` |/ _` | '_ \| __| \ \ / / _ \ |      \ \/ /  
+ / ____ \ (_| | (_| | |_) | |_| |\ V /  __/ |____   \  /   
+/_/    \_\__,_|\__,_| .__/ \__|_| \_/ \___|\_____|   \/    
+                    | |                                    
+                    |_|                                    
+
+AdaptiveCV Backend Server Starting...
+
+Loading .env from: /Users/maciejkasik/Desktop/adaptive-cv/backend/.env
+OpenAI API Key from .env: sk-pr...
+INFO:     127.0.0.1:50570 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50572 - "GET / HTTP/1.1" 200 OK
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LuxSleek CV (luxsleek)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LaTeXs wenneker resume cv v1.1 (latexs_wenneker_resume__v1.1)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Recreating Business Insider's CV of Marissa Mayer (recreating_business_insider's__of_marissa_mayer)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Simple Hipster CV (simple_hipster)
+INFO:     127.0.0.1:50586 - "GET /jobs HTTP/1.1" 200 OK
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: RenderCV sb2nov Theme (render_sb2nov_theme)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: A Customised CurVe CV (a_customised_curve)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: FAANGPath Simple (faangpath_simple)
+INFO:     127.0.0.1:50587 - "GET /generate/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50590 - "GET /jobs HTTP/1.1" 200 OK
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LuxSleek CV (luxsleek)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LaTeXs wenneker resume cv v1.1 (latexs_wenneker_resume__v1.1)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Recreating Business Insider's CV of Marissa Mayer (recreating_business_insider's__of_marissa_mayer)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Simple Hipster CV (simple_hipster)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: RenderCV sb2nov Theme (render_sb2nov_theme)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: A Customised CurVe CV (a_customised_curve)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: FAANGPath Simple (faangpath_simple)
+INFO:     127.0.0.1:50593 - "GET /generate/templates HTTP/1.1" 200 OK
+INFO:app.routers.generate:Generating LaTeX file with template: latexs_wenneker_resume__v1.1 for job_id: 1
+INFO:app.services.cv_service:Generating CV with template for job_id=1, model=None, custom_context=not provided
+INFO:app.services.latex_cv_generator:Parsed candidate profile with: 29 skills, 1 experience entries, 2 education entries
+INFO:app.services.latex_cv_generator:Candidate profile appears to be complete with all essential fields
+INFO:app.services.latex_cv_generator:Wygenerowano klucz dla CV: junior_java_developer_link_group_20250419_f1c656a4
+INFO:app.services.latex_cv_generator:Rozpoczynam generowanie CV dla job_id: 1 z szablonem: latexs_wenneker_resume__v1.1
+INFO:app.services.latex_cv_generator:Przygotowuję środowisko LaTeX...
+INFO:app.services.latex_cv_generator:Utworzono tymczasowy katalog dla LaTeX: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg
+INFO:app.services.latex_cv_generator:Utworzono katalog photos w folderze tymczasowym: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg/photos
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LuxSleek CV (luxsleek)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LaTeXs wenneker resume cv v1.1 (latexs_wenneker_resume__v1.1)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Recreating Business Insider's CV of Marissa Mayer (recreating_business_insider's__of_marissa_mayer)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Simple Hipster CV (simple_hipster)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: RenderCV sb2nov Theme (render_sb2nov_theme)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: A Customised CurVe CV (a_customised_curve)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: FAANGPath Simple (faangpath_simple)
+INFO:app.services.latex_cv_generator:Kopiowanie plików z szablonu: Latexs Wenneker Resume  V1.1 (/Users/maciejkasik/Desktop/adaptive-cv/assets/templates/templates_extracted/latexs_wenneker_resume__v1.1)
+INFO:app.services.latex_cv_generator:Skopiowano cały folder szablonu wraz z podfolderami do: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg
+INFO:app.services.latex_cv_generator:Saved profile photo to /Users/maciejkasik/Desktop/adaptive-cv/assets/photos/photo.png
+INFO:app.services.latex_cv_generator:Saved JPG photo to: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg/photo.jpg
+INFO:app.services.latex_cv_generator:Saved JPG photo to: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg/photos/photo.jpg
+INFO:app.services.latex_cv_generator:Copied profile photo to template directory
+INFO:app.services.latex_cv_generator:Struktura katalogu tymczasowego /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg:
+INFO:app.services.latex_cv_generator:[F] cv_15.tex (7931 bytes)
+INFO:app.services.latex_cv_generator:[F] preview.jpg (698827 bytes)
+INFO:app.services.latex_cv_generator:[F] photo.jpg (99337 bytes)
+INFO:app.services.latex_cv_generator:[D] photos/
+INFO:app.services.latex_cv_generator:  [F] photo.jpg (99337 bytes)
+INFO:app.services.latex_cv_generator:[F] structure.tex (3438 bytes)
+INFO:app.services.latex_cv_generator:Główne pliki w katalogu tymczasowym: ['cv_15.tex', 'preview.jpg', 'photo.jpg', 'photos', 'structure.tex']
+INFO:app.services.latex_cv_generator:Saved photo relative path to metadata: ./photos/photo.png
+INFO:app.services.latex_cv_generator:Środowisko LaTeX przygotowane w: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg, główny plik: cv_15.tex
+INFO:app.services.latex_cv_generator:Generating LaTeX file with candidate data and job details (using model: None)...
+INFO:app.services.latex_cv_generator:Template contains photo placeholder: \includegraphics[width=0.6\columnwidth]{photo.jpg}
+INFO:app.services.latex_cv_generator:Including photo information in prompt with relative path: ./photos/photo.png
+INFO:app.services.latex_cv_generator:OpenAI API key is properly configured
+INFO:app.services.latex_cv_generator:Using model: gpt-3.5-turbo for CV generation
+INFO:app.services.latex_cv_generator:Preparing to call OpenAI API with model gpt-3.5-turbo
+INFO:app.services.latex_cv_generator:Candidate skills count: 29
+INFO:app.services.latex_cv_generator:Candidate experience entries: 1
+INFO:app.services.latex_cv_generator:Candidate education entries: 2
+INFO:app.services.latex_cv_generator:Job description length: 4192
+INFO:app.services.latex_cv_generator:Sending request to OpenAI API...
+INFO:     127.0.0.1:50603 - "GET / HTTP/1.1" 200 OK
+INFO:app.services.latex_cv_generator:OpenAI API call completed successfully in 8.74 seconds
+INFO:app.services.latex_cv_generator:Wygenerowano i zapisano dane do głównego pliku szablonu LaTeX: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg/cv_15.tex
+INFO:app.services.latex_cv_generator:Generated LaTeX file: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg/cv_15.tex
+INFO:app.services.latex_cv_generator:Zapisano kopię LaTeX do debugowania: /Users/maciejkasik/Desktop/adaptive-cv/assets/generated/latex/junior_java_developer_link_group_20250419_f1c656a4/debug.tex
+INFO:app.services.latex_cv_generator:Zapisano kopię pełnej struktury katalogów LaTeX do: /Users/maciejkasik/Desktop/adaptive-cv/assets/generated/latex/junior_java_developer_link_group_20250419_f1c656a4/files
+INFO:app.services.latex_cv_generator:Kompilowanie LaTeX do PDF...
+INFO:app.services.latex_cv_generator:Struktura katalogu przed kompilacją LaTeX:
+INFO:app.services.latex_cv_generator:  Directory: 
+INFO:app.services.latex_cv_generator:    - cv_15.tex
+INFO:app.services.latex_cv_generator:    - preview.jpg
+INFO:app.services.latex_cv_generator:    - photo.jpg
+INFO:app.services.latex_cv_generator:    - .photo_path
+INFO:app.services.latex_cv_generator:    - structure.tex
+INFO:app.services.latex_cv_generator:  Directory: photos/
+INFO:app.services.latex_cv_generator:    - photos/photo.jpg
+INFO:app.services.latex_cv_generator:Konwertowano i zapisano zdjęcie jako JPG w katalogu głównym: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg/photo.jpg
+INFO:app.services.latex_cv_generator:Konwertowano i zapisano zdjęcie jako JPG w katalogu photos: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg/photos/photo.jpg
+INFO:app.services.latex_cv_generator:Uruchamianie pdflatex w katalogu: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg dla pliku: cv_15.tex
+INFO:app.services.latex_cv_generator:Wykryto MiKTeX jako system TeX
+INFO:app.services.latex_cv_generator:Uruchamianie drugiego przebiegu pdflatex dla referencji
+INFO:app.services.latex_cv_generator:Generowanie podglądu PDF: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg/cv_15_preview.png
+INFO:app.services.latex_cv_generator:Próba generowania podglądu za pomocą ImageMagick convert...
+WARNING:app.services.latex_cv_generator:Nie można wygenerować podglądu za pomocą ImageMagick: [Errno 2] No such file or directory: 'convert'
+INFO:app.services.latex_cv_generator:Próba generowania podglądu za pomocą pdf2image...
+WARNING:app.services.latex_cv_generator:Błąd podczas generowania podglądu z pdf2image: Unable to get page count. Is poppler installed and in PATH?
+INFO:app.services.latex_cv_generator:Próba generowania podglądu za pomocą OpenCV...
+WARNING:app.services.latex_cv_generator:Nie można użyć pdftoppm do konwersji: [Errno 2] No such file or directory: 'pdftoppm'
+WARNING:app.services.latex_cv_generator:Wszystkie metody generowania podglądu PDF zawiodły. Brak podglądu.
+INFO:app.services.latex_cv_generator:PDF wygenerowany pomyślnie w: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg/cv_15.pdf
+INFO:app.services.latex_cv_generator:Wygenerowano PDF: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg/cv_15.pdf
+INFO:app.services.latex_cv_generator:Zapisano plik LaTeX: /Users/maciejkasik/Desktop/adaptive-cv/assets/generated/latex/junior_java_developer_link_group_20250419_f1c656a4/cv.tex
+INFO:app.services.latex_cv_generator:Zapisano plik PDF: /Users/maciejkasik/Desktop/adaptive-cv/assets/generated/pdf/junior_java_developer_link_group_20250419_f1c656a4/cv.pdf
+INFO:app.services.latex_cv_generator:Usunięto tymczasowy katalog LaTeX: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex_9wyhaqkg
+WARNING:app.services.cv_service:CV generated successfully, but failed to generate preview for job_id=1
+INFO:     127.0.0.1:50600 - "GET /generate/download/latex/1?template_id=latexs_wenneker_resume__v1.1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50616 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50619 - "GET / HTTP/1.1" 200 OK
+INFO:app.routers.generate:Generating LaTeX file with template: latexs_wenneker_resume__v1.1 for job_id: 1
+INFO:app.services.cv_service:Generating CV with template for job_id=1, model=None, custom_context=not provided
+INFO:app.services.latex_cv_generator:Parsed candidate profile with: 29 skills, 1 experience entries, 2 education entries
+INFO:app.services.latex_cv_generator:Candidate profile appears to be complete with all essential fields
+INFO:app.services.latex_cv_generator:Wygenerowano klucz dla CV: junior_java_developer_link_group_20250419_f1c656a4
+INFO:app.services.latex_cv_generator:Rozpoczynam generowanie CV dla job_id: 1 z szablonem: latexs_wenneker_resume__v1.1
+INFO:app.services.latex_cv_generator:Przygotowuję środowisko LaTeX...
+INFO:app.services.latex_cv_generator:Utworzono tymczasowy katalog dla LaTeX: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk
+INFO:app.services.latex_cv_generator:Utworzono katalog photos w folderze tymczasowym: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk/photos
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LuxSleek CV (luxsleek)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LaTeXs wenneker resume cv v1.1 (latexs_wenneker_resume__v1.1)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Recreating Business Insider's CV of Marissa Mayer (recreating_business_insider's__of_marissa_mayer)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Simple Hipster CV (simple_hipster)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: RenderCV sb2nov Theme (render_sb2nov_theme)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: A Customised CurVe CV (a_customised_curve)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: FAANGPath Simple (faangpath_simple)
+INFO:app.services.latex_cv_generator:Kopiowanie plików z szablonu: Latexs Wenneker Resume  V1.1 (/Users/maciejkasik/Desktop/adaptive-cv/assets/templates/templates_extracted/latexs_wenneker_resume__v1.1)
+INFO:app.services.latex_cv_generator:Skopiowano cały folder szablonu wraz z podfolderami do: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk
+INFO:app.services.latex_cv_generator:Saved profile photo to /Users/maciejkasik/Desktop/adaptive-cv/assets/photos/photo.png
+INFO:app.services.latex_cv_generator:Saved JPG photo to: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk/photo.jpg
+INFO:app.services.latex_cv_generator:Saved JPG photo to: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk/photos/photo.jpg
+INFO:app.services.latex_cv_generator:Copied profile photo to template directory
+INFO:app.services.latex_cv_generator:Struktura katalogu tymczasowego /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk:
+INFO:app.services.latex_cv_generator:[F] cv_15.tex (7931 bytes)
+INFO:app.services.latex_cv_generator:[F] preview.jpg (698827 bytes)
+INFO:app.services.latex_cv_generator:[F] photo.jpg (99337 bytes)
+INFO:app.services.latex_cv_generator:[D] photos/
+INFO:app.services.latex_cv_generator:  [F] photo.jpg (99337 bytes)
+INFO:app.services.latex_cv_generator:[F] structure.tex (3438 bytes)
+INFO:app.services.latex_cv_generator:Główne pliki w katalogu tymczasowym: ['cv_15.tex', 'preview.jpg', 'photo.jpg', 'photos', 'structure.tex']
+INFO:app.services.latex_cv_generator:Saved photo relative path to metadata: ./photos/photo.png
+INFO:app.services.latex_cv_generator:Środowisko LaTeX przygotowane w: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk, główny plik: cv_15.tex
+INFO:app.services.latex_cv_generator:Generating LaTeX file with candidate data and job details (using model: None)...
+INFO:app.services.latex_cv_generator:Template contains photo placeholder: \includegraphics[width=0.6\columnwidth]{photo.jpg}
+INFO:app.services.latex_cv_generator:Including photo information in prompt with relative path: ./photos/photo.png
+INFO:app.services.latex_cv_generator:OpenAI API key is properly configured
+INFO:app.services.latex_cv_generator:Using model: gpt-3.5-turbo for CV generation
+INFO:app.services.latex_cv_generator:Preparing to call OpenAI API with model gpt-3.5-turbo
+INFO:app.services.latex_cv_generator:Candidate skills count: 29
+INFO:app.services.latex_cv_generator:Candidate experience entries: 1
+INFO:app.services.latex_cv_generator:Candidate education entries: 2
+INFO:app.services.latex_cv_generator:Job description length: 4192
+INFO:app.services.latex_cv_generator:Sending request to OpenAI API...
+INFO:     127.0.0.1:50635 - "GET / HTTP/1.1" 200 OK
+INFO:app.services.latex_cv_generator:OpenAI API call completed successfully in 8.03 seconds
+INFO:app.services.latex_cv_generator:Wygenerowano i zapisano dane do głównego pliku szablonu LaTeX: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk/cv_15.tex
+INFO:app.services.latex_cv_generator:Generated LaTeX file: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk/cv_15.tex
+INFO:app.services.latex_cv_generator:Zapisano kopię LaTeX do debugowania: /Users/maciejkasik/Desktop/adaptive-cv/assets/generated/latex/junior_java_developer_link_group_20250419_f1c656a4/debug.tex
+INFO:app.services.latex_cv_generator:Zapisano kopię pełnej struktury katalogów LaTeX do: /Users/maciejkasik/Desktop/adaptive-cv/assets/generated/latex/junior_java_developer_link_group_20250419_f1c656a4/files
+INFO:app.services.latex_cv_generator:Kompilowanie LaTeX do PDF...
+INFO:app.services.latex_cv_generator:Struktura katalogu przed kompilacją LaTeX:
+INFO:app.services.latex_cv_generator:  Directory: 
+INFO:app.services.latex_cv_generator:    - cv_15.tex
+INFO:app.services.latex_cv_generator:    - preview.jpg
+INFO:app.services.latex_cv_generator:    - photo.jpg
+INFO:app.services.latex_cv_generator:    - .photo_path
+INFO:app.services.latex_cv_generator:    - structure.tex
+INFO:app.services.latex_cv_generator:  Directory: photos/
+INFO:app.services.latex_cv_generator:    - photos/photo.jpg
+INFO:app.services.latex_cv_generator:Konwertowano i zapisano zdjęcie jako JPG w katalogu głównym: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk/photo.jpg
+INFO:app.services.latex_cv_generator:Konwertowano i zapisano zdjęcie jako JPG w katalogu photos: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk/photos/photo.jpg
+INFO:app.services.latex_cv_generator:Uruchamianie pdflatex w katalogu: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk dla pliku: cv_15.tex
+INFO:app.services.latex_cv_generator:Wykryto MiKTeX jako system TeX
+INFO:app.services.latex_cv_generator:Uruchamianie drugiego przebiegu pdflatex dla referencji
+INFO:app.services.latex_cv_generator:Generowanie podglądu PDF: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk/cv_15_preview.png
+INFO:app.services.latex_cv_generator:Próba generowania podglądu za pomocą ImageMagick convert...
+WARNING:app.services.latex_cv_generator:Nie można wygenerować podglądu za pomocą ImageMagick: [Errno 2] No such file or directory: 'convert'
+INFO:app.services.latex_cv_generator:Próba generowania podglądu za pomocą pdf2image...
+WARNING:app.services.latex_cv_generator:Błąd podczas generowania podglądu z pdf2image: Unable to get page count. Is poppler installed and in PATH?
+INFO:app.services.latex_cv_generator:Próba generowania podglądu za pomocą OpenCV...
+WARNING:app.services.latex_cv_generator:Nie można użyć pdftoppm do konwersji: [Errno 2] No such file or directory: 'pdftoppm'
+WARNING:app.services.latex_cv_generator:Wszystkie metody generowania podglądu PDF zawiodły. Brak podglądu.
+INFO:app.services.latex_cv_generator:PDF wygenerowany pomyślnie w: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk/cv_15.pdf
+INFO:app.services.latex_cv_generator:Wygenerowano PDF: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk/cv_15.pdf
+INFO:app.services.latex_cv_generator:Zapisano plik LaTeX: /Users/maciejkasik/Desktop/adaptive-cv/assets/generated/latex/junior_java_developer_link_group_20250419_f1c656a4/cv.tex
+INFO:app.services.latex_cv_generator:Zapisano plik PDF: /Users/maciejkasik/Desktop/adaptive-cv/assets/generated/pdf/junior_java_developer_link_group_20250419_f1c656a4/cv.pdf
+INFO:app.services.latex_cv_generator:Usunięto tymczasowy katalog LaTeX: /var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/cv_latex__pdxkknk
+WARNING:app.services.cv_service:CV generated successfully, but failed to generate preview for job_id=1
+INFO:     127.0.0.1:50633 - "GET /generate/download/latex/1?template_id=latexs_wenneker_resume__v1.1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50638 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50642 - "GET /jobs HTTP/1.1" 200 OK
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LuxSleek CV (luxsleek)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LaTeXs wenneker resume cv v1.1 (latexs_wenneker_resume__v1.1)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Recreating Business Insider's CV of Marissa Mayer (recreating_business_insider's__of_marissa_mayer)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Simple Hipster CV (simple_hipster)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: RenderCV sb2nov Theme (render_sb2nov_theme)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: A Customised CurVe CV (a_customised_curve)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: FAANGPath Simple (faangpath_simple)
+INFO:     127.0.0.1:50644 - "GET /generate/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50647 - "GET /jobs HTTP/1.1" 200 OK
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LuxSleek CV (luxsleek)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LaTeXs wenneker resume cv v1.1 (latexs_wenneker_resume__v1.1)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Recreating Business Insider's CV of Marissa Mayer (recreating_business_insider's__of_marissa_mayer)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Simple Hipster CV (simple_hipster)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: RenderCV sb2nov Theme (render_sb2nov_theme)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: A Customised CurVe CV (a_customised_curve)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: FAANGPath Simple (faangpath_simple)
+INFO:     127.0.0.1:50650 - "GET /generate/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50653 - "GET /profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50656 - "GET /profile HTTP/1.1" 200 OK
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LuxSleek CV (luxsleek)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LaTeXs wenneker resume cv v1.1 (latexs_wenneker_resume__v1.1)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Recreating Business Insider's CV of Marissa Mayer (recreating_business_insider's__of_marissa_mayer)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Simple Hipster CV (simple_hipster)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: RenderCV sb2nov Theme (render_sb2nov_theme)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: A Customised CurVe CV (a_customised_curve)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: FAANGPath Simple (faangpath_simple)
+INFO:     127.0.0.1:50659 - "GET /generate/templates HTTP/1.1" 200 OK
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LuxSleek CV (luxsleek)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: LaTeXs wenneker resume cv v1.1 (latexs_wenneker_resume__v1.1)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Recreating Business Insider's CV of Marissa Mayer (recreating_business_insider's__of_marissa_mayer)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: Simple Hipster CV (simple_hipster)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: RenderCV sb2nov Theme (render_sb2nov_theme)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: A Customised CurVe CV (a_customised_curve)
+INFO:app.services.latex_cv_generator:Skipping duplicate template from ZIP: FAANGPath Simple (faangpath_simple)
+INFO:     127.0.0.1:50662 - "GET /generate/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50665 - "GET /profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50668 - "GET /profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50670 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50673 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50675 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50680 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50682 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50685 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50688 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50691 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50693 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50696 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50701 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50704 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50706 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50709 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50712 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50715 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50717 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50720 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50722 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50725 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50727 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50730 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50732 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50738 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50746 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50751 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50755 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50759 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50762 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50770 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50773 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50777 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50779 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50782 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50786 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50789 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50793 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50795 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50799 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50803 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50807 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50810 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50813 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50815 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50821 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50825 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50829 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50831 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50834 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50836 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50841 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50847 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50850 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50853 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50858 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50861 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50864 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50866 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50870 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50872 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50875 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50877 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50881 - "GET / HTTP/1.1" 200 OK

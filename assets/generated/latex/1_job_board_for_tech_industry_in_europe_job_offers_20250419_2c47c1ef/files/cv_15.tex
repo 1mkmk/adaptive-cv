@@ -1,0 +1,120 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Wenneker Resume/CV
+% LaTeX Template
+% Version 1.1 (19/6/2016)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com) with extensive modifications by 
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a4paper,12pt]{memoir} % Font and paper size
+
+\input{structure.tex} % Include the file specifying document layout and packages
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CONTACT INFORMATION 
+%----------------------------------------------------------------------------------------
+
+\userinformation{ % Set the content that goes into the sidebar of each page
+\begin{flushright}
+% Uncomment the following figure block to include the photo
+\includegraphics[width=0.6\columnwidth]{./photos/photo.png}\\[\baselineskip] % Candidate's photo
+\small % Smaller font size
+Maciej Kasik \\ % Candidate's name
+\href{mailto:maciejkasik@gmail.com}{maciejkasik@gmail.com} \\ % Candidate's email
++48 888 403 809 \\ % Candidate's phone number
+Wrocław, Poland \\ % Candidate's location
+\href{linkedin.com/in/maciejkasik}{linkedin.com/in/maciejkasik} % Candidate's LinkedIn
+\Sep % Some whitespace
+\end{flushright}
+}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\userinformation % Print candidate's information in the left column
+
+\framebreak % End of the first column
+
+%----------------------------------------------------------------------------------------
+%	HEADING
+%----------------------------------------------------------------------------------------
+
+\cvheading{Maciej Kasik} % Candidate's name
+
+\cvsubheading{Motivated Computer Science Graduate} % Career objective
+
+%----------------------------------------------------------------------------------------
+%	ABOUT ME
+%----------------------------------------------------------------------------------------
+
+\aboutme{Professional Summary}{
+Motivated Computer Science graduate with a strong foundation in programming and problem-solving. Seeking an entry-level Software Engineer position to apply and expand skills in a professional environment.
+}
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION
+%----------------------------------------------------------------------------------------
+
+\CVSection{Education}
+
+%------------------------------------------------
+
+\CVItem{2025 - Present, \textit{Master of Computer Science}}{Politechnika Wrocławska}
+
+%------------------------------------------------
+
+\CVItem{2021 - 2025, \textit{Bachelor of Systems Engineering}}{Politechnika Wrocławska}
+
+%------------------------------------------------
+
+\Sep % Extra whitespace after the end of a major section
+
+%----------------------------------------------------------------------------------------
+%	EXPERIENCE
+%----------------------------------------------------------------------------------------
+
+\CVSection{Experience}
+
+%------------------------------------------------
+
+\CVItem{2017-06 to 2017-08, \textit{Intern}, Cotucotam.pl}{
+Designed and developed a new version of the platform using ReactJS, improving performance and scalability. Conducted testing and debugging to ensure platform reliability.
+}
+
+%------------------------------------------------
+
+\Sep % Extra whitespace after the end of a major section
+
+%----------------------------------------------------------------------------------------
+%	SKILLS
+%----------------------------------------------------------------------------------------
+
+\CVSection{Skills}
+
+%------------------------------------------------
+
+\CVItem{Technical Skills}{
+Python, Java, TypeScript, PyTorch, Tinygrad, CPLEX, D-Wave, Qiskit, Java EE, Spring, Hibernate, Docker, Kubernetes, AWS, Azure, GCP, React, React Native, Flutter, PowerBI, Excel, Decision Making, Constraint Programming, Dynamic Programming, Quantum Programming, Distributed Computing, Parallel Computing, Creativity, Eagerness to Learn
+}
+
+%------------------------------------------------
+
+\Sep % Extra whitespace after the end of a major section
+
+%----------------------------------------------------------------------------------------
+
+\end{document}

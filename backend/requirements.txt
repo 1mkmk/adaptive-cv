@@ -1,0 +1,27 @@
+FastAPI
+uvicorn
+sqlalchemy
+pydantic
+python-dotenv
+pytest
+httpx
+requests
+python-multipart
+pydantic[email]
+openai==0.28.1
+python-dateutil
+Jinja2
+markdown
+beautifulsoup4
+bs4
+requests
+# PDF processing and image generation
+PyPDF2
+pdf2image
+Pillow
+opencv-python
+pypdf
+PyMuPDF  # Alternate PDF renderer
+pytesseract  # OCR for scanned PDFs
+tika  # Java-based document parser as a fallback
+poppler-utils  # Required by pdf2image

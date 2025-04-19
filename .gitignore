@@ -1,0 +1,102 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+.env
+.venv
+venv/
+ENV/
+.pytest_cache/
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.pnpm-debug.log
+.DS_Store
+coverage/
+.nyc_output/
+
+# Build outputs
+frontend/dist/
+backend/dist/
+
+# Local development
+.idea/
+.vscode/
+*.swp
+*.swo
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Database
+*.db
+*.db-journal
+*.sqlite3
+*.sqlite3-journal
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# LaTeX temporary files
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.pdf
+*.ps
+*.synctex.gz
+*.toc
+
+# Temporary directories
+tmp/
+temp/
+
+# Generated files
+/generated/
+
+# Credentials 
+.env
+.env.local
+credentials.json
+secrets.yaml
+
+./backend/.env
+./backend/.env.local
+./backend/.env.development.local
+./backend/.env.example
+./backend/.env.test.local
+./backend/.env.production.local
+./frontend/.env
+./frontend/.env.local
+./frontend/.env.development.local
+./frontend/.env.example
