@@ -2,7 +2,7 @@ from fastapi.testclient import TestClient
 from app.main import app
 from app.database import create_database, recreate_database, engine, SessionLocal
 from app.models.job import Job
-from app.models.candidate import Candidate
+from app.models.candidate import CandidateProfile
 from sqlalchemy.orm import Session
 from app.database import get_db
 import unittest
@@ -83,12 +83,12 @@ def test_delete_job():
 def create_test_profile(db: Session):
     """Helper function to create a test candidate profile"""
     # Check if a profile already exists
-    candidate = db.query(Candidate).first()
+    candidate = db.query(CandidateProfile).first()
     if candidate:
         return candidate
     
     # Create basic profile with JSON fields
-    candidate = Candidate(
+    candidate = CandidateProfile(
         name="Test User",
         email="test@example.com",
         phone="+1234567890",

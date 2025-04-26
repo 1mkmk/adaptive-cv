@@ -41,6 +41,7 @@ export async function fetchApi(endpoint: string, options = {}) {
       ...(options as any).headers,
     },
     mode: 'cors' as RequestMode,
+    credentials: 'include', // Dodaj obsługę ciasteczek
   };
   
   try {
@@ -55,7 +56,8 @@ export async function fetchApi(endpoint: string, options = {}) {
     
     const response = await fetch(url, {
       ...fetchOptions,
-      signal: controller.signal
+      signal: controller.signal,
+      credentials: fetchOptions.credentials as RequestCredentials
     });
     
     // Wyczyść timeout
@@ -87,7 +89,8 @@ export async function fetchApi(endpoint: string, options = {}) {
         
         const directResponse = await fetch(`${DIRECT_API_URL}${endpoint}`, {
           ...fetchOptions,
-          signal: directController.signal
+          signal: directController.signal,
+          credentials: fetchOptions.credentials as RequestCredentials
         });
         
         // Clear timeout

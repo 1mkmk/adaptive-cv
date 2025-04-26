@@ -1,4 +1,4 @@
-=== PROXY SERVER START - Sat Apr 19 16:12:29 CEST 2025 ===
+=== PROXY SERVER START - Sat Apr 19 18:10:38 CEST 2025 ===
 Working directory: /Users/maciejkasik/Desktop/adaptive-cv/frontend
 Node version: v22.14.0
 NPM version: 10.9.2
@@ -15,9 +15,12 @@ Installed packages:
     "@tailwindcss/vite": "^4.1.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "i18next": "^25.0.0",
+    "i18next-browser-languagedetector": "^8.0.5",
     "lucide-react": "^0.488.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-i18next": "^15.4.1",
     "react-router": "^7.5.0",
     "tailwind-merge": "^3.2.0",
     "tailwindcss": "^4.1.4",
@@ -50,104 +53,40 @@ Installed packages:
   }
 }
 Environment variables:
-PATH=/Users/maciejkasik/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.13/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Users/maciejkasik/.vscode/extensions/ms-python.python-2025.4.0-darwin-arm64/python_files/deactivate/zsh:/Users/maciejkasik/Desktop/adaptive-cv/.venv/bin:/Users/maciejkasik/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.13/bin
+PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/Users/maciejkasik/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.13/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Users/maciejkasik/.vscode/extensions/ms-python.python-2025.4.0-darwin-arm64/python_files/deactivate/zsh:/Users/maciejkasik/Desktop/adaptive-cv/.venv/bin
 BUNDLED_DEBUGPY_PATH=/Users/maciejkasik/.vscode/extensions/ms-python.debugpy-2025.6.0-darwin-arm64/bundled/libs/debugpy
 VSCODE_ENV_PREPEND=PATH=/Users/maciejkasik/.vscode/extensions/ms-python.python-2025.4.0-darwin-arm64/python_files/deactivate/zsh\x3a/Users/maciejkasik/Desktop/adaptive-cv/.venv/bin\x3a:PS1=.venv
+INFOPATH=/opt/homebrew/share/info:
 VSCODE_GIT_ASKPASS_NODE=/private/var/folders/n5/hv57c9x147jf2542d6p421440000gn/T/AppTranslocation/B2E04092-7563-4815-8386-7C6781235811/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin)
 === STARTING PROXY ===
 
 > frontend2@0.0.0 proxy
 > node proxy.mjs
 
-[2025-04-19T14:12:29.950Z] API Proxy Server running at http://localhost:3001
-[2025-04-19T14:12:29.951Z] Access backend API via http://localhost:3001/api/*
-[2025-04-19T14:12:29.954Z] Backend health check: Status 200
-[2025-04-19T14:12:31.847Z] GET /
-[2025-04-19T14:12:32.723Z] GET /api/jobs
-(node:29015) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+[2025-04-19T16:10:38.395Z] API Proxy Server running at http://localhost:3001
+[2025-04-19T16:10:38.396Z] Access backend API via http://localhost:3001/api/*
+[2025-04-19T16:10:38.399Z] Backend health check: Status 200
+[2025-04-19T16:10:40.269Z] GET /
+[2025-04-19T16:10:45.205Z] GET /api/auth/environment
+(node:52019) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
     at ProxyServer.<anonymous> (/Users/maciejkasik/Desktop/adaptive-cv/frontend/node_modules/http-proxy/lib/http-proxy/index.js:50:26)
     at HttpProxyMiddleware.middleware (/Users/maciejkasik/Desktop/adaptive-cv/frontend/node_modules/http-proxy-middleware/dist/http-proxy-middleware.js:23:32)
     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
-[2025-04-19T14:12:32.725Z] GET /api/generate/templates
-[2025-04-19T14:12:32.734Z] GET /api/jobs
-[2025-04-19T14:12:32.766Z] GET /api/generate/templates
-[2025-04-19T14:12:41.940Z] GET /api/generate/download/latex/1?template_id=latexs_wenneker_resume__v1.1
-[2025-04-19T14:12:44.957Z] Backend health check: Status 200
-[2025-04-19T14:12:59.956Z] Backend health check: Status 200
-[2025-04-19T14:13:14.957Z] Backend health check: Status 200
-[2025-04-19T14:13:22.399Z] GET /api/generate/download/latex/1?template_id=latexs_wenneker_resume__v1.1
-[2025-04-19T14:13:29.959Z] Backend health check: Status 200
-[2025-04-19T14:13:44.958Z] Backend health check: Status 200
-[2025-04-19T14:13:56.682Z] GET /api/jobs
-[2025-04-19T14:13:56.687Z] GET /api/generate/templates
-[2025-04-19T14:13:56.696Z] GET /api/jobs
-[2025-04-19T14:13:56.730Z] GET /api/generate/templates
-[2025-04-19T14:13:57.153Z] GET /api/profile
-[2025-04-19T14:13:57.166Z] GET /api/profile
-[2025-04-19T14:13:57.604Z] GET /api/generate/templates
-[2025-04-19T14:13:57.645Z] GET /api/generate/templates
-[2025-04-19T14:13:58.812Z] GET /api/profile
-[2025-04-19T14:13:58.821Z] GET /api/profile
-[2025-04-19T14:13:59.958Z] Backend health check: Status 200
-[2025-04-19T14:14:14.958Z] Backend health check: Status 200
-[2025-04-19T14:14:29.960Z] Backend health check: Status 200
-[2025-04-19T14:14:44.960Z] Backend health check: Status 200
-[2025-04-19T14:14:59.961Z] Backend health check: Status 200
-[2025-04-19T14:15:14.962Z] Backend health check: Status 200
-[2025-04-19T14:15:29.962Z] Backend health check: Status 200
-[2025-04-19T14:15:44.963Z] Backend health check: Status 200
-[2025-04-19T14:15:59.963Z] Backend health check: Status 200
-[2025-04-19T14:16:14.964Z] Backend health check: Status 200
-[2025-04-19T14:16:29.965Z] Backend health check: Status 200
-[2025-04-19T14:16:44.966Z] Backend health check: Status 200
-[2025-04-19T14:16:59.964Z] Backend health check: Status 200
-[2025-04-19T14:17:14.968Z] Backend health check: Status 200
-[2025-04-19T14:17:29.967Z] Backend health check: Status 200
-[2025-04-19T14:17:44.968Z] Backend health check: Status 200
-[2025-04-19T14:17:59.969Z] Backend health check: Status 200
-[2025-04-19T14:18:14.969Z] Backend health check: Status 200
-[2025-04-19T14:18:29.970Z] Backend health check: Status 200
-[2025-04-19T14:18:44.972Z] Backend health check: Status 200
-[2025-04-19T14:18:59.971Z] Backend health check: Status 200
-[2025-04-19T14:19:14.973Z] Backend health check: Status 200
-[2025-04-19T14:19:29.974Z] Backend health check: Status 200
-[2025-04-19T14:19:44.976Z] Backend health check: Status 200
-[2025-04-19T14:19:59.972Z] Backend health check: Status 200
-[2025-04-19T14:20:14.976Z] Backend health check: Status 200
-[2025-04-19T14:20:29.974Z] Backend health check: Status 200
-[2025-04-19T14:20:44.979Z] Backend health check: Status 200
-[2025-04-19T14:20:59.976Z] Backend health check: Status 200
-[2025-04-19T14:21:14.980Z] Backend health check: Status 200
-[2025-04-19T14:21:29.981Z] Backend health check: Status 200
-[2025-04-19T14:21:44.981Z] Backend health check: Status 200
-[2025-04-19T14:21:59.977Z] Backend health check: Status 200
-[2025-04-19T14:22:14.980Z] Backend health check: Status 200
-[2025-04-19T14:22:29.982Z] Backend health check: Status 200
-[2025-04-19T14:22:44.984Z] Backend health check: Status 200
-[2025-04-19T14:22:59.985Z] Backend health check: Status 200
-[2025-04-19T14:23:14.984Z] Backend health check: Status 200
-[2025-04-19T14:23:29.984Z] Backend health check: Status 200
-[2025-04-19T14:23:44.989Z] Backend health check: Status 200
-[2025-04-19T14:23:59.986Z] Backend health check: Status 200
-[2025-04-19T14:24:14.987Z] Backend health check: Status 200
-[2025-04-19T14:24:29.987Z] Backend health check: Status 200
-[2025-04-19T14:24:44.990Z] Backend health check: Status 200
-[2025-04-19T14:24:59.990Z] Backend health check: Status 200
-[2025-04-19T14:25:14.992Z] Backend health check: Status 200
-[2025-04-19T14:25:29.992Z] Backend health check: Status 200
-[2025-04-19T14:25:44.988Z] Backend health check: Status 200
-[2025-04-19T14:25:59.995Z] Backend health check: Status 200
-[2025-04-19T14:26:14.991Z] Backend health check: Status 200
-[2025-04-19T14:26:29.990Z] Backend health check: Status 200
-[2025-04-19T14:26:44.997Z] Backend health check: Status 200
-[2025-04-19T14:26:59.992Z] Backend health check: Status 200
-[2025-04-19T14:27:14.997Z] Backend health check: Status 200
-[2025-04-19T14:27:30.005Z] Backend health check: Status 200
-[2025-04-19T14:27:45.000Z] Backend health check: Status 200
-[2025-04-19T14:27:59.998Z] Backend health check: Status 200
-[2025-04-19T14:28:15.000Z] Backend health check: Status 200
-[2025-04-19T14:28:30.003Z] Backend health check: Status 200
-[2025-04-19T14:28:45.000Z] Backend health check: Status 200
-[2025-04-19T14:29:00.009Z] Backend health check: Status 200
-[2025-04-19T14:29:15.006Z] Backend health check: Status 200
-[2025-04-19T14:29:30.008Z] Backend health check: Status 200
+[2025-04-19T16:10:45.213Z] GET /api/auth/environment
+[2025-04-19T16:10:45.214Z] GET /api/auth/me
+[2025-04-19T16:10:45.217Z] GET /api/auth/me
+[2025-04-19T16:10:47.712Z] GET /api/auth/me
+[2025-04-19T16:10:47.715Z] GET /api/auth/me
+[2025-04-19T16:10:49.715Z] GET /api/auth/environment
+[2025-04-19T16:10:49.720Z] GET /api/auth/environment
+[2025-04-19T16:10:50.801Z] GET /api/auth/google/authorize
+[2025-04-19T16:10:51.426Z] GET /api/auth/me
+[2025-04-19T16:10:51.429Z] GET /api/auth/me
+[2025-04-19T16:10:52.342Z] GET /api/auth/me
+[2025-04-19T16:10:52.350Z] GET /api/auth/me
+[2025-04-19T16:10:53.399Z] Backend health check: Status 200
+[2025-04-19T16:10:54.133Z] GET /api/profile
+[2025-04-19T16:10:54.134Z] GET /api/profile
+[2025-04-19T16:11:08.402Z] Backend health check: Status 200
+[2025-04-19T16:11:23.403Z] Backend health check: Status 200
+[2025-04-19T16:11:38.406Z] Backend health check: Status 200

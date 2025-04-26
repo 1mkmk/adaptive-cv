@@ -12,8 +12,11 @@ import PyPDF2
 import io
 
 from app.database import get_db
-from app.models.candidate import Candidate
-from app.schemas.candidate import CandidateProfile, CandidateResponse, CandidateUpdate, ProfileGenerationPrompt
+from app.models.candidate import CandidateProfile
+from app.auth.oauth import get_current_user
+from app.models.user import User
+from app.schemas.candidate import CandidateProfile as CandidateProfileSchema
+from app.schemas.candidate import CandidateResponse, CandidateUpdate, ProfileGenerationPrompt
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -203,7 +206,7 @@ async def extract_profile_from_cv(cv_text: str) -> dict:
                             logger.error(f"Failed to parse placeholder structure: {placeholder_err}")
                             # Create a minimum fallback data structure
                             extracted_data = {
-                                "name": potential_name if 'potential_name' in locals() else (cv_file.filename.rsplit('.', 1)[0].replace('_', ' ') if cv_file.filename else "Unknown"),
+                                "name": potential_name if 'potential_name' in locals() else (cv_file.filename.rsplit('.', 1)[0].replace('_', ' ') if 'cv_file' in locals() and cv_file.filename else "Unknown"),
                                 "email": "youremail@example.com",
                                 "phone": "+48 000 000 000",
                                 "summary": "Placeholder profile created from PDF. Please edit all fields.",
@@ -448,7 +451,7 @@ async def extract_profile_from_cv(cv_text: str) -> dict:
         logger.error(f"Error extracting profile from CV: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to extract profile: {str(e)}")
 
-def db_profile_to_schema(db_profile: Candidate) -> CandidateResponse:
+def db_profile_to_schema(db_profile: CandidateProfile) -> CandidateResponse:
     """Convert database profile model to Pydantic schema"""
     return CandidateResponse(
         id=db_profile.id,
@@ -479,9 +482,9 @@ def db_profile_to_schema(db_profile: Candidate) -> CandidateResponse:
     )
 
 @router.get("", response_model=CandidateResponse)
-def get_profile(db: Session = Depends(get_db)):
-    """Get the candidate profile"""
-    profile = db.query(Candidate).first()
+def get_profile(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Get the candidate profile for the current user"""
+    profile = db.query(CandidateProfile).filter(CandidateProfile.user_id == current_user.id).first()
     if not profile:
         raise HTTPException(status_code=404, detail="Profile not found")
     return db_profile_to_schema(profile)
@@ -725,9 +728,9 @@ async def generate_profile_from_prompt(generation_data: ProfileGenerationPrompt,
         raise HTTPException(status_code=500, detail=f"Failed to generate profile: {str(e)}")
 
 @router.post("", response_model=CandidateResponse)
-def create_profile(profile: CandidateProfile, db: Session = Depends(get_db)):
-    """Create or update the candidate profile"""
-    existing_profile = db.query(Candidate).first()
+def create_profile(profile: CandidateProfileSchema, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Create or update the candidate profile for the current user"""
+    existing_profile = db.query(CandidateProfile).filter(CandidateProfile.user_id == current_user.id).first()
     
     if existing_profile:
         # Update existing profile
@@ -779,6 +782,7 @@ def create_profile(profile: CandidateProfile, db: Session = Depends(get_db)):
     else:
         # Create new profile with all available fields
         profile_data = {
+            "user_id": current_user.id,
             "name": profile.name,
             "email": profile.email,
             "phone": profile.phone or "",
@@ -786,6 +790,7 @@ def create_profile(profile: CandidateProfile, db: Session = Depends(get_db)):
             "skills": json.dumps([skill for skill in profile.skills]),
             "experience": json.dumps([exp.dict() for exp in profile.experience]),
             "education": json.dumps([edu.dict() for edu in profile.education]),
+            "is_default": True
         }
         
         # Add optional fields if they exist in the schema
@@ -820,7 +825,7 @@ def create_profile(profile: CandidateProfile, db: Session = Depends(get_db)):
         if hasattr(profile, 'creativity_levels') and profile.creativity_levels:
             profile_data["creativity_levels"] = json.dumps(profile.creativity_levels)
             
-        db_profile = Candidate(**profile_data)
+        db_profile = CandidateProfile(**profile_data)
         db.add(db_profile)
     
     db.commit()
@@ -828,9 +833,9 @@ def create_profile(profile: CandidateProfile, db: Session = Depends(get_db)):
     return db_profile_to_schema(db_profile)
 
 @router.put("", response_model=CandidateResponse)
-def update_profile(profile: CandidateUpdate, db: Session = Depends(get_db)):
-    """Update parts of the candidate profile"""
-    db_profile = db.query(Candidate).first()
+def update_profile(profile: CandidateUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Update parts of the candidate profile for the current user"""
+    db_profile = db.query(CandidateProfile).filter(CandidateProfile.user_id == current_user.id).first()
     if not db_profile:
         raise HTTPException(status_code=404, detail="Profile not found. Create a profile first.")
     
@@ -891,7 +896,7 @@ def update_profile(profile: CandidateUpdate, db: Session = Depends(get_db)):
     return db_profile_to_schema(db_profile)
 
 @router.post("/upload-photo", response_model=CandidateResponse)
-async def upload_photo(photo_file: UploadFile = File(...), db: Session = Depends(get_db)):
+async def upload_photo(photo_file: UploadFile = File(...), db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """
     Upload a profile photo and save it as base64 encoded data.
     """
@@ -921,8 +926,8 @@ async def upload_photo(photo_file: UploadFile = File(...), db: Session = Depends
         # Add data URI prefix for direct display in browser
         image_data_uri = f"data:{content_type};base64,{image_base64}"
         
-        # Get existing profile or create new one
-        profile = db.query(Candidate).first()
+        # Get existing profile for current user
+        profile = db.query(CandidateProfile).filter(CandidateProfile.user_id == current_user.id).first()
         if not profile:
             raise HTTPException(status_code=404, detail="Profile not found. Create a profile first.")
         
@@ -939,7 +944,7 @@ async def upload_photo(photo_file: UploadFile = File(...), db: Session = Depends
         raise HTTPException(status_code=500, detail=f"Failed to upload photo: {str(e)}")
 
 @router.post("/import-cv-test", response_model=CandidateResponse)
-async def import_cv_test(db: Session = Depends(get_db)):
+async def import_cv_test(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """
     Test endpoint to import a profile from a sample CV in the assets directory.
     For development/testing purposes only.
@@ -970,6 +975,7 @@ async def import_cv_test(db: Session = Depends(get_db)):
         
         # Process extracted information
         profile_data = {
+            "user_id": current_user.id,
             "name": extracted_profile.get("name", ""),
             "email": extracted_profile.get("email", ""),
             "phone": extracted_profile.get("phone", ""),
@@ -979,18 +985,20 @@ async def import_cv_test(db: Session = Depends(get_db)):
             "website": extracted_profile.get("website", ""),
             "skills": json.dumps(extracted_profile.get("skills", [])),
             "experience": json.dumps(extracted_profile.get("experience", [])),
-            "education": json.dumps(extracted_profile.get("education", []))
+            "education": json.dumps(extracted_profile.get("education", [])),
+            "is_default": True
         }
         
         # Update or create profile
-        existing_profile = db.query(Candidate).first()
+        existing_profile = db.query(CandidateProfile).filter(CandidateProfile.user_id == current_user.id).first()
         
         if existing_profile:
             for key, value in profile_data.items():
-                setattr(existing_profile, key, value)
+                if key != "user_id":  # Don't update user_id
+                    setattr(existing_profile, key, value)
             db_profile = existing_profile
         else:
-            db_profile = Candidate(**profile_data)
+            db_profile = CandidateProfile(**profile_data)
             db.add(db_profile)
         
         db.commit()
@@ -1003,7 +1011,7 @@ async def import_cv_test(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=f"Test CV import failed: {str(e)}")
 
 @router.post("/import-cv", response_model=CandidateResponse)
-async def import_cv_profile(cv_file: UploadFile = File(...), db: Session = Depends(get_db)):
+async def import_cv_profile(cv_file: UploadFile = File(...), db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """
     Import a profile from a CV document.
     Extracts information from the CV and creates or updates the profile.
@@ -1470,6 +1478,7 @@ async def import_cv_profile(cv_file: UploadFile = File(...), db: Session = Depen
         # Process the extracted information to match our database schema
         profile_data = {
             # Basic fields
+            "user_id": current_user.id,
             "name": extracted_profile.get("name", ""),
             "email": extracted_profile.get("email", ""),
             "phone": extracted_profile.get("phone", ""),
@@ -1480,6 +1489,7 @@ async def import_cv_profile(cv_file: UploadFile = File(...), db: Session = Depen
             "skills": json.dumps(extracted_profile.get("skills", [])),
             "experience": json.dumps(extracted_profile.get("experience", [])),
             "education": json.dumps(extracted_profile.get("education", [])),
+            "is_default": True,
             
             # Extended fields
             "job_title": extracted_profile.get("job_title", ""),
@@ -1491,8 +1501,8 @@ async def import_cv_profile(cv_file: UploadFile = File(...), db: Session = Depen
             "skill_categories": json.dumps(extracted_profile.get("skill_categories", [])) if extracted_profile.get("skill_categories") else None
         }
         
-        # Check if we have an existing profile
-        existing_profile = db.query(Candidate).first()
+        # Check if we have an existing profile for the current user
+        existing_profile = db.query(CandidateProfile).filter(CandidateProfile.user_id == current_user.id).first()
         
         if existing_profile:
             # Update existing profile
@@ -1502,7 +1512,7 @@ async def import_cv_profile(cv_file: UploadFile = File(...), db: Session = Depen
             db_profile = existing_profile
         else:
             # Create new profile
-            db_profile = Candidate(**profile_data)
+            db_profile = CandidateProfile(**profile_data)
             db.add(db_profile)
         
         db.commit()
@@ -1526,14 +1536,16 @@ async def import_cv_profile(cv_file: UploadFile = File(...), db: Session = Depen
             potential_name = filename.rsplit('.', 1)[0].replace('_', ' ').replace('%20', ' ')
             
             # Create or update profile with emergency fallback data
-            existing_profile = db.query(Candidate).first()
+            existing_profile = db.query(CandidateProfile).filter(CandidateProfile.user_id == current_user.id).first()
             
             profile_data = {
+                "user_id": current_user.id,
                 "name": potential_name,
                 "email": "youremail@example.com",
                 "phone": "+48 000 000 000",
                 "summary": f"Emergency fallback profile created because your CV could not be imported. Error: {str(e)}",
                 "location": "Wrocław, Poland",
+                "is_default": True,
                 "skills": json.dumps(["Skill 1", "Skill 2", "Skill 3"]),
                 "experience": json.dumps([{
                     "company": "Company Name",
@@ -1558,7 +1570,7 @@ async def import_cv_profile(cv_file: UploadFile = File(...), db: Session = Depen
                     setattr(existing_profile, key, value)
                 db_profile = existing_profile
             else:
-                db_profile = Candidate(**profile_data)
+                db_profile = CandidateProfile(**profile_data)
                 db.add(db_profile)
             
             db.commit()

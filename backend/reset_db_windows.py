@@ -24,7 +24,8 @@ except ImportError:
 
 try:
     # First, import models to ensure they're available before we recreate the database
-    from app.models.candidate import Candidate
+    from app.models.user import User
+    from app.models.candidate import CandidateProfile
     from app.models.job import Job
     
     # Import database tools
@@ -35,19 +36,32 @@ try:
     # Recreate the database schema
     recreate_database()
     
-    # Create default profile
-    logger.info("Creating default profile...")
+    # Create default user and profile
+    logger.info("Creating default user and profile...")
     db = SessionLocal()
     try:
-        # Create a default profile
-        default_profile = Candidate(
-            name="Default User",
-            email="user@example.com",
+        # Create default guest user
+        default_user = User(
+            email="guest@example.com",
+            name="Guest User",
+            is_guest=True,
+            is_active=True,
+            locale="en"
+        )
+        db.add(default_user)
+        db.flush()  # Flush to get the user ID
+        
+        # Create a default profile for the user
+        default_profile = CandidateProfile(
+            user_id=default_user.id,
+            name="Guest User",
+            email="guest@example.com",
             phone="",
             summary="",
             location="",
             linkedin="",
             website="",
+            is_default=True,
             skills="[]",
             experience="[]",
             education="[]",

@@ -1,4 +1,4 @@
-import { fetchApi, API_BASE_URL } from './api';
+import { fetchApi } from './api';
 
 export interface Template {
   id: string;

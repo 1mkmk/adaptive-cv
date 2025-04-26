@@ -9,9 +9,12 @@ import traceback
 # Fix the import to use the correct path
 from app.database import get_db
 from app.models.job import Job
+from app.models.user import User
 from app.schemas.job import JobResponse, JobCreate
 from app.services.job_scraper import extract_from_url
 from app.services.job_service import extract_job_details_with_ai
+from app.auth.oauth import get_current_user
+from app.auth.decorators import require_authentication
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -23,9 +26,13 @@ router = APIRouter(
 )
 
 @router.get("", response_model=List[JobResponse])
-def get_jobs(db: Session = Depends(get_db)):
+async def get_jobs(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     try:
-        jobs = db.query(Job).all()
+        # Get jobs for the current user only
+        jobs = db.query(Job).filter(Job.user_id == current_user.id).all()
         return jobs
     except Exception as e:
         logger.error(f"Error in get_jobs: {e}")
@@ -33,14 +40,15 @@ def get_jobs(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 @router.post("/create", response_model=JobResponse)
-def create_job(
+async def create_job(
     job_url: Optional[str] = Form(None),
     title: Optional[str] = Form(None),
     company: Optional[str] = Form(None),
     location: Optional[str] = Form(None),
     description: Optional[str] = Form(None),
     requirements: Optional[str] = Form(None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
     # Handle URL-based job creation
     if job_url:
@@ -69,6 +77,7 @@ def create_job(
             
             # Create the job
             new_job = Job(
+                user_id=current_user.id,
                 title=job_data.get("title", "Job from URL"),
                 company=job_data.get("company", "Company from URL"),
                 location=job_data.get("location", "Remote"),
@@ -99,6 +108,7 @@ def create_job(
             logger.info(f"Extracted job details: Title: {title}, Company: {company}, Location: {location}")
             
         new_job = Job(
+            user_id=current_user.id,
             title=title,
             company=company,
             location=location or "Not specified",
@@ -113,28 +123,49 @@ def create_job(
     return new_job
 
 @router.get("/{job_id}", response_model=JobResponse)
-def read_job(job_id: int, db: Session = Depends(get_db)):
-    job = db.query(Job).filter(Job.id == job_id).first()
+async def read_job(
+    job_id: int, 
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    # Get job for the current user only
+    job = db.query(Job).filter(Job.id == job_id, Job.user_id == current_user.id).first()
     if job is None:
         raise HTTPException(status_code=404, detail="Job not found")
     return job
 
 @router.put("/{job_id}", response_model=JobResponse)
-def update_job(job_id: int, job: JobCreate, db: Session = Depends(get_db)):
-    db_job = db.query(Job).filter(Job.id == job_id).first()
+async def update_job(
+    job_id: int, 
+    job_data: JobCreate, 
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    # Get job for the current user only
+    db_job = db.query(Job).filter(Job.id == job_id, Job.user_id == current_user.id).first()
     if db_job is None:
         raise HTTPException(status_code=404, detail="Job not found")
-    for key, value in job.dict().items():
+    
+    # Update job data
+    job_dict = job_data.dict(exclude_unset=True)
+    for key, value in job_dict.items():
         setattr(db_job, key, value)
+    
     db.commit()
     db.refresh(db_job)
     return db_job
 
 @router.delete("/{job_id}")
-def delete_job(job_id: int, db: Session = Depends(get_db)):
-    db_job = db.query(Job).filter(Job.id == job_id).first()
+async def delete_job(
+    job_id: int, 
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    # Get job for the current user only
+    db_job = db.query(Job).filter(Job.id == job_id, Job.user_id == current_user.id).first()
     if db_job is None:
         raise HTTPException(status_code=404, detail="Job not found")
+    
     db.delete(db_job)
     db.commit()
     return {"detail": "Job deleted successfully"}

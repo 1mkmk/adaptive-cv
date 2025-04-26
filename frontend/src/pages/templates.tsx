@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from "@/components/ui/Navbar";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { getTemplates, Template } from '@/services/templateService';
 import { useNavigate } from 'react-router';
 
@@ -62,7 +61,6 @@ const Templates: React.FC = () => {
 
   return (
     <>
-      <Navbar />
       <div className="container mx-auto py-10">
         <h1 className="text-3xl font-bold mb-2">CV Templates</h1>
         <p className="text-muted-foreground mb-8">

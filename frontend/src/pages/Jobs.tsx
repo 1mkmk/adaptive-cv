@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from "@/components/ui/Navbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -7,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { API_BASE_URL, fetchApi } from '@/services/api';
-import { getDownloadCvUrl, getDownloadLatexUrl } from '@/services/cvService';
 import { generatePdfCV, downloadCV, Template, getTemplates } from '@/services/templateService';
 import { useLocation } from 'react-router';
 
@@ -93,7 +91,7 @@ const Jobs: React.FC = () => {
       setJobs(data);
       
       // Extract unique companies for filtering
-      const uniqueCompanies = Array.from(new Set(data.map((job: Job) => job.company)));
+      const uniqueCompanies = Array.from(new Set(data.map((job: Job) => job.company))) as string[];
       setCompanies(uniqueCompanies);
     } catch (err) {
       setError('Error loading jobs. Please try again.');
@@ -135,7 +133,7 @@ const Jobs: React.FC = () => {
         throw new Error('Failed to import job');
       }
       
-      const data = await response.json();
+      await response.json();
       setSuccess('Job imported successfully!');
       setJobUrl('');
       fetchJobs(); // Refresh job list
@@ -158,7 +156,6 @@ const Jobs: React.FC = () => {
     
     try {
       // Extract basic info from the prompt for display purposes
-      const lines = jobListing.split('\n').filter(line => line.trim());
       
       // We'll let the backend extract job details using OpenAI
       setSuccess('Processing job listing using AI...');
@@ -315,7 +312,6 @@ const Jobs: React.FC = () => {
 
   return (
     <>
-      <Navbar />
       <div className="container mx-auto py-10">
         <h1 className="text-3xl font-bold mb-2">Job Applications</h1>
         <p className="text-muted-foreground mb-4">

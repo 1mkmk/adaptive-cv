@@ -1,0 +1,281 @@
+---
+# filepath: iptables_forward_clean.yml
+# Usage: ansible-playbook iptables_forward_clean.yml -i inventory.yml
+
+- name: Wyczyść i skonfiguruj przekierowanie portów dla AdaptiveCV
+  hosts: all
+  become: yes
+  vars:
+    # lokalne porty aplikacji
+    backend_port: 8000
+    frontend_port: 5173
+
+    # porty zewnętrzne
+    external_backend: 40060
+    external_frontend: 40061
+    # zewnętrzny host
+    external_host: "srv14.mikr.us"
+
+  tasks:
+    - name: Wyczyść wszystkie reguły iptables
+      ansible.builtin.shell: |
+        # Usuń wszystkie reguły
+        iptables -F
+        iptables -t nat -F
+        iptables -t mangle -F
+        iptables -X
+        iptables -t nat -X
+        iptables -t mangle -X
+        
+        # Ustaw domyślne polityki
+        iptables -P INPUT ACCEPT
+        iptables -P FORWARD ACCEPT
+        iptables -P OUTPUT ACCEPT
+        
+        # Zapisz czystą konfigurację
+        netfilter-persistent save
+      args:
+        executable: /bin/bash
+
+    - name: Sprawdź czy firewall (ufw) jest aktywny
+      ansible.builtin.command: ufw status
+      register: ufw_status
+      changed_when: false
+      ignore_errors: yes
+
+    - name: Pokaż status UFW
+      ansible.builtin.debug:
+        var: ufw_status.stdout_lines
+      when: ufw_status is defined
+
+    - name: Włącz IPv4 forwarding w sysctl
+      ansible.builtin.sysctl:
+        name: net.ipv4.ip_forward
+        value: "1"
+        state: present
+        reload: yes
+
+    - name: Zainstaluj iptables-persistent
+      ansible.builtin.apt:
+        name: iptables-persistent
+        state: present
+        update_cache: yes
+
+    # Konfiguracja przekierowania w iptables
+    - name: Dodaj regułę DNAT dla ruchu przychodzącego na port backendu
+      ansible.builtin.iptables:
+        table: nat
+        chain: PREROUTING
+        protocol: tcp
+        destination_port: "{{ external_backend }}"
+        jump: DNAT
+        to_destination: "127.0.0.1:{{ backend_port }}"
+        comment: "Forward external backend port to local"
+        state: present
+
+    - name: Dodaj regułę DNAT dla ruchu przychodzącego na port frontendu
+      ansible.builtin.iptables:
+        table: nat
+        chain: PREROUTING
+        protocol: tcp
+        destination_port: "{{ external_frontend }}"
+        jump: DNAT
+        to_destination: "127.0.0.1:{{ frontend_port }}"
+        comment: "Forward external frontend port to local"
+        state: present
+
+    - name: Dodaj regułę akceptacji dla ruchu na porcie backendu
+      ansible.builtin.iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: "{{ external_backend }}"
+        jump: ACCEPT
+        comment: "Accept incoming traffic on backend external port"
+        state: present
+
+    - name: Dodaj regułę akceptacji dla ruchu na porcie frontendu
+      ansible.builtin.iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: "{{ external_frontend }}"
+        jump: ACCEPT
+        comment: "Accept incoming traffic on frontend external port"
+        state: present
+
+    - name: Dodaj regułę akceptacji dla ruchu na lokalnym porcie backendu
+      ansible.builtin.iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: "{{ backend_port }}"
+        jump: ACCEPT
+        comment: "Accept incoming traffic on backend local port"
+        state: present
+
+    - name: Dodaj regułę akceptacji dla ruchu na lokalnym porcie frontendu
+      ansible.builtin.iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: "{{ frontend_port }}"
+        jump: ACCEPT
+        comment: "Accept incoming traffic on frontend local port"
+        state: present
+
+    - name: Dodaj regułę dla przekazywania pakietów do loopback
+      ansible.builtin.iptables:
+        chain: FORWARD
+        protocol: tcp
+        destination: 127.0.0.1
+        jump: ACCEPT
+        comment: "Allow forwarding to loopback"
+        state: present
+
+    - name: Dodaj regułę MASQUERADE dla ruchu wychodzącego
+      ansible.builtin.iptables:
+        table: nat
+        chain: POSTROUTING
+        out_interface: "{{ ansible_default_ipv4.interface }}"
+        jump: MASQUERADE
+        comment: "Masquerade for outgoing connections"
+        state: present
+
+    - name: Zapisz reguły za pomocą netfilter-persistent
+      ansible.builtin.command:
+        cmd: netfilter-persistent save
+
+    - name: Uruchom ponownie netfilter-persistent
+      ansible.builtin.service:
+        name: netfilter-persistent
+        state: restarted
+        enabled: yes
+
+    # Sprawdźmy, czy aplikacje działają lokalnie
+    - name: Sprawdź czy backend jest aktywny
+      ansible.builtin.shell: |
+        netstat -tulpn | grep :{{ backend_port }} || echo "Backend nie działa na porcie {{ backend_port }}"
+      register: backend_check
+      changed_when: false
+
+    - name: Pokaż informacje o backendzie
+      ansible.builtin.debug:
+        var: backend_check.stdout_lines
+
+    - name: Sprawdź czy frontend jest aktywny
+      ansible.builtin.shell: |
+        netstat -tulpn | grep :{{ frontend_port }} || echo "Frontend nie działa na porcie {{ frontend_port }}"
+      register: frontend_check
+      changed_when: false
+
+    - name: Pokaż informacje o frontendzie
+      ansible.builtin.debug:
+        var: frontend_check.stdout_lines
+
+    # Jeżeli frontend nie działa, spróbujmy go uruchomić
+    - name: Sprawdź czy frontend odpowiada lokalnie
+      ansible.builtin.uri:
+        url: "http://localhost:{{ frontend_port }}"
+        return_content: yes
+        status_code: 200
+        timeout: 5
+      register: frontend_response
+      ignore_errors: yes
+      changed_when: false
+
+    # Testy portów
+    - name: Test backend port lokalnie
+      ansible.builtin.shell: |
+        curl --max-time 5 -s -o /dev/null -w "%{http_code}" http://localhost:{{ backend_port }} || echo "Failed with exit code $?"
+      register: curl_backend_local
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Test frontend port lokalnie
+      ansible.builtin.shell: |
+        curl --max-time 5 -s -o /dev/null -w "%{http_code}" http://localhost:{{ frontend_port }} || echo "Failed with exit code $?"
+      register: curl_frontend_local
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Test backend port zewnętrznie (z serwera)
+      ansible.builtin.shell: |
+        curl --max-time 5 -s -o /dev/null -w "%{http_code}" http://{{ external_host }}:{{ external_backend }} || echo "Failed with exit code $?"
+      register: curl_backend_ext
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Test frontend port zewnętrznie (z serwera)
+      ansible.builtin.shell: |
+        curl --max-time 5 -s -o /dev/null -w "%{http_code}" http://{{ external_host }}:{{ external_frontend }} || echo "Failed with exit code $?"
+      register: curl_frontend_ext
+      ignore_errors: yes
+      changed_when: false
+
+    # Diagnostyka iptables
+    - name: Sprawdź reguły iptables
+      ansible.builtin.shell: |
+        echo "=== IPV4 FORWARD STATUS ==="
+        sysctl net.ipv4.ip_forward
+        
+        echo -e "\n=== IPTABLES INPUT ==="
+        iptables -L INPUT -n -v
+        
+        echo -e "\n=== IPTABLES FORWARD ==="
+        iptables -L FORWARD -n -v
+        
+        echo -e "\n=== IPTABLES NAT PREROUTING ==="
+        iptables -t nat -L PREROUTING -n -v
+        
+        echo -e "\n=== IPTABLES NAT POSTROUTING ==="
+        iptables -t nat -L POSTROUTING -n -v
+        
+        echo -e "\n=== LISTENING PROCESSES ==="
+        netstat -tulpn | grep -E "{{ backend_port }}|{{ frontend_port }}|{{ external_backend }}|{{ external_frontend }}"
+      register: iptables_check
+      changed_when: false
+
+    - name: Pokaż diagnostykę iptables
+      ansible.builtin.debug:
+        var: iptables_check.stdout_lines
+
+    # Sprawdź czy mikr.us blokuje połączenia
+    - name: Sprawdź politykę przekierowań w mikr.us
+      ansible.builtin.shell: |
+        echo "Próba połączenia z zewnętrznego punktu widzenia:"
+        curl -v --max-time 5 -s http://{{ external_host }}:{{ external_backend }}/ 2>&1 | grep -E "Connected|Connection refused|timed out|Could not resolve"
+      register: mikrus_check
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Pokaż wyniki sprawdzenia mikr.us
+      ansible.builtin.debug:
+        var: mikrus_check.stdout_lines
+
+    - name: Podsumowanie problemów
+      ansible.builtin.debug:
+        msg: |
+          DIAGNOZA PROBLEMÓW:
+          
+          1. Status IPv4 forwarding: {% if "1" in iptables_check.stdout %}WŁĄCZONY{% else %}WYŁĄCZONY!{% endif %}
+          
+          2. Backend (port {{ backend_port }}):
+             - Lokalnie: {% if backend_check.stdout.find("Backend nie działa") != -1 %}NIE DZIAŁA!{% else %}OK{% endif %}
+             - Test lokalny: {{ curl_backend_local.stdout }}
+             
+          3. Frontend (port {{ frontend_port }}):
+             - Lokalnie: {% if frontend_check.stdout.find("Frontend nie działa") != -1 %}NIE DZIAŁA!{% else %}OK{% endif %}
+             - Test lokalny: {{ curl_frontend_local.stdout }}
+             
+          4. Zewnętrzne połączenia:
+             - Backend: {{ curl_backend_ext.stdout }}
+             - Frontend: {{ curl_frontend_ext.stdout }}
+             
+          NASTĘPNE KROKI:
+          
+          1. {% if backend_check.stdout.find("Backend nie działa") != -1 %}URUCHOM BACKEND! aplikacja na porcie {{ backend_port }} nie działa.{% else %}Backend działa lokalnie.{% endif %}
+          
+          2. {% if frontend_check.stdout.find("Frontend nie działa") != -1 %}URUCHOM FRONTEND! aplikacja na porcie {{ frontend_port }} nie działa.{% else %}Frontend działa lokalnie.{% endif %}
+          
+          3. {% if "1" not in iptables_check.stdout %}WŁĄCZ IPv4 FORWARDING! (echo 1 > /proc/sys/net/ipv4/ip_forward){% else %}IPv4 forwarding jest włączony.{% endif %}
+          
+          4. Sprawdź czy mikr.us pozwala na przekierowanie portów:
+             - Skontaktuj się z supportem mikr.us aby upewnić się, że porty {{ external_backend }} i {{ external_frontend }} są przekierowane do Twojego serwera
+             - Sprawdź czy mikr.us nie blokuje portów w swojej zaporze

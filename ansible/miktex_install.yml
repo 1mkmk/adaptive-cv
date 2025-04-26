@@ -1,0 +1,211 @@
+---
+# Ansible playbook to install and configure MiKTeX
+# Usage: ansible-playbook -i hosts miktex_install.yml
+
+- name: Install and configure MiKTeX
+  hosts: latex_servers
+  become: yes
+  
+  vars:
+    os_version_map:
+      Ubuntu:
+        18.04: "bionic"
+        20.04: "focal"
+        22.04: "jammy"
+      Debian:
+        9: "stretch"
+        10: "buster"
+        11: "bullseye"
+    
+  tasks:
+    - name: Gather facts about the system
+      setup:
+      
+    - name: Determine OS distribution and version
+      set_fact:
+        os_distribution: "{{ ansible_distribution }}"
+        os_version: "{{ ansible_distribution_version }}"
+        os_major_version: "{{ ansible_distribution_major_version }}"
+      
+    - name: Debug OS information
+      debug:
+        msg: "Detected OS: {{ os_distribution }} {{ os_version }}"
+    
+    # Remove any existing malformed MiKTeX repository files
+    - name: Check if MiKTeX repository files exist
+      stat:
+        path: /etc/apt/sources.list.d/miktex.list
+      register: miktex_repo
+      
+    - name: Remove existing MiKTeX repository file if it exists
+      file:
+        path: /etc/apt/sources.list.d/miktex.list
+        state: absent
+      when: miktex_repo.stat.exists
+      
+    # Install apt-transport-https and other prerequisites
+    - name: Install apt-transport-https and other prerequisites
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+        state: present
+        update_cache: yes
+      when: os_distribution in ['Ubuntu', 'Debian']
+    
+    # Install MiKTeX for Ubuntu/Debian systems
+    - name: Add MiKTeX GPG key (Ubuntu/Debian)
+      apt_key:
+        url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xD6BC243565B2087BC3F897C9277A7293F59E4889
+        state: present
+      when: os_distribution in ['Ubuntu', 'Debian']
+    
+    - name: Set OS codename for Ubuntu
+      set_fact:
+        os_codename: "{{ os_version_map.Ubuntu[os_version] | default('focal') }}"
+      when: os_distribution == 'Ubuntu'
+    
+    - name: Set OS codename for Debian
+      set_fact:
+        os_codename: "{{ os_version_map.Debian[os_major_version] | default('bullseye') }}"
+      when: os_distribution == 'Debian'
+    
+    - name: Add MiKTeX apt repository for Ubuntu/Debian
+      apt_repository:
+        repo: "deb http://miktex.org/download/{{ os_distribution | lower }}/{{ os_codename }} universe"
+        state: present
+        filename: miktex
+      when: os_distribution in ['Ubuntu', 'Debian']
+    
+    - name: Install MiKTeX on Ubuntu/Debian
+      apt:
+        name: miktex
+        state: present
+        update_cache: yes
+      when: os_distribution in ['Ubuntu', 'Debian']
+    
+    # Install additional dependencies for PDF processing
+    - name: Install additional dependencies and tools
+      apt:
+        name:
+          - ghostscript
+          - poppler-utils
+          - python3-pip
+          - python3-pygments
+          - imagemagick
+          - fonts-lato
+          - fonts-freefont-ttf
+          - fonts-liberation
+          - fonts-dejavu
+          - cm-super
+          - lmodern
+        state: present
+      when: os_distribution in ['Ubuntu', 'Debian']
+    
+    # Set up MiKTeX with shared installation
+    - name: Finish MiKTeX setup (shared installation)
+      shell: miktexsetup --shared=yes finish
+      become: yes
+      register: miktex_setup
+      failed_when: miktex_setup.rc != 0 and "already finished" not in miktex_setup.stderr
+      when: os_distribution in ['Ubuntu', 'Debian']
+    
+    # Enable auto-installation of packages
+    - name: Enable auto-installation of packages
+      shell: initexmf --admin --set-config-value [MPM]AutoInstall=1
+      become: yes
+      when: os_distribution in ['Ubuntu', 'Debian']
+    
+    # Setup required directories for AdaptiveCV
+    - name: Create directories for AdaptiveCV
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+      with_items:
+        - /opt/adaptivecv
+        - /opt/adaptivecv/assets
+        - /opt/adaptivecv/assets/templates
+        - /opt/adaptivecv/assets/generated
+        - /opt/adaptivecv/assets/generated/latex
+        - /opt/adaptivecv/assets/generated/pdf
+    
+    # Install Python packages required for LaTeX processing
+    - name: Install Python packages for LaTeX processing
+      pip:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - PyLaTeX
+        - pypdf
+        - pdf2image
+        - Pillow
+    
+    # Configure ImageMagick to allow PDF operations
+    - name: Install ImageMagick policy to allow PDF operations
+      copy:
+        dest: /etc/ImageMagick-6/policy.xml
+        content: |
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE policymap [
+            <!ELEMENT policymap (policy)+>
+            <!ATTLIST policymap xmlns CDATA #FIXED ''>
+            <!ELEMENT policy EMPTY>
+            <!ATTLIST policy xmlns CDATA #FIXED '' domain NMTOKEN #REQUIRED
+              name NMTOKEN #IMPLIED pattern CDATA #IMPLIED rights NMTOKEN #IMPLIED
+              stealth NMTOKEN #IMPLIED value CDATA #IMPLIED>
+          ]>
+          <policymap>
+            <policy domain="coder" rights="read|write" pattern="PDF" />
+            <policy domain="coder" rights="read|write" pattern="LABEL" />
+            <policy domain="path" rights="none" pattern="@*" />
+            <policy domain="resource" name="memory" value="2GiB"/>
+            <policy domain="resource" name="map" value="4GiB"/>
+            <policy domain="resource" name="width" value="16KP"/>
+            <policy domain="resource" name="height" value="16KP"/>
+            <policy domain="resource" name="area" value="128MB"/>
+            <policy domain="resource" name="disk" value="8GiB"/>
+            <policy domain="resource" name="file" value="768"/>
+            <policy domain="resource" name="thread" value="4"/>
+            <policy domain="resource" name="throttle" value="0"/>
+            <policy domain="resource" name="time" value="3600"/>
+          </policymap>
+      notify: Restart ImageMagick
+    
+    # Test LaTeX installation by creating a simple document
+    - name: Create a test LaTeX file
+      copy:
+        dest: /tmp/test.tex
+        content: |
+          \documentclass{article}
+          \begin{document}
+          Hello, AdaptiveCV!
+          \end{document}
+    
+    - name: Compile the test LaTeX file
+      shell: pdflatex -interaction=nonstopmode /tmp/test.tex
+      args:
+        chdir: /tmp
+      register: pdflatex_test
+      failed_when: false
+      changed_when: false
+    
+    - name: Verify test LaTeX compilation
+      debug:
+        msg: "LaTeX installation {{ 'succeeded' if pdflatex_test.rc == 0 else 'failed' }}"
+    
+    - name: Report LaTeX installation status
+      debug:
+        msg: "MiKTeX installation completed. LaTeX compilation test {{ 'succeeded' if pdflatex_test.rc == 0 else 'failed' }}."
+  
+  handlers:
+    - name: Restart ImageMagick
+      service:
+        name: imagemagick
+        state: restarted
+      failed_when: false  # ImageMagick might not have a service, so don't fail

@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Navbar from "@/components/ui/Navbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { getProfile, saveProfile, importCVProfile, uploadProfilePhoto, generateProfileFromPrompt, CandidateProfile, Experience, Education, ProfileGenerationPrompt } from '@/services/profileService';
+import { getProfile, saveProfile, importCVProfile, uploadProfilePhoto, generateProfileFromPrompt, CandidateProfile, ProfileGenerationPrompt } from '@/services/profileService';
 
 const Profile: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -644,7 +643,6 @@ const Profile: React.FC = () => {
 
   return (
     <>
-      <Navbar />
       <div className="container mx-auto py-10">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">Your CV Profile</h1>

@@ -1,0 +1,23 @@
+# Docker Compose configuration for AdaptiveCV
+# Simplified version that only runs PostgreSQL database
+
+services:
+  # PostgreSQL database
+  db:
+    image: postgres:14
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=adaptive_cv_secure_password
+      - POSTGRES_USER=adaptive_cv
+      - POSTGRES_DB=adaptive_cv
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U adaptive_cv"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
