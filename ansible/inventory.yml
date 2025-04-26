@@ -1,0 +1,23 @@
+all:
+  hosts:
+    adaptive_cv_server:
+      ansible_host: karol152.mikrus.xyz
+      ansible_port: 10152
+      ansible_user: root
+      ansible_ssh_private_key_file: ~/.ssh/id_rsa
+      ansible_python_interpreter: /usr/bin/python3
+  
+  children:
+    adaptive_cv_servers:
+      hosts:
+        adaptive_cv_server:
+      vars:
+        domain_name: "adaptivecv.example.com"
+        admin_email: "admin@example.com"
+        git_repo: "https://github.com/yourusername/adaptive-cv.git"
+        git_branch: "main"
+        db_password: "adaptive_cv_secure_password"
+        secret_key: "4f0157c5c84d5a3daa5d0005f5db93c0b2e02b31d0eba048e4aa95337d36189a"
+        google_client_id: "YOUR_GOOGLE_CLIENT_ID"
+        google_client_secret: "YOUR_GOOGLE_CLIENT_SECRET"
+        openai_api_key: "your-openai-api-key"
