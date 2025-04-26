@@ -1,0 +1,85 @@
+---
+# filepath: sync_project.yml
+# Ansible playbook to copy the entire AdaptiveCV project to remote server
+# Usage: ansible-playbook sync_project.yml -i inventory.yml
+
+- name: Sync entire AdaptiveCV project to remote server
+  hosts: all
+  become: yes
+  vars:
+    remote_dir: /opt/adaptivecv
+    app_owner: "{{ ansible_user }}"
+    app_group: "{{ ansible_user }}"
+    dir_mode: '0755'
+    file_mode: '0644'
+    exec_mode: '0755'
+
+  tasks:
+    - name: Ensure target root directory exists
+      file:
+        path: "{{ remote_dir }}"
+        state: directory
+        owner: "{{ app_owner }}"
+        group: "{{ app_group }}"
+        mode: "{{ dir_mode }}"
+
+    - name: Synchronize entire project tree
+      synchronize:
+        src: "{{ playbook_dir }}/../"
+        dest: "{{ remote_dir }}/"
+        delete: true
+        recursive: true
+        rsync_opts:
+          - "--links"
+          - "--chmod=Du=rwx,Dg=rx,Do=rx,Fu=rw,Fg=r,Fo=r"
+          - "--exclude=.git"
+          - "--exclude=venv/"
+          - "--exclude=__pycache__/"
+          - "--exclude=*.pyc"
+          - "--exclude=.env"
+          - "--exclude=node_modules/"
+          - "--exclude=dist/"
+      delegate_to: localhost
+      become: no
+
+    - name: Fix permissions on all directories
+      file:
+        path: "{{ remote_dir }}"
+        recurse: yes
+        state: directory
+        mode: "{{ dir_mode }}"
+        owner: "{{ app_owner }}"
+        group: "{{ app_group }}"
+
+    - name: Fix permissions on all files
+      find:
+        paths: "{{ remote_dir }}"
+        file_type: file
+      register: all_files
+
+    - name: Set file mode to 0644
+      file:
+        path: "{{ item.path }}"
+        mode: "{{ file_mode }}"
+        owner: "{{ app_owner }}"
+        group: "{{ app_group }}"
+      loop: "{{ all_files.files }}"
+
+    - name: Make scripts executable
+      find:
+        paths: "{{ remote_dir }}"
+        patterns: "*.sh"
+        file_type: file
+      register: shell_scripts
+
+    - name: Set executable mode on *.sh
+      file:
+        path: "{{ item.path }}"
+        mode: "{{ exec_mode }}"
+        owner: "{{ app_owner }}"
+        group: "{{ app_group }}"
+      loop: "{{ shell_scripts.files }}"
+
+    - name: Show success message
+      debug:
+        msg: "✅ AdaptiveCV project synced to {{ remote_dir }} and permissions set."

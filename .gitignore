@@ -100,3 +100,7 @@ secrets.yaml
 ./frontend/.env.local
 ./frontend/.env.development.local
 ./frontend/.env.example
+
+.env
+backend/.env
+frontend/.env

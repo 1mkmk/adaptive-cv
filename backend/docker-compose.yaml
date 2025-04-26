@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:14
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=adaptive_cv
+      - POSTGRES_PASSWORD=adaptive_cv_secure_password
+      - POSTGRES_DB=adaptive_cv
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U adaptive_cv"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/app
+      - ./assets:/app/assets
+      - miktex_data:/miktex/.miktex
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=production
+      - DATABASE_URL=postgresql://adaptive_cv:adaptive_cv_secure_password@db:5432/adaptive_cv
+      - FRONTEND_URL=http://localhost:5173
+      - API_BASE_URL=http://localhost:8000
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-your-openai-api-key}
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-your-google-client-id}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-your-google-client-secret}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  miktex_data:

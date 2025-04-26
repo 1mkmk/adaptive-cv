@@ -1,11 +1,14 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Boolean
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.database import Base
 
-class Candidate(Base):
-    __tablename__ = "candidate"
+class CandidateProfile(Base):
+    __tablename__ = "candidate_profiles"
     
-    id = Column(Integer, primary_key=True, default=1)  # Always use ID 1
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    
     name = Column(String, nullable=False)
     email = Column(String, nullable=False)
     phone = Column(String)
@@ -31,5 +34,14 @@ class Candidate(Base):
     skill_categories = Column(Text)  # Stored as JSON string
     creativity_levels = Column(Text)  # Stored as JSON string with creativity levels for CV generation
     
-    created_at = Column(DateTime, server_default=func.now())
-    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    # Is this the default profile for the user
+    is_default = Column(Boolean, default=True)
+    
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    
+    # Relationships
+    user = relationship("User", back_populates="candidate_profiles")
+    
+    def __repr__(self):
+        return f"<CandidateProfile {self.name} ({self.user_id})>"

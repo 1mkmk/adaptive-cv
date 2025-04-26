@@ -1,0 +1,12 @@
+---
+- name: Deploy Adaptive CV to Cloud Server
+  hosts: adaptive_cv_servers
+  become: true
+  vars:
+    app_root: /opt/adaptive-cv
+    api_base_url: "https://{{ domain_name }}/api"
+    frontend_url: "https://{{ domain_name }}"
+    
+  roles:
+    - role: deploy
+      tags: deploy

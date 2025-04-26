@@ -1,0 +1,77 @@
+{
+  "common": {
+    "appName": "Adaptive CV",
+    "loading": "Wird geladen...",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "generate": "Generieren",
+    "download": "Herunterladen",
+    "submit": "Absenden",
+    "success": "Erfolg",
+    "error": "Fehler",
+    "required": "Erforderlich",
+    "optional": "Optional",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "clearFilters": "Filter löschen",
+    "next": "Weiter",
+    "previous": "Zurück",
+    "back": "Zurück"
+  },
+  "auth": {
+    "signIn": "Anmelden",
+    "signOut": "Abmelden",
+    "signInWithGoogle": "Mit Google anmelden",
+    "guestMode": "Als Gast fortfahren",
+    "welcome": "Willkommen, {{name}}!",
+    "accessDenied": "Zugriff verweigert",
+    "sessionExpired": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
+    "signInDesc": "Melden Sie sich an, um Zugang zu allen Funktionen von AdaptiveCV zu erhalten",
+    "or": "oder",
+    "disclaimer": "Ihre Daten werden sicher gespeichert und niemals an Dritte weitergegeben"
+  },
+  "navigation": {
+    "home": "Startseite",
+    "profile": "Profil",
+    "jobs": "Jobs",
+    "templates": "Vorlagen",
+    "settings": "Einstellungen"
+  },
+  "languages": {
+    "english": "Englisch",
+    "polish": "Polnisch",
+    "german": "Deutsch",
+    "french": "Französisch",
+    "spanish": "Spanisch",
+    "changeLanguage": "Sprache ändern"
+  },
+  "home": {
+    "title": "Erstellen Sie Ihren perfekten Lebenslauf",
+    "subtitle": "Maßgeschneidert für jede Bewerbung",
+    "getStarted": "Jetzt starten",
+    "features": {
+      "title": "Funktionen",
+      "aiTailored": "KI-optimierte Inhalte",
+      "aiTailoredDesc": "Optimieren Sie Ihren Lebenslauf für jede Bewerbung mit unserer KI-Technologie",
+      "multiLanguage": "Mehrsprachige Unterstützung",
+      "multiLanguageDesc": "Erstellen Sie Lebensläufe in mehreren Sprachen für internationale Bewerbungen",
+      "templates": "Professionelle Vorlagen",
+      "templatesDesc": "Wählen Sie aus verschiedenen professionellen LaTeX-Vorlagen",
+      "customization": "Vollständige Anpassung",
+      "customizationDesc": "Bearbeiten Sie den LaTeX-Quellcode für vollständige Kontrolle"
+    }
+  },
+  "footer": {
+    "tagline": "Erstellen Sie maßgeschneiderte Lebensläufe für jede Bewerbung mit der Kraft der KI",
+    "navigation": "Navigation",
+    "support": "Unterstützung",
+    "contact": "Kontakt",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen",
+    "faq": "Häufig gestellte Fragen",
+    "copyright": "Alle Rechte vorbehalten.",
+    "madewith": "Erstellt mit"
+  }
+}

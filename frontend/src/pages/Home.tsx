@@ -1,57 +1,54 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Navbar from "@/components/ui/Navbar";
 import { Separator } from "@/components/ui/separator";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   
   return (
     <>
-      <Navbar />
       <div className="relative">
         {/* Hero Section with Background */}
         <div className="bg-gradient-to-r from-indigo-700 to-purple-700 text-white py-24">
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto text-center">
               <div className="inline-block mb-6 rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold">
-                A passion project to simplify job hunting
+                {t('footer.tagline')}
               </div>
               <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 drop-shadow-sm">
                 AdaptiveCV
               </h1>
               <p className="text-xl md:text-2xl mb-10 leading-relaxed">
-                Create tailored CVs that perfectly match job requirements using AI technology.
-                Stand out from the crowd with personalized resumes for every application.
+                {t('home.title')} {t('home.subtitle')}
               </p>
               <div className="flex flex-col sm:flex-row gap-5 justify-center">
                 <Button 
                   size="lg" 
                   className="bg-white text-indigo-700 hover:bg-white/90 text-base font-semibold px-8"
-                  onClick={() => navigate('/profile')}
+                  onClick={() => navigate('/login')}
                 >
-                  Create Your Profile
+                  {t('profile.profileDesc')}
                 </Button>
                 <Button 
                   size="lg" 
                   variant="outline"
                   className="bg-white/10 hover:bg-white/20 text-white border-white/50 text-base font-semibold px-8"
-                  onClick={() => navigate('/jobs')}
+                  onClick={() => navigate('/login')}
                 >
-                  Generate a CV
+                  {t('jobs.generateCV')}
                 </Button>
               </div>
             </div>
           </div>
           
-          {/* Wave Divider */}
-          <div className="absolute bottom-0 left-0 right-0 overflow-hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="fill-white h-16 w-full">
-              <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" />
-            </svg>
+          {/* Simple Divider Line */}
+          <div className="absolute bottom-0 left-0 right-0">
+            <div className="h-1 bg-white w-full"></div>
           </div>
         </div>
         
@@ -76,9 +73,9 @@ const Home: React.FC = () => {
         {/* How It Works Section */}
         <div className="container mx-auto py-16 px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold mb-4">How It Works</h2>
+            <h2 className="text-3xl font-bold mb-4">{t('home.features.title')}</h2>
             <p className="text-gray-600 text-lg">
-              Three simple steps to create the perfect CV for every job application
+              {t('home.features.aiTailoredDesc')}
             </p>
           </div>
           
@@ -99,9 +96,9 @@ const Home: React.FC = () => {
                 <Button 
                   variant="ghost" 
                   className="text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50"
-                  onClick={() => navigate('/profile')}
+                  onClick={() => navigate('/login')}
                 >
-                  Get Started →
+                  {t('home.getStarted')} →
                 </Button>
               </CardFooter>
             </Card>
@@ -122,7 +119,7 @@ const Home: React.FC = () => {
                 <Button 
                   variant="ghost"
                   className="text-purple-600 hover:text-purple-800 hover:bg-purple-50"
-                  onClick={() => navigate('/jobs')}
+                  onClick={() => navigate('/login')}
                 >
                   Add Jobs →
                 </Button>
@@ -145,7 +142,7 @@ const Home: React.FC = () => {
                 <Button 
                   variant="ghost"
                   className="text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50"
-                  onClick={() => navigate('/templates')}
+                  onClick={() => navigate('/login')}
                 >
                   See Templates →
                 </Button>
@@ -172,10 +169,9 @@ const Home: React.FC = () => {
               </TabsList>
               
               <TabsContent value="ai" className="p-8 bg-white rounded-xl shadow-md border border-gray-100">
-                <h3 className="text-2xl font-bold mb-4 text-indigo-700">AI-Powered CV Generation</h3>
+                <h3 className="text-2xl font-bold mb-4 text-indigo-700">{t('home.features.aiTailored')}</h3>
                 <p className="mb-6 text-gray-600 text-lg leading-relaxed">
-                  Our advanced AI analyzes job descriptions to identify key requirements and automatically
-                  tailors your CV to highlight the most relevant skills and experiences.
+                  {t('home.features.aiTailoredDesc')}
                 </p>
                 <ul className="list-disc pl-6 mb-6 space-y-3 text-gray-600">
                   <li>Matches your profile to job requirements using natural language processing</li>
@@ -191,9 +187,9 @@ const Home: React.FC = () => {
               </TabsContent>
               
               <TabsContent value="templates" className="p-8 bg-white rounded-xl shadow-md border border-gray-100">
-                <h3 className="text-2xl font-bold mb-4 text-purple-700">Professional Templates</h3>
+                <h3 className="text-2xl font-bold mb-4 text-purple-700">{t('home.features.templates')}</h3>
                 <p className="mb-6 text-gray-600 text-lg leading-relaxed">
-                  Choose from various professional CV templates designed to impress employers across different industries, from creative to corporate.
+                  {t('home.features.templatesDesc')}
                 </p>
                 <ul className="list-disc pl-6 mb-6 space-y-3 text-gray-600">
                   <li>Multiple layout options designed by professional CV writers</li>
@@ -274,7 +270,7 @@ const Home: React.FC = () => {
             <Button 
               size="lg" 
               className="bg-white text-indigo-700 hover:bg-white/90 font-semibold text-lg px-8 py-6"
-              onClick={() => navigate('/profile')}
+              onClick={() => navigate('/login')}
             >
               Get Started Now
             </Button>
@@ -292,12 +288,12 @@ const Home: React.FC = () => {
               </div>
               <div className="flex flex-col md:flex-row gap-6 md:gap-12 text-center md:text-left">
                 <div>
-                  <h4 className="font-semibold mb-2 text-indigo-300">Navigation</h4>
+                  <h4 className="font-semibold mb-2 text-indigo-300">{t('footer.navigation')}</h4>
                   <ul className="text-indigo-200">
-                    <li className="mb-1"><button className="hover:text-white transition-colors" onClick={() => navigate('/')}>Home</button></li>
-                    <li className="mb-1"><button className="hover:text-white transition-colors" onClick={() => navigate('/profile')}>Profile</button></li>
-                    <li className="mb-1"><button className="hover:text-white transition-colors" onClick={() => navigate('/jobs')}>Jobs</button></li>
-                    <li><button className="hover:text-white transition-colors" onClick={() => navigate('/templates')}>Templates</button></li>
+                    <li className="mb-1"><button className="hover:text-white transition-colors" onClick={() => navigate('/')}>{t('navigation.home')}</button></li>
+                    <li className="mb-1"><button className="hover:text-white transition-colors" onClick={() => navigate('/login')}>{t('navigation.profile')}</button></li>
+                    <li className="mb-1"><button className="hover:text-white transition-colors" onClick={() => navigate('/login')}>{t('navigation.jobs')}</button></li>
+                    <li><button className="hover:text-white transition-colors" onClick={() => navigate('/login')}>{t('navigation.templates')}</button></li>
                   </ul>
                 </div>
                 <div>
@@ -312,7 +308,7 @@ const Home: React.FC = () => {
             <Separator className="my-8 bg-indigo-800" />
             <div className="text-center text-indigo-300 text-sm">
               <p>© {new Date().getFullYear()} AdaptiveCV. A personal project by Maciej Kasik.</p>
-              <p className="mt-1">Made with ❤️ and a lot of coffee</p>
+              <p className="mt-1">{t('footer.madewith')} ❤️</p>
             </div>
           </div>
         </footer>

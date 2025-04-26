@@ -1,0 +1,161 @@
+---
+# Ansible playbook to install and configure TeX Live
+# Usage: ansible-playbook -i hosts texlive_install.yml
+
+- name: Install and configure TeX Live
+  hosts: latex_servers
+  become: yes
+  
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+    
+    # Check if any MiKTeX repository files exist and remove them
+    - name: Check if MiKTeX repository files exist
+      stat:
+        path: /etc/apt/sources.list.d/miktex.list
+      register: miktex_repo
+      
+    - name: Remove existing MiKTeX repository file if it exists
+      file:
+        path: /etc/apt/sources.list.d/miktex.list
+        state: absent
+      when: miktex_repo.stat.exists
+    
+    # Install prerequisites
+    - name: Install prerequisites
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+        state: present
+    
+    # Install TeX Live packages
+    - name: Install TeX Live packages
+      apt:
+        name:
+          - texlive-latex-base
+          - texlive-fonts-recommended
+          - texlive-fonts-extra
+          - texlive-latex-recommended
+          - texlive-latex-extra
+          - texlive-xetex
+          - texlive-pictures
+          - texlive-science
+          - texlive-pstricks
+          - texlive-publishers
+          - ghostscript
+          - poppler-utils
+          - python3-pygments
+          - cm-super
+          - lmodern
+          - fonts-lato
+          - fonts-freefont-ttf
+          - fonts-liberation
+          - fonts-dejavu
+        state: present
+        update_cache: yes
+    
+    # Install additional dependencies for PDF processing
+    - name: Install additional dependencies and tools
+      apt:
+        name:
+          - imagemagick
+          - python3-pip
+        state: present
+    
+    # Configure ImageMagick to allow PDF operations
+    - name: Install ImageMagick policy to allow PDF operations
+      copy:
+        dest: /etc/ImageMagick-6/policy.xml
+        content: |
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE policymap [
+            <!ELEMENT policymap (policy)+>
+            <!ATTLIST policymap xmlns CDATA #FIXED ''>
+            <!ELEMENT policy EMPTY>
+            <!ATTLIST policy xmlns CDATA #FIXED '' domain NMTOKEN #REQUIRED
+              name NMTOKEN #IMPLIED pattern CDATA #IMPLIED rights NMTOKEN #IMPLIED
+              stealth NMTOKEN #IMPLIED value CDATA #IMPLIED>
+          ]>
+          <policymap>
+            <policy domain="coder" rights="read|write" pattern="PDF" />
+            <policy domain="coder" rights="read|write" pattern="LABEL" />
+            <policy domain="path" rights="none" pattern="@*" />
+            <policy domain="resource" name="memory" value="2GiB"/>
+            <policy domain="resource" name="map" value="4GiB"/>
+            <policy domain="resource" name="width" value="16KP"/>
+            <policy domain="resource" name="height" value="16KP"/>
+            <policy domain="resource" name="area" value="128MB"/>
+            <policy domain="resource" name="disk" value="8GiB"/>
+            <policy domain="resource" name="file" value="768"/>
+            <policy domain="resource" name="thread" value="4"/>
+            <policy domain="resource" name="throttle" value="0"/>
+            <policy domain="resource" name="time" value="3600"/>
+          </policymap>
+      register: imagemagick_policy
+    
+    # Install Python packages required for LaTeX processing
+    - name: Install Python packages for LaTeX processing
+      pip:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - PyLaTeX
+        - pypdf
+        - pdf2image
+        - Pillow
+    
+    # Setup required directories for AdaptiveCV
+    - name: Create directories for AdaptiveCV
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+      with_items:
+        - /opt/adaptivecv
+        - /opt/adaptivecv/assets
+        - /opt/adaptivecv/assets/templates
+        - /opt/adaptivecv/assets/generated
+        - /opt/adaptivecv/assets/generated/latex
+        - /opt/adaptivecv/assets/generated/pdf
+    
+    # Test LaTeX installation by creating a simple document
+    - name: Create a test LaTeX file
+      copy:
+        dest: /tmp/test.tex
+        content: |
+          \documentclass{article}
+          \begin{document}
+          Hello, AdaptiveCV!
+          \end{document}
+    
+    - name: Compile the test LaTeX file
+      shell: pdflatex -interaction=nonstopmode /tmp/test.tex
+      args:
+        chdir: /tmp
+      register: pdflatex_test
+      failed_when: false
+      changed_when: false
+    
+    - name: Verify test LaTeX compilation
+      debug:
+        msg: "LaTeX installation {{ 'succeeded' if pdflatex_test.rc == 0 else 'failed' }}"
+    
+    - name: Report LaTeX installation status
+      debug:
+        msg: "TeX Live installation completed. LaTeX compilation test {{ 'succeeded' if pdflatex_test.rc == 0 else 'failed' }}."
+  
+  handlers:
+    - name: Restart ImageMagick
+      service:
+        name: imagemagick
+        state: restarted
+      failed_when: false  # ImageMagick might not have a service, so don't fail

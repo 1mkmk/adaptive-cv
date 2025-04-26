@@ -1,5 +1,7 @@
 
-  VITE v6.3.0  ready in 149 ms
+  VITE v6.3.0  ready in 183 ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: http://192.168.68.53:5173/
+6:03:07 PM [vite] (client) hmr update /src/components/ui/Navbar.tsx, /src/styles/globals.css
+6:03:29 PM [vite] (client) hmr update /src/pages/Home.tsx, /src/styles/globals.css

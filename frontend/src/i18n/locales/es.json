@@ -1,0 +1,77 @@
+{
+  "common": {
+    "appName": "Adaptive CV",
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "generate": "Generar",
+    "download": "Descargar",
+    "submit": "Enviar",
+    "success": "Éxito",
+    "error": "Error",
+    "required": "Obligatorio",
+    "optional": "Opcional",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "clearFilters": "Borrar filtros",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "back": "Atrás"
+  },
+  "auth": {
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión",
+    "signInWithGoogle": "Iniciar sesión con Google",
+    "guestMode": "Continuar como invitado",
+    "welcome": "¡Bienvenido, {{name}}!",
+    "accessDenied": "Acceso denegado",
+    "sessionExpired": "Su sesión ha expirado. Por favor, inicie sesión de nuevo.",
+    "signInDesc": "Inicie sesión para acceder a todas las funciones de AdaptiveCV",
+    "or": "o",
+    "disclaimer": "Sus datos se almacenan de forma segura y nunca se comparten con terceros"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "profile": "Perfil",
+    "jobs": "Trabajos",
+    "templates": "Plantillas",
+    "settings": "Configuración"
+  },
+  "languages": {
+    "english": "Inglés",
+    "polish": "Polaco",
+    "german": "Alemán",
+    "french": "Francés",
+    "spanish": "Español",
+    "changeLanguage": "Cambiar idioma"
+  },
+  "home": {
+    "title": "Cree su CV perfecto",
+    "subtitle": "Adaptado para cada solicitud de empleo",
+    "getStarted": "Comenzar",
+    "features": {
+      "title": "Características",
+      "aiTailored": "Contenido optimizado por IA",
+      "aiTailoredDesc": "Optimice su CV para cada solicitud de empleo con nuestra tecnología de IA",
+      "multiLanguage": "Soporte multilingüe",
+      "multiLanguageDesc": "Cree CV en varios idiomas para solicitudes de empleo internacionales",
+      "templates": "Plantillas profesionales",
+      "templatesDesc": "Elija entre una variedad de plantillas profesionales de LaTeX",
+      "customization": "Personalización completa",
+      "customizationDesc": "Edite el código fuente LaTeX para un control completo"
+    }
+  },
+  "footer": {
+    "tagline": "Cree CV personalizados para cada solicitud de empleo con el poder de la IA",
+    "navigation": "Navegación",
+    "support": "Soporte",
+    "contact": "Contáctenos",
+    "privacy": "Política de privacidad",
+    "terms": "Términos de servicio",
+    "faq": "Preguntas frecuentes",
+    "copyright": "Todos los derechos reservados.",
+    "madewith": "Hecho con"
+  }
+}

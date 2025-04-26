@@ -3,7 +3,8 @@ Script to set up sample data for testing
 """
 import json
 from app.database import SessionLocal, Base, engine
-from app.models.candidate import Candidate
+from app.models.candidate import CandidateProfile
+from app.models.user import User
 from app.models.job import Job
 
 # Ensure tables exist
@@ -66,15 +67,31 @@ def setup_data():
     """Set up sample data in the database"""
     db = SessionLocal()
     try:
+        # Create default user if it doesn't exist
+        guest_user = db.query(User).filter(User.email == "guest@example.com").first()
+        if not guest_user:
+            guest_user = User(
+                email="guest@example.com",
+                name="Guest User",
+                is_guest=True,
+                is_active=True,
+                locale="en"
+            )
+            db.add(guest_user)
+            db.commit()
+            db.refresh(guest_user)
+            
         # Check if candidate already exists
-        existing_candidate = db.query(Candidate).first()
+        existing_candidate = db.query(CandidateProfile).filter(CandidateProfile.user_id == guest_user.id).first()
         if not existing_candidate:
             # Create candidate
-            candidate = Candidate(
+            candidate = CandidateProfile(
+                user_id=guest_user.id,
                 name="John Doe",
                 email="john.doe@example.com",
                 phone="+1234567890",
                 location="New York, NY",
+                is_default=True,
                 summary="Experienced software developer with expertise in Python and web development.",
                 skills=json.dumps(skills),
                 experience=json.dumps(experience),

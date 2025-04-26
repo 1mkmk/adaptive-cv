@@ -176,7 +176,7 @@ export async function saveProfile(profile: CandidateProfile) {
           }
         });
         
-        sanitizedProfile.creativity_levels = cleanLevels;
+        sanitizedProfile.creativity_levels = cleanLevels as any;
       } catch (error) {
         console.error("Error sanitizing creativity levels:", error);
         // Set default creativity levels if processing fails
@@ -326,7 +326,7 @@ export async function updateProfile(updates: Partial<CandidateProfile>) {
           }
         }
         
-        sanitizedUpdates.creativity_levels = cleanLevels;
+        sanitizedUpdates.creativity_levels = cleanLevels as any;
       } catch (error) {
         console.error("Error sanitizing creativity levels:", error);
         // Skip setting creativity levels if processing fails in update
@@ -535,10 +535,10 @@ export async function importCVProfile(cvFile: File) {
     return result;
   } catch (error) {
     // Handle request timeouts and network errors
-    if (error.name === 'AbortError') {
+    if (error instanceof Error && error.name === 'AbortError') {
       console.error('CV import request timed out after 60 seconds');
       throw new Error('CV import timed out. The file may be too large or complex to process.');
-    } else if (error.message === 'Network Error' || error.message.includes('Failed to fetch')) {
+    } else if (error instanceof Error && (error.message === 'Network Error' || error.message.includes('Failed to fetch'))) {
       console.error('Network error during CV import:', error);
       throw new Error('Network error during CV import. Please check your connection and try again.');
     }
@@ -642,10 +642,10 @@ export async function uploadProfilePhoto(photoFile: File) {
     return result;
   } catch (error) {
     // Handle request timeouts and network errors
-    if (error.name === 'AbortError') {
+    if (error instanceof Error && error.name === 'AbortError') {
       console.error('Photo upload request timed out after 30 seconds');
       throw new Error('Photo upload timed out. The file may be too large or your connection is slow.');
-    } else if (error.message === 'Network Error' || error.message.includes('Failed to fetch')) {
+    } else if (error instanceof Error && (error.message === 'Network Error' || error.message.includes('Failed to fetch'))) {
       console.error('Network error during photo upload:', error);
       throw new Error('Network error during photo upload. Please check your connection and try again.');
     }

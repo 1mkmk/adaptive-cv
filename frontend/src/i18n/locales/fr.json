@@ -1,0 +1,77 @@
+{
+  "common": {
+    "appName": "Adaptive CV",
+    "loading": "Chargement...",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "generate": "Générer",
+    "download": "Télécharger",
+    "submit": "Soumettre",
+    "success": "Succès",
+    "error": "Erreur",
+    "required": "Requis",
+    "optional": "Facultatif",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "clearFilters": "Effacer les filtres",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "back": "Retour"
+  },
+  "auth": {
+    "signIn": "Se connecter",
+    "signOut": "Se déconnecter",
+    "signInWithGoogle": "Se connecter avec Google",
+    "guestMode": "Continuer en tant qu'invité",
+    "welcome": "Bienvenue, {{name}} !",
+    "accessDenied": "Accès refusé",
+    "sessionExpired": "Votre session a expiré. Veuillez vous reconnecter.",
+    "signInDesc": "Connectez-vous pour accéder à toutes les fonctionnalités d'AdaptiveCV",
+    "or": "ou",
+    "disclaimer": "Vos données sont stockées en toute sécurité et ne sont jamais partagées avec des tiers"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "profile": "Profil",
+    "jobs": "Emplois",
+    "templates": "Modèles",
+    "settings": "Paramètres"
+  },
+  "languages": {
+    "english": "Anglais",
+    "polish": "Polonais",
+    "german": "Allemand",
+    "french": "Français",
+    "spanish": "Espagnol",
+    "changeLanguage": "Changer de langue"
+  },
+  "home": {
+    "title": "Créez votre CV parfait",
+    "subtitle": "Adapté à chaque candidature",
+    "getStarted": "Commencer",
+    "features": {
+      "title": "Fonctionnalités",
+      "aiTailored": "Contenu optimisé par IA",
+      "aiTailoredDesc": "Optimisez votre CV pour chaque candidature grâce à notre technologie d'IA",
+      "multiLanguage": "Support multilingue",
+      "multiLanguageDesc": "Créez des CV en plusieurs langues pour les candidatures internationales",
+      "templates": "Modèles professionnels",
+      "templatesDesc": "Choisissez parmi une variété de modèles LaTeX professionnels",
+      "customization": "Personnalisation complète",
+      "customizationDesc": "Éditez le code source LaTeX pour un contrôle total"
+    }
+  },
+  "footer": {
+    "tagline": "Créez des CV personnalisés pour chaque candidature avec la puissance de l'IA",
+    "navigation": "Navigation",
+    "support": "Support",
+    "contact": "Contactez-nous",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "faq": "FAQ",
+    "copyright": "Tous droits réservés.",
+    "madewith": "Fait avec"
+  }
+}

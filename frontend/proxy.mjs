@@ -10,9 +10,10 @@ const PORT = 3001;
 
 // Konfiguracja CORS
 app.use(cors({
-  origin: '*',
+  origin: ['http://localhost:5173', 'http://localhost:3000'],
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Cookie'],
   exposedHeaders: ['Content-Length', 'Content-Type']
 }));
 
@@ -58,9 +59,13 @@ const apiProxy = createProxyMiddleware({
     console.log(`[${new Date().toISOString()}] Received response from API: ${proxyRes.statusCode} for ${req.method} ${req.path}`);
     
     // Dodaj nagłówki CORS do odpowiedzi
-    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+    const origin = req.headers.origin;
+    if (origin && (origin === 'http://localhost:5173' || origin === 'http://localhost:3000')) {
+      proxyRes.headers['Access-Control-Allow-Origin'] = origin;
+    }
+    proxyRes.headers['Access-Control-Allow-Credentials'] = 'true';
     proxyRes.headers['Access-Control-Allow-Methods'] = 'GET,POST,PUT,DELETE,OPTIONS';
-    proxyRes.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, Accept';
+    proxyRes.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, Accept, Cookie';
   },
   onError: (err, req, res) => {
     console.error(`[${new Date().toISOString()}] Proxy error for ${req.method} ${req.url}:`, err);

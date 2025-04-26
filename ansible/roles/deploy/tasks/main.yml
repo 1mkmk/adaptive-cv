@@ -1,0 +1,95 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Install required packages
+  apt:
+    name:
+      - docker.io
+      - docker-compose
+      - git
+      - python3-pip
+      - nginx
+      - certbot
+      - python3-certbot-nginx
+    state: present
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Install Docker SDK for Python
+  pip:
+    name: docker
+    state: present
+
+- name: Create application directory
+  file:
+    path: "{{ app_root }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+
+- name: Clone or pull repository
+  git:
+    repo: "{{ git_repo }}"
+    dest: "{{ app_root }}"
+    version: "{{ git_branch | default('main') }}"
+    update: yes
+  become: true
+  become_user: "{{ ansible_user }}"
+
+- name: Create .env file for Docker
+  template:
+    src: env.j2
+    dest: "{{ app_root }}/.env"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0600'
+
+- name: Configure nginx
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/adaptive-cv
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Enable nginx site
+  file:
+    src: /etc/nginx/sites-available/adaptive-cv
+    dest: /etc/nginx/sites-enabled/adaptive-cv
+    state: link
+  notify: restart nginx
+
+- name: Start and enable Docker service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Start Docker Compose services
+  docker_compose:
+    project_src: "{{ app_root }}"
+    build: yes
+    pull: yes
+    state: present
+    recreate: always
+  become: true
+  become_user: "{{ ansible_user }}"
+
+- name: Set up SSL certificate with Let's Encrypt
+  shell: |
+    certbot --nginx -d {{ domain_name }} --non-interactive --agree-tos -m {{ admin_email }}
+  args:
+    creates: /etc/letsencrypt/live/{{ domain_name }}/fullchain.pem
+  when: domain_name is defined and admin_email is defined
+
+- name: Configure Certbot auto-renewal
+  cron:
+    name: Renew Let's Encrypt certificates
+    job: "certbot renew --quiet --post-hook 'systemctl reload nginx'"
+    hour: "3"
+    minute: "30"
+    weekday: "1"

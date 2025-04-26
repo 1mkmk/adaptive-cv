@@ -15,6 +15,14 @@ markdown
 beautifulsoup4
 bs4
 requests
+# Authentication libraries
+python-jose[cryptography]
+passlib[bcrypt]
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+# Database drivers
+psycopg2-binary  # PostgreSQL driver
 # PDF processing and image generation
 PyPDF2
 pdf2image
@@ -25,3 +33,4 @@ PyMuPDF  # Alternate PDF renderer
 pytesseract  # OCR for scanned PDFs
 tika  # Java-based document parser as a fallback
 poppler-utils  # Required by pdf2image
+paramiko  # For SSH connections to remote LaTeX servertenacity
