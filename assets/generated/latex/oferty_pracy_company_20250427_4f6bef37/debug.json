@@ -1,0 +1,192 @@
+{
+  "template": {
+    "path": "/home/macie/adaptive-cv/assets/generated/latex/oferty_pracy_company_20250427_4f6bef37/files",
+    "main_files": [
+      "resume_faangpath.tex"
+    ],
+    "support_files": [
+      "resume.cls"
+    ],
+    "template_analysis": "The faangpath_simple template is structured for a clean and professional look suitable for technical roles. It provides a clear layout for showcasing skills and experiences. It can be further customized to highlight specific technical proficiencies and achievements.",
+    "customization_options": "Customization options include adjusting the color scheme, font styles, and section headings to align with the candidate's preferences. Adding a skills matrix or a project showcase section can enhance the presentation of technical skills.",
+    "section_mapping": {
+      "Name": "name",
+      "Contact Information": "address, phone, email",
+      "Profile Summary": "profile_summary",
+      "Education": "education",
+      "Skills": "skills",
+      "Languages": "languages",
+      "Certifications": "certifications",
+      "LinkedIn": "linkedin"
+    }
+  },
+  "detected_fields": {
+    "commands": [
+      {
+        "command": "name",
+        "value": "Firstname Lastname"
+      },
+      {
+        "command": "address",
+        "value": "+1(123) 456-7890 \\\\ San Francisco, CA"
+      },
+      {
+        "command": "address",
+        "value": "\\href{mailto:contact@faangpath.com"
+      }
+    ],
+    "environments": [],
+    "custom_commands": [
+      {
+        "name": "tab",
+        "definition": "\\hspace{.2667\\textwidth"
+      },
+      {
+        "name": "itab",
+        "definition": "\\hspace{0em"
+      }
+    ],
+    "placeholders": [
+      "Your name"
+    ],
+    "ai_field_analysis": "Utilize the 'name' command to replace 'Your name' placeholder with the candidate's actual name. Ensure proper formatting of the 'address' command for accurate contact information display."
+  },
+  "job_match": {
+    "template_name": "faangpath_simple",
+    "job_title": "oferty pracy",
+    "company_name": "Company",
+    "candidate_data": {
+      "name": "Maciej Kasik",
+      "email": "maciejkasik@gmail.com",
+      "phone": "+48 888 403 809",
+      "address": "City, Country",
+      "profile_summary": "Motivated Computer Science graduate with a strong foundation in programming and problem-solving, seeking to leverage hands-on experience with Snowflake, SQL, AWS, ETL, and data pipeline design as a Cloud Data Engineer at IPF Digital.",
+      "photo": null,
+      "education": [
+        {
+          "degree": "Master of Computer Science",
+          "institution": "Politechnika Wrocławska",
+          "start_date": "2025-09",
+          "current": true
+        },
+        {
+          "degree": "Bachelor of Systems Engineering",
+          "institution": "Politechnika Wrocławska",
+          "start_date": "2021-09",
+          "end_date": "2025-06"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Programming",
+          "level": "Proficient",
+          "category": "Technical"
+        },
+        {
+          "name": "Problem-Solving",
+          "level": "Proficient",
+          "category": "Technical"
+        },
+        {
+          "name": "Snowflake",
+          "level": "Intermediate",
+          "category": "Technical"
+        },
+        {
+          "name": "SQL",
+          "level": "Intermediate",
+          "category": "Technical"
+        },
+        {
+          "name": "AWS",
+          "level": "Intermediate",
+          "category": "Technical"
+        }
+      ],
+      "languages": [],
+      "certifications": [],
+      "linkedin": "linkedin.com/in/maciejkasik"
+    },
+    "job_analysis": {
+      "extracted_requirements": {
+        "Required technical skills": [
+          "Cloud",
+          "SQL Server",
+          "Snowflake",
+          "AWS",
+          "Data pipelines",
+          "Data engineering",
+          "SQL",
+          "AI",
+          "Security",
+          "Performance tuning"
+        ],
+        "Preferred/desired technical skills": [
+          "ETL"
+        ],
+        "Experience level": "Senior",
+        "Experience years required": "+5",
+        "Education requirements": {
+          "degree": "Bachelor's",
+          "field": "Computer Science, Information Systems, or related field"
+        },
+        "Key responsibilities": [
+          "Designing, developing, and maintaining secure and scalable data pipelines",
+          "Migrating SQL Server to Snowflake on AWS Cloud",
+          "Implementing medallion architecture (bronze, silver, and gold layers)",
+          "Optimizing system performance",
+          "Ensuring data security and compliance",
+          "Collaborating with cross-functional teams"
+        ],
+        "Industry-specific keywords": [
+          "Financial inclusion",
+          "Data transformation"
+        ],
+        "Soft skills mentioned": [
+          "Strong communicator",
+          "Collaborator",
+          "Problem-solver",
+          "Innovator"
+        ],
+        "Company values/culture mentions": [
+          "Groundbreaking data transformation",
+          "Real impact on technological direction",
+          "Building a better world through financial inclusion"
+        ],
+        "Tools and technologies mentioned": [
+          "SQL Server",
+          "Snowflake",
+          "AWS"
+        ],
+        "Certifications or qualifications": [
+          "Certifications in Snowflake, AWS, or other cloud platforms"
+        ],
+        "Exact phrases for CV": [
+          "Hands-on experience with Snowflake, SQL, AWS, ETL, and data pipeline design",
+          "Proven success in migrating SQL Server to the cloud, ensuring data integrity and performance",
+          "Skilled in bronze, silver, and gold layers, ensuring data reliability, scalability, and accessibility",
+          "Experience in query optimization, data modeling, and system performance tuning",
+          "Knowledge of encryption, access control, and regulatory compliance for cloud-based systems",
+          "Ability to translate technical concepts into business insights, working effectively with architects, analysts, and leadership",
+          "Anticipates challenges, removes obstacles, and creates scalable long-term solutions"
+        ]
+      },
+      "profile_enhancement": {
+        "strengths": {
+          "Technical Skills": "Candidate possesses intermediate proficiency in Snowflake, SQL, and AWS, matching the required technical skills.",
+          "Experience Level": "Candidate's Master's degree and technical skills align with the senior-level experience required.",
+          "Responsibilities Alignment": "Candidate's profile summary reflects hands-on experience relevant to key responsibilities like data pipeline design and system performance tuning."
+        },
+        "weaknesses": {
+          "Experience Years": "Candidate may need to demonstrate additional years of experience to meet the required +5 years.",
+          "Preferred Skills": "Candidate lacks explicit mention of ETL skills, a preferred technical skill for the role."
+        },
+        "improvement_suggestions": {
+          "Experience Demonstration": "Highlight any relevant projects or internships to showcase practical experience beyond academic qualifications.",
+          "ETL Skills": "Consider gaining exposure to ETL tools or projects to enhance this aspect of your profile."
+        }
+      },
+      "template_specific_recommendations": "Utilize the 'Skills' section in the template to emphasize hands-on experience with Snowflake, SQL, AWS, and data pipeline design. Consider adding a 'Projects' section to showcase practical applications of technical skills and highlight problem-solving abilities."
+    }
+  }
+}

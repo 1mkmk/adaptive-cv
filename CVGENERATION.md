@@ -1,106 +1,78 @@
-# CV Generation with LaTeX Templates
+# Process generowania CV w Adaptive CV
 
-This document explains how CV generation works in the AdaptiveCV application. The process combines data from user profiles with job descriptions to create tailored CVs using LaTeX templates.
+## Architektura i przepływ danych
 
-## Architecture Overview
+1. **Inicjacja procesu**:
+   - Użytkownik wybiera szablon CV (np. "faangpath_simple")
+   - Użytkownik dostarcza opis stanowiska pracy/ofertę
+   - Backend przekazuje te dane do `LaTeXCVGenerator` w `generator.py`
 
-The CV generation system has the following components:
+2. **Przygotowanie profilu użytkownika**:
+   - System pobiera profil użytkownika z bazy danych przez `ProfileProcessor`
+   - Dane są wstępnie formatowane do dalszej analizy
 
-1. **Frontend**: Provides the user interface for selecting jobs and generating CVs
-2. **Backend**: Handles LaTeX template processing and PDF generation 
-3. **Assets**: Contains LaTeX templates stored in `/assets/templates/`
+3. **Analiza i dopasowanie profilu do oferty pracy**:
+   - `ProfileProcessor` używa OpenAI do:
+     - Wyodrębnienia wymagań z oferty pracy (umiejętności, doświadczenie)
+     - Dopasowania profilu do oferty pracy przez metodę `process_with_ai()`
 
-## CV Generation Flow
+4. **Przygotowanie szablonu LaTeX**:
+   - System tworzy unikalny folder wyjściowy w `assets/generated/latex`
+   - Kopiuje pliki wybranego szablonu do tego folderu
 
-### 1. User Initiates CV Generation
+5. **Analiza struktury szablonu**:
+   - `TemplateAnalyzer.analyze_template_directory()` analizuje strukturę szablonu:
+     - Identyfikuje główne pliki LaTeX i ich strukturę
+     - Wykrywa dostępne pola i placeholdery
+     - Identyfikuje środowiska LaTeX używane w szablonie
 
-When a user clicks "Generate PDF" in the Jobs page:
+6. **Generowanie pliku debug.json**:
+   - System tworzy szczegółowy plik debug.json zawierający:
+     - Analizę struktury szablonu i dostępnych pól
+     - Analizę dopasowania profilu do oferty pracy
+     - Rekomendacje dotyczące wykorzystania szablonu
+     - Sugestie poprawy profilu względem wymagań oferty
 
-- Frontend calls `generatePdfCV(jobId)` from `cvService.ts`
-- This makes an API request to `/generate/pdf/{job_id}`
+7. **Wypełnianie szablonu danymi**:
+   - System używa jednej z dwóch metod w zależności od dostępności OpenAI:
+     - **Metoda AI (preferowana)**: `_ai_fill_template()` używa OpenAI do inteligentnego wypełnienia szablonu
+     - **Metoda tradycyjna (fallback)**: `_fill_file()` używa prostego zastępowania placeholderów
 
-### 2. Backend LaTeX Processing
+8. **Kompilacja LaTeX do PDF**:
+   - System używa lokalnego kompilatora LaTeX do przetworzenia plików .tex
+   - Kompilator tworzy plik PDF z CV
 
-The backend processing follows these steps:
+9. **Zwracanie wyników**:
+   - System tworzy link do pobrania PDF
+   - Udostępnia także pliki źródłowe LaTeX i debug.json do wglądu
 
-1. **Prepare Environment**:
-   - Creates a temporary directory
-   - Extracts the LaTeX template from `assets/templates/FAANGPath Simple Template.zip`
+## Kluczowe komponenty
 
-2. **Generate LaTeX File**:
-   - Retrieves candidate profile and job data from the database
-   - Extracts skills relevant to the job description
-   - Formats experience and education data
-   - Modifies the LaTeX template by replacing placeholders with actual data
-   - Saves the generated LaTeX file
+- **LaTeXCVGenerator**: Główna klasa zarządzająca procesem generowania CV
+- **TemplateAnalyzer**: Analizuje szablony LaTeX i wypełnia je danymi
+- **ProfileProcessor**: Przetwarza profil użytkownika i dopasowuje go do oferty pracy
+- **LaTeXCompiler**: Kompiluje pliki LaTeX do PDF
 
-3. **Compile to PDF**:
-   - Compiles the LaTeX file to PDF using pdflatex/MiKTeX
-   - Runs multiple passes to handle references correctly
-   - Generates a preview image of the first page (using ImageMagick, pdf2image, or OpenCV)
-
-4. **Return Results**:
-   - Encodes the PDF and preview as base64 strings
-   - Returns a dictionary with both encoded files
-   - Stores the PDF in the job record in the database
-
-### 3. Frontend Display and Download
-
-After receiving the response:
-
-- For successful generation:
-  - Frontend receives base64 encoded PDF
-  - Displays PDF in browser and/or initiates download
-
-- For timeout/failure:
-  - Shows error message
-  - Provides direct download link to `/generate/download/{job_id}`
-
-### 4. Direct Download Fallback
-
-If PDF generation times out or fails:
-
-- User can click "Download PDF Directly"
-- Frontend opens `/generate/download/{job_id}` URL
-- Backend serves the PDF file directly via StreamingResponse
-
-## Key Files
+## Pliki i moduły
 
 - **Frontend**:
-  - `/frontend/src/pages/Jobs.tsx`: Main UI for job selection and CV generation
-  - `/frontend/src/services/cvService.ts`: Service for CV generation API calls
-  - `/frontend/src/services/api.ts`: API fetching with timeout handling
+  - `/frontend/src/pages/Jobs.tsx`: Interfejs do wyboru ofert i generowania CV
+  - `/frontend/src/services/cvService.ts`: Serwis do wywołań API generowania CV
 
 - **Backend**:
-  - `/backend/app/routers/generate.py`: API endpoints for CV generation
-  - `/backend/app/services/cv_service.py`: CV generation service
-  - `/backend/app/services/latex_cv_generator.py`: LaTeX template processing
+  - `/backend/app/routers/generate.py`: Endpointy API dla generowania CV
+  - `/backend/app/services/latex_cv/generator.py`: Główny generator LaTeX CV
+  - `/backend/app/services/latex_cv/template_analyzer.py`: Analizator szablonów
+  - `/backend/app/services/latex_cv/fill_template.py`: Narzędzia do wypełniania szablonów
+  - `/backend/app/services/latex_cv/profile_processor.py`: Przetwarzanie profilu użytkownika
+  - `/backend/app/services/latex_cv/compilation.py`: Kompilacja LaTeX do PDF
 
-- **Assets**:
-  - `/assets/templates/FAANGPath Simple Template.zip`: LaTeX template
-  - `/assets/templates/resume.cls`: LaTeX class file
-  - `/assets/templates/resume_faangpath.tex`: LaTeX template file
+## Rozwiązywanie problemów
 
-## Testing
+1. **Timeout generowania PDF**:
+   - Domyślny timeout wynosi 30 sekund
+   - W przypadku przekroczenia czasu, użyj opcji bezpośredniego pobierania
 
-Tests for the CV generation flow:
-
-- `/frontend/src/__tests__/latex-cv-flow.test.ts`: Tests for LaTeX generation flow
-- `/frontend/src/__tests__/backend-integration.test.ts`: Backend integration tests
-- `/frontend/src/__tests__/services/cvService.test.ts`: CV service tests
-
-## Troubleshooting
-
-Common issues:
-
-1. **PDF Generation Timeout**:
-   - The default timeout for PDF generation is 30 seconds
-   - If generation exceeds this time, use the direct download option
-
-2. **LaTeX Compilation Errors**:
-   - Check error logs in `/backend/latex_debugging/` (created on failure)
-   - Make sure MiKTeX or TeX Live is installed on the backend server
-
-3. **Preview Generation Issues**:
-   - The system tries multiple methods (ImageMagick, pdf2image, OpenCV)
-   - Lack of preview doesn't affect PDF generation
+2. **Błędy kompilacji LaTeX**:
+   - Sprawdź logi błędów w katalogu wyjściowym generowania
+   - Upewnij się, że MiKTeX lub TeX Live jest zainstalowany na serwerze

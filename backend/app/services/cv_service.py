@@ -15,7 +15,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 
 # Import our LaTeX CV generator
 # Import our LaTeX CV generator
-from app.services.latex_cv_generator import LaTeXCVGenerator
+from app.services.latex_cv import LaTeXCVGenerator
 
 # Configure OpenAI
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -603,7 +603,8 @@ def generate_cv(db, prompt, job_id=None, format="markdown"):
     Returns:
         Generated CV content
     """
-    from app.services.latex_cv_generator import LaTeXCVGenerator, TEMPLATE_DIR, LATEX_OUTPUT_DIR, PDF_OUTPUT_DIR
+    from app.services.latex_cv import LaTeXCVGenerator
+    from app.services.latex_cv.config import TEMPLATE_DIR, LATEX_OUTPUT_DIR, PDF_OUTPUT_DIR
     
     generator = CVGenerator(db)
     # If we have a job ID, retrieve job description
@@ -654,7 +655,8 @@ def generate_cv_with_template(db, job_id, template_id=None, model=None, custom_c
         job = get_job(db, job_id)
     
     # Import required classes and directories
-    from app.services.latex_cv_generator import LaTeXCVGenerator, TEMPLATE_DIR, LATEX_OUTPUT_DIR, PDF_OUTPUT_DIR
+    from app.services.latex_cv import LaTeXCVGenerator
+    from app.services.latex_cv.config import TEMPLATE_DIR, LATEX_OUTPUT_DIR, PDF_OUTPUT_DIR
     import uuid
     
     # Create LaTeX generator with required parameters

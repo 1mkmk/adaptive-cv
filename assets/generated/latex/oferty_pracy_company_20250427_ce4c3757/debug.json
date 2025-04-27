@@ -1,0 +1,163 @@
+{
+  "template": {
+    "path": "/home/macie/adaptive-cv/assets/generated/latex/oferty_pracy_company_20250427_ce4c3757/files",
+    "main_files": [
+      "resume_faangpath.tex"
+    ],
+    "support_files": [
+      "resume.cls"
+    ],
+    "template_analysis": "The faangpath_simple template is well-suited for candidates aiming for a clean and professional look. It offers a simple yet elegant design that can highlight key qualifications effectively.",
+    "customization_options": "Key customization options for this template include adjusting the color scheme to match the company's branding, adding a skills section to showcase technical expertise, and incorporating a summary section at the beginning for a strong first impression.",
+    "section_mapping": {
+      "Name": "name",
+      "Contact Information": "address, phone, email",
+      "Profile Summary": "profile_summary",
+      "Education": "education",
+      "Skills": "skills",
+      "Languages": "languages",
+      "Certifications": "certifications",
+      "LinkedIn": "linkedin"
+    }
+  },
+  "detected_fields": {
+    "commands": [
+      {
+        "command": "name",
+        "value": "Firstname Lastname"
+      },
+      {
+        "command": "address",
+        "value": "+1(123) 456-7890 \\\\ San Francisco, CA"
+      },
+      {
+        "command": "address",
+        "value": "\\href{mailto:contact@faangpath.com"
+      }
+    ],
+    "environments": [],
+    "custom_commands": [
+      {
+        "name": "tab",
+        "definition": "\\hspace{.2667\\textwidth"
+      },
+      {
+        "name": "itab",
+        "definition": "\\hspace{0em"
+      }
+    ],
+    "placeholders": [
+      "Your name"
+    ],
+    "ai_field_analysis": "To effectively use the detected fields, replace the placeholders with actual candidate information, ensure consistency in formatting for addresses, and consider adding additional contact details like phone numbers and email addresses."
+  },
+  "job_match": {
+    "template_name": "faangpath_simple",
+    "job_title": "oferty pracy",
+    "company_name": "Company",
+    "candidate_data": {
+      "name": "Maciej Kasik",
+      "email": "maciejkasik@gmail.com",
+      "phone": "+48 888 403 809",
+      "address": "City, Country",
+      "profile_summary": "Motivated Computer Science graduate with a strong foundation in programming and problem-solving, seeking an entry-level Software Engineer position to apply and expand my skills in a professional environment.",
+      "education": [
+        {
+          "degree": "Master of Computer Science",
+          "institution": "Politechnika Wrocławska",
+          "start_date": "2025-09",
+          "current": true
+        },
+        {
+          "degree": "Bachelor of Systems Engineering",
+          "institution": "Politechnika Wrocławska",
+          "start_date": "2021-09",
+          "end_date": "2025-06"
+        }
+      ],
+      "skills": [],
+      "languages": [],
+      "certifications": [],
+      "linkedin": "linkedin.com/in/maciejkasik"
+    },
+    "job_analysis": {
+      "extracted_requirements": {
+        "Required technical skills": [
+          "Cloud",
+          "SQL Server",
+          "Snowflake",
+          "AWS",
+          "Data pipelines",
+          "Data engineering",
+          "SQL",
+          "AI",
+          "Security",
+          "Performance tuning"
+        ],
+        "Preferred/desired technical skills": [
+          "ETL"
+        ],
+        "Experience level": "Senior",
+        "Experience years required": "+5",
+        "Education requirements": {
+          "degree": "Bachelor's degree",
+          "field": "Computer Science, Information Systems, or related field"
+        },
+        "Key responsibilities": [
+          "Designing, developing, and maintaining secure and scalable data pipelines using medallion architecture",
+          "Migrating SQL Server to Snowflake on AWS Cloud",
+          "Optimizing system performance",
+          "Ensuring data integrity and performance",
+          "Implementing medallion architecture (bronze, silver, and gold layers)"
+        ],
+        "Industry-specific keywords": [
+          "Financial inclusion"
+        ],
+        "Soft skills mentioned": [
+          "Strong Communicator & Collaborator",
+          "Problem-Solver & Innovator"
+        ],
+        "Company values/culture mentions": [
+          "Groundbreaking data transformation",
+          "Real impact on the technological direction",
+          "Building a better world through financial inclusion"
+        ],
+        "Tools and technologies mentioned": [
+          "SQL Server",
+          "Snowflake",
+          "AWS"
+        ],
+        "Certifications or qualifications": [
+          "Certifications in Snowflake, AWS, or other cloud platforms"
+        ],
+        "Exact phrases for CV": [
+          "Hands-on experience with Snowflake, SQL, AWS, ETL, and data pipeline design",
+          "Proven success in migrating SQL Server to the cloud, ensuring data integrity and performance",
+          "Skilled in bronze, silver, and gold layers, ensuring data reliability, scalability, and accessibility",
+          "Experience in query optimization, data modeling, and system performance tuning",
+          "Knowledge of encryption, access control, and regulatory compliance for cloud-based systems",
+          "Ability to translate technical concepts into business insights, working effectively with architects, analysts, and leadership",
+          "Anticipates challenges, removes obstacles, and creates scalable long-term solutions"
+        ]
+      },
+      "profile_enhancement": {
+        "strengths": [
+          "Strong foundation in Computer Science",
+          "Motivated graduate with problem-solving skills",
+          "Educational background in relevant fields"
+        ],
+        "weaknesses": [
+          "Lack of specific technical skills like Snowflake, ETL, and AI",
+          "Limited industry-specific experience",
+          "No mentioned certifications or qualifications"
+        ],
+        "improvement_suggestions": [
+          "Consider gaining certifications in Snowflake, AWS, or relevant cloud platforms",
+          "Highlight any projects or coursework related to data engineering or cloud technologies",
+          "Emphasize problem-solving and collaboration skills in the profile summary"
+        ]
+      },
+      "template_specific_recommendations": "To align the candidate's profile with the job requirements using the faangpath_simple template, focus on customizing the skills section to include relevant technical skills like SQL, data engineering, and performance tuning. Additionally, consider adding a section highlighting any hands-on experience with cloud technologies and data optimization projects."
+    }
+  }
+}

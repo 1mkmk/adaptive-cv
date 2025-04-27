@@ -9,6 +9,7 @@ export interface Job {
   source_url?: string;
   created_at: string;
   cv?: string;
+  ai_summary?: string;
 }
 
 export interface JobCreateParams {
