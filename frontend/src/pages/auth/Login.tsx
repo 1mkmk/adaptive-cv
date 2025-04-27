@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/context/AuthContext';
 import LanguageSelector from '@/components/ui/LanguageSelector';
+import { API_BASE_URL, fetchApi } from '@/services/api';
 
 const Login: React.FC = () => {
   const { t } = useTranslation();
@@ -90,9 +91,28 @@ const Login: React.FC = () => {
           <Button
             variant="default"
             className="w-full bg-green-600 hover:bg-green-700"
-            onClick={() => {
-              // Bezpośrednio przekieruj na endpoint gościa
-              window.location.href = `${import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}/auth/guest`;
+            onClick={async () => {
+              try {
+                // First check if auth endpoint is available
+                const guestLoginUrl = `${API_BASE_URL}/auth/guest`;
+                console.log(`Attempting to access ${guestLoginUrl}`);
+                
+                // Try to fetch the environment endpoint first to check if auth router is available
+                try {
+                  await fetchApi('/auth/environment');
+                  
+                  // Auth router is available, proceed with redirect
+                  console.log(`Auth router available, redirecting to ${guestLoginUrl}`);
+                  window.location.href = guestLoginUrl;
+                } catch (error) {
+                  // Auth router might not be available, show error
+                  console.error(`Auth router not available:`, error);
+                  alert("Guest login is not available. Please check if the backend auth service is running properly.");
+                }
+              } catch (error) {
+                console.error("Error checking auth endpoint:", error);
+                alert("Could not connect to authentication service. Please ensure the backend is running.");
+              }
             }}
           >
             {t('auth.guestMode')}

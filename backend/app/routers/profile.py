@@ -11,12 +11,13 @@ import openai
 import PyPDF2
 import io
 
-from app.database import get_db
-from app.models.candidate import CandidateProfile
-from app.auth.oauth import get_current_user
-from app.models.user import User
-from app.schemas.candidate import CandidateProfile as CandidateProfileSchema
-from app.schemas.candidate import CandidateResponse, CandidateUpdate, ProfileGenerationPrompt
+
+from ..database import get_db
+from ..models.candidate import CandidateProfile
+from ..auth.oauth import get_current_user
+from ..models.user import User
+from ..schemas.candidate import CandidateProfile as CandidateProfileSchema
+from ..schemas.candidate import CandidateResponse, CandidateUpdate, ProfileGenerationPrompt
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -39,7 +40,6 @@ except Exception as e:
     logger.warning("Using rule-based extraction due to error reading OpenAI API key.")
 
 router = APIRouter(
-    prefix="/profile",
     tags=["profile"]
 )
 
@@ -343,7 +343,7 @@ async def extract_profile_from_cv(cv_text: str) -> dict:
         
         # Fill in defaults for anything missing - creating a complete profile structure
         # Extract name from filename if possible
-        filename = cv_file.filename if 'cv_file' in locals() and cv_file.filename else "Unknown"
+        filename = "Unknown"
         potential_name = filename.rsplit('.', 1)[0].replace('_', ' ').replace('%20', ' ')
     
         if "name" not in extracted_data:
@@ -453,6 +453,11 @@ async def extract_profile_from_cv(cv_text: str) -> dict:
 
 def db_profile_to_schema(db_profile: CandidateProfile) -> CandidateResponse:
     """Convert database profile model to Pydantic schema"""
+    # Ensure updated_at is always a valid datetime
+    updated_at_value = getattr(db_profile, 'updated_at', None)
+    if updated_at_value is None:
+        updated_at_value = datetime.now()
+        
     return CandidateResponse(
         id=db_profile.id,
         name=db_profile.name,
@@ -478,7 +483,7 @@ def db_profile_to_schema(db_profile: CandidateProfile) -> CandidateResponse:
         presentations=json.loads(db_profile.presentations) if hasattr(db_profile, 'presentations') and db_profile.presentations else [],
         skill_categories=json.loads(db_profile.skill_categories) if hasattr(db_profile, 'skill_categories') and db_profile.skill_categories else [],
         creativity_levels=json.loads(db_profile.creativity_levels) if hasattr(db_profile, 'creativity_levels') and db_profile.creativity_levels else None,
-        updated_at=getattr(db_profile, 'updated_at', datetime.now())
+        updated_at=updated_at_value
     )
 
 @router.get("", response_model=CandidateResponse)
@@ -662,7 +667,7 @@ async def generate_profile_from_prompt(generation_data: ProfileGenerationPrompt,
                         logger.warning(f"Missing required field in generation: {field}")
                 
                 # Convert the JSON to CandidateProfile
-                existing_profile = db.query(Candidate).first()
+                existing_profile = db.query(CandidateProfile).first()
                 
                 # Transform dict fields to their appropriate types
                 if "experience" in profile_data:
@@ -706,7 +711,7 @@ async def generate_profile_from_prompt(generation_data: ProfileGenerationPrompt,
                     db_profile = existing_profile
                 else:
                     # Create new profile
-                    db_profile = Candidate(**profile_data_clean)
+                    db_profile = CandidateProfile(**profile_data_clean)
                     db.add(db_profile)
                 
                 db.commit()

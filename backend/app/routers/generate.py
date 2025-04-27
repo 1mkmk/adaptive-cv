@@ -9,12 +9,12 @@ import os
 from fastapi.responses import FileResponse, StreamingResponse
 import io
 
-from app.database import get_db
-from app.models.job import Job
-from app.services.cv_service import generate_cv as cv_generate_service
-from app.services.cv_service import generate_cv_with_template
-from app.services.cv_service import get_job
-from app.services.latex_cv_generator import PDF_OUTPUT_DIR, LATEX_OUTPUT_DIR, TEMPLATE_DIR, get_available_templates
+from ..database import get_db
+from ..models.job import Job
+from ..services.cv_service import generate_cv as cv_generate_service
+from ..services.cv_service import generate_cv_with_template
+from ..services.cv_service import get_job
+from ..services.latex_cv_generator import PDF_OUTPUT_DIR, LATEX_OUTPUT_DIR, TEMPLATE_DIR, get_available_templates
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -27,7 +27,6 @@ class PromptRequest(BaseModel):
     photo_path: str = None  # Add this new field to track user's profile photo
 
 router = APIRouter(
-    prefix="/generate",
     tags=["generate"]
 )
 

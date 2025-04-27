@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Request, Response
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
-from app.database import get_db
-from app.models.user import User
-from app.auth.oauth import (
+from ..database import get_db
+from ..models.user import User
+from ..auth.oauth import (
     create_access_token, 
     verify_google_token,
     get_current_user,
@@ -15,11 +15,11 @@ import httpx
 from urllib.parse import quote
 import logging
 
+
 # Setup logging
 logger = logging.getLogger(__name__)
 
 router = APIRouter(
-    prefix="/auth",
     tags=["authentication"],
 )
 

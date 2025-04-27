@@ -17,7 +17,7 @@ function getApiUrl() {
 // Base API URL from environment variables with fallback
 export const API_BASE_URL = getApiUrl();
 
-// Direct URL to backend if proxy doesn't work
+// Direct URL to backend
 export const DIRECT_API_URL = 'http://localhost:8000';
 
 // Helper function for API calls
@@ -28,26 +28,30 @@ export async function fetchApi(endpoint: string, options = {}) {
   // Determine timeout based on request type
   const timeoutDuration = isPdfRequest ? 60000 : 60000; // 60 seconds for all requests - plenty of time to avoid timeouts
   
-  // Najpierw spróbuj użyć proxy URL
+  // Use direct endpoint (without /api prefix)
   const url = `${API_BASE_URL}${endpoint}`;
   
   console.log(`Fetching from: ${url}${isPdfRequest ? ' (PDF request with extended timeout)' : ''}`);
   
+  // Determine if we're dealing with FormData
+  const isFormData = (options as any).body instanceof FormData;
+  
   const fetchOptions = {
     ...options,
     headers: {
-      'Content-Type': 'application/json',
+      // Don't set Content-Type for FormData as the browser will set it with boundary
+      ...(!isFormData && { 'Content-Type': 'application/json' }),
       'Accept': 'application/json',
       ...(options as any).headers,
     },
     mode: 'cors' as RequestMode,
-    credentials: 'include', // Dodaj obsługę ciasteczek
+    credentials: 'include', // Include cookies
   };
   
   try {
     console.log(`Setting timeout to ${timeoutDuration}ms for request to ${url}`);
     
-    // Dodaj timeout, aby nie czekać w nieskończoność
+    // Add timeout to avoid waiting indefinitely
     const controller = new AbortController();
     const timeoutId = setTimeout(() => {
       console.log(`Request to ${url} timed out after ${timeoutDuration}ms`);
@@ -60,7 +64,7 @@ export async function fetchApi(endpoint: string, options = {}) {
       credentials: fetchOptions.credentials as RequestCredentials
     });
     
-    // Wyczyść timeout
+    // Clear timeout
     clearTimeout(timeoutId);
     console.log(`Request to ${url} succeeded, cleared timeout`);
     
@@ -72,43 +76,6 @@ export async function fetchApi(endpoint: string, options = {}) {
     return response.json();
   } catch (error: any) {
     console.error(`Error fetching ${url}:`, error);
-    
-    // Jeśli to timeout lub CORS, spróbuj bezpośrednio
-    if (error.name === 'AbortError' || error.message.includes('CORS') || error.message.includes('timeout') || error.message.includes('NetworkError')) {
-      console.log(`Retrying with direct API connection to ${DIRECT_API_URL}${endpoint}`);
-      
-      try {
-        // For direct connection on timeout, also use extended timeout for PDF requests
-        const directController = new AbortController();
-        console.log(`Setting direct timeout to ${timeoutDuration}ms for request to ${DIRECT_API_URL}${endpoint}`);
-        
-        const directTimeoutId = setTimeout(() => {
-          console.log(`Direct request to ${DIRECT_API_URL}${endpoint} timed out after ${timeoutDuration}ms`);
-          directController.abort();
-        }, timeoutDuration);
-        
-        const directResponse = await fetch(`${DIRECT_API_URL}${endpoint}`, {
-          ...fetchOptions,
-          signal: directController.signal,
-          credentials: fetchOptions.credentials as RequestCredentials
-        });
-        
-        // Clear timeout
-        clearTimeout(directTimeoutId);
-        console.log(`Direct request to ${DIRECT_API_URL}${endpoint} succeeded, cleared timeout`);
-        
-        if (!directResponse.ok) {
-          console.error(`Direct API call failed: ${directResponse.status}`, directResponse);
-          throw new Error(`Direct API call failed: ${directResponse.status}`);
-        }
-        
-        return directResponse.json();
-      } catch (directError) {
-        console.error(`Error in direct API call to ${DIRECT_API_URL}${endpoint}:`, directError);
-        throw directError;
-      }
-    }
-    
     throw error;
   }
 }

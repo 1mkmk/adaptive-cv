@@ -3,23 +3,19 @@ from fastapi.middleware.cors import CORSMiddleware
 from .database import create_database, get_db, SessionLocal
 from .models.candidate import CandidateProfile
 from .models.user import User  # Import User model here to ensure it's loaded before database creation
-import importlib.util
 import sys
 import os
 import logging
 from dotenv import load_dotenv
 
+# Import all routers directly
+from .routers.jobs import router as jobs_router
+from .routers.generate import router as generate_router
+from .routers.profile import router as profile_router
+from .routers.auth import router as auth_router
+
 # ASCII Logo
-ascii_logo = """
-     _             _   _            _______      __
-    /\\      | |           | | (_)          / ____\\ \\    / /
-   /  \\   __| | __ _ _ __ | |_ ___   _____| |     \\ \\  / / 
-  / /\\ \\ / _` |/ _` | '_ \\| __| \\ \\ / / _ \\ |      \\ \\/ /  
- / ____ \\ (_| | (_| | |_) | |_| |\\ V /  __/ |____   \\  /   
-/_/    \\_\\__,_|\\__,_| .__/ \\__|_| \\_/ \\___|\\_____|   \\/    
-                    | |                                    
-                    |_|                                    
-"""
+ascii_logo = "ADAPTIVECV\n"
 print(ascii_logo)
 print("AdaptiveCV Backend Server Starting...\n")
 
@@ -33,7 +29,13 @@ print(f"OpenAI API Key from .env: {os.getenv('OPENAI_API_KEY', 'Not found')[:5]}
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI()
+app = FastAPI(
+    title="AdaptiveCV API",
+    description="API for AdaptiveCV - personalized CV generation",
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc"
+)
 
 # Bardziej permisywna konfiguracja CORS
 origins = [
@@ -125,42 +127,13 @@ def ensure_default_profile():
 def startup_db_client():
     ensure_default_profile()
 
-# Import routers safely
-def import_router(module_name):
-    try:
-        return importlib.import_module(f'.routers.{module_name}', 'app').router
-    except ImportError as e:
-        logger.warning(f"Could not import router {module_name}: {str(e)}")
-        return None
-
-# Import core routers
-jobs_router = import_router('jobs')
-generate_router = import_router('generate')
-profile_router = import_router('profile')
-
-# Check if the Google Auth package is available for auth router
-google_auth_available = importlib.util.find_spec('google') is not None
-auth_router = None
-
-# Only import auth router if Google Auth is available or if we're in local environment
-if google_auth_available or os.getenv("ENV", "local") == "local":
-    try:
-        auth_router = import_router('auth')
-        logger.info("Authentication router loaded successfully")
-    except Exception as e:
-        logger.warning(f"Could not import auth router: {str(e)}")
-else:
-    logger.warning("Google Auth package not available - Auth features will be limited")
-
-# Include core routers
-if jobs_router:
-    app.include_router(jobs_router)
-if generate_router:
-    app.include_router(generate_router)
-if profile_router:
-    app.include_router(profile_router)
-if auth_router:
-    app.include_router(auth_router)
+# Rejestracja wszystkich routerów bezpośrednio
+logger.info("Registering API routes...")
+app.include_router(jobs_router, prefix="/jobs", tags=["jobs"])
+app.include_router(generate_router, prefix="/generate", tags=["generate"])
+app.include_router(profile_router, prefix="/profile", tags=["profile"])
+app.include_router(auth_router, prefix="/auth", tags=["authentication"])
+logger.info("All API routes registered successfully")
 
 @app.get("/")
 def read_root():

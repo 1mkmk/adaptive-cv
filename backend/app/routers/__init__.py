@@ -1,10 +1,15 @@
 # This file makes the directory a Python package
-from fastapi import APIRouter
+# Instead of creating a central router that includes all other routers,
+# we'll simply make the routers available for import
 
-router = APIRouter()
+# This ensures the routers can be imported from the main.py file
+# and avoids duplicate registration
+"""
+Routers for the API
+These routers should be imported and registered in the main.py file
+"""
 
 from .jobs import router as jobs_router
 from .generate import router as generate_router
-
-router.include_router(jobs_router, prefix="/jobs", tags=["jobs"])
-router.include_router(generate_router, prefix="/generate", tags=["generate"])
+from .profile import router as profile_router
+from .auth import router as auth_router

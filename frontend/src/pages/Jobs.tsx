@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { API_BASE_URL, fetchApi } from '@/services/api';
 import { generatePdfCV, downloadCV, Template, getTemplates } from '@/services/templateService';
 import { useLocation } from 'react-router';
+import { createJob, getJobs } from '@/services/jobService';
 
 // Interface for job type
 interface Job {
@@ -87,7 +88,7 @@ const Jobs: React.FC = () => {
   const fetchJobs = async () => {
     setLoading(true);
     try {
-      const data = await fetchApi('/jobs');
+      const data = await getJobs();
       setJobs(data);
       
       // Extract unique companies for filtering
@@ -124,19 +125,15 @@ const Jobs: React.FC = () => {
       const formData = new FormData();
       formData.append('job_url', jobUrl);
       
-      const response = await fetch(`${API_BASE_URL}/jobs/create`, {
-        method: 'POST',
-        body: formData,
-      });
+      const response = await createJob({ job_url: jobUrl });
       
-      if (!response.ok) {
+      if (response) {
+        setSuccess('Job imported successfully!');
+        setJobUrl('');
+        fetchJobs(); // Refresh job list
+      } else {
         throw new Error('Failed to import job');
       }
-      
-      await response.json();
-      setSuccess('Job imported successfully!');
-      setJobUrl('');
-      fetchJobs(); // Refresh job list
     } catch (err) {
       setError('Failed to import job. Please check the URL and try again.');
       console.error(err);
@@ -165,18 +162,20 @@ const Jobs: React.FC = () => {
       formData.append('location', 'Not specified');
       formData.append('description', jobListing);
       
-      const response = await fetch(`${API_BASE_URL}/jobs/create`, {
-        method: 'POST',
-        body: formData
+      const response = await createJob({
+        title: '',
+        company: '',
+        location: 'Not specified',
+        description: jobListing
       });
       
-      if (!response.ok) {
+      if (response) {
+        setSuccess('Job processed and added successfully with AI-extracted details!');
+        setJobListing('');
+        fetchJobs(); // Refresh job list
+      } else {
         throw new Error('Failed to add job');
       }
-      
-      setSuccess('Job processed and added successfully with AI-extracted details!');
-      setJobListing('');
-      fetchJobs(); // Refresh job list
     } catch (err) {
       setError('Failed to add job. Please try again.');
       console.error(err);

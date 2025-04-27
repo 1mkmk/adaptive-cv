@@ -543,7 +543,7 @@ class CVGenerator:
             )
             
             result = latex_gen.generate_cv(
-                template_name=template_id or "default",
+                template_id=template_id or "default",
                 job_title=job.title,
                 company_name=job.company,
                 template_data={
@@ -603,6 +603,8 @@ def generate_cv(db, prompt, job_id=None, format="markdown"):
     Returns:
         Generated CV content
     """
+    from app.services.latex_cv_generator import LaTeXCVGenerator, TEMPLATE_DIR, LATEX_OUTPUT_DIR, PDF_OUTPUT_DIR
+    
     generator = CVGenerator(db)
     # If we have a job ID, retrieve job description
     job_description = None
@@ -616,9 +618,13 @@ def generate_cv(db, prompt, job_id=None, format="markdown"):
     
     # Generate CV content based on format
     if format.lower() == "pdf":
-        # Generate PDF
-        requirements = generator.extract_job_requirements(prompt) if prompt else {}
-        return generator._generate_cv_with_openai(profile, prompt, requirements)
+        # For PDF generation, use the LaTeX generator with proper parameters
+        latex_generator = LaTeXCVGenerator(
+            template_path=TEMPLATE_DIR,
+            output_dir_latex=LATEX_OUTPUT_DIR,
+            output_dir_pdf=PDF_OUTPUT_DIR
+        )
+        return latex_generator.generate_cv(prompt, format=format)
     else:
         # Generate Markdown
         requirements = generator.extract_job_requirements(prompt) if prompt else {}
@@ -626,33 +632,16 @@ def generate_cv(db, prompt, job_id=None, format="markdown"):
 
 # Add these functions at the end of your cv_service.py file
 
-def generate_cv(db, prompt, job_id=None, format="markdown"):
-    """
-    Generate a CV based on a job description prompt
-    
-    Args:
-        db: Database session
-        prompt: Job description or prompt
-        job_id: Optional job ID to associate with the CV
-        format: Output format ("markdown" or "pdf")
-        
-    Returns:
-        Generated CV content
-    """
-    # Implement this based on your existing code
-    # For example:
-    latex_generator = LaTeXCVGenerator()
-    # Generate and return CV content
-    return latex_generator.generate_cv(prompt, format=format)
-
-def generate_cv_with_template(db, template_name, job_id=None, user_id=None, format="pdf"):
+def generate_cv_with_template(db, job_id, template_id=None, model=None, custom_context=None, user_id=None, format="pdf"):
     """
     Generate a CV using a specific LaTeX template
     
     Args:
         db: Database session
-        template_name: Name of the template to use
-        job_id: Optional job ID to associate with the CV
+        job_id: Job ID to associate with the CV
+        template_id: ID of the template to use
+        model: Language model to use for generation
+        custom_context: Additional context for generation
         user_id: User ID for whom to generate the CV
         format: Output format (default: "pdf")
         
@@ -664,16 +653,26 @@ def generate_cv_with_template(db, template_name, job_id=None, user_id=None, form
     if job_id:
         job = get_job(db, job_id)
     
-    # Create LaTeX generator
-    latex_generator = LaTeXCVGenerator()
+    # Import required classes and directories
+    from app.services.latex_cv_generator import LaTeXCVGenerator, TEMPLATE_DIR, LATEX_OUTPUT_DIR, PDF_OUTPUT_DIR
+    import uuid
     
-    # Generate CV using the specified template
+    # Create LaTeX generator with required parameters
+    latex_generator = LaTeXCVGenerator(
+        template_path=TEMPLATE_DIR,
+        output_dir_latex=LATEX_OUTPUT_DIR,
+        output_dir_pdf=PDF_OUTPUT_DIR
+    )
+    
+    # Use the new method to generate the CV directly from a template using the job description
+    job_description = job.description if job else None
     return latex_generator.generate_with_template(
-        template_name=template_name,
-        job_description=job.description if job else None,
+        template_name=template_id or "default",
+        job_description=job_description,
         user_id=user_id,
         format=format
     )
+
 
 def get_job(db, job_id):
     """
