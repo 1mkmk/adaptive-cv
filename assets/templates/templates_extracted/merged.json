@@ -1,0 +1,78 @@
+{
+  "profile": {
+    "name": "Candidate Name",
+    "email": "email@example.com",
+    "phone": "+1 234 567 890",
+    "address": "City, Country",
+    "profile_summary": "Experienced Junior Security Engineer with commercial experience in MS Sentinel, Microsoft Defender for Cloud, Windows Server, Active Directory, and Windows. Skilled in handling security alerts and incidents, with a strong knowledge of IT security protocols.",
+    "skills": [
+      {
+        "name": "MS Sentinel",
+        "level": "Proficient",
+        "category": "Technical"
+      },
+      {
+        "name": "Microsoft Defender for Cloud",
+        "level": "Proficient",
+        "category": "Technical"
+      },
+      {
+        "name": "Windows Server",
+        "level": "Proficient",
+        "category": "Technical"
+      },
+      {
+        "name": "Active Directory",
+        "level": "Proficient",
+        "category": "Technical"
+      },
+      {
+        "name": "Windows",
+        "level": "Proficient",
+        "category": "Technical"
+      }
+    ],
+    "experience": [
+      {
+        "title": "Junior Security Engineer",
+        "company": "Be in IT",
+        "location": "Wroc\u0142aw, dolno\u015bl\u0105skie",
+        "start_date": "24 kwietnia 2025",
+        "end_date": "24 maja 2025",
+        "description": "Commercial experience in MS Sentinel, Microsoft Defender for Cloud, Windows Server, Active Directory, and Windows. Handling security alerts, incidents, and ensuring IT security protocols compliance."
+      }
+    ],
+    "education": [],
+    "languages": [],
+    "certifications": [],
+    "strengths": "The candidate has all the required skills and the necessary experience for the job. The candidate's location also matches the job location.",
+    "areas_for_improvement": "The candidate does not have any listed education, languages, or certifications, which might be important for the job.",
+    "improvement_suggestions": "The candidate should consider adding information about their education, languages, and any relevant certifications. They should also consider adding more details about their experience with the required skills."
+  },
+  "job_requirements": {
+    "required_skills": [
+      "MS Sentinel",
+      "Microsoft Defender for Cloud",
+      "Windows Server",
+      "Active Directory",
+      "Windows"
+    ],
+    "preferred_skills": [],
+    "years_of_experience": "At least one year of commercial experience as a Junior Security Engineer or similar role.",
+    "education": "Not specified",
+    "location": "Wroc\u0142aw, dolno\u015bl\u0105skie"
+  },
+  "template_recommendations": "The candidate should highlight their skills and experience in the 'skills.tex' and 'employment.tex' sections of the template. They should also consider adding a section for education, languages, and certifications, if applicable.",
+  "optimization_suggestions": {
+    "skills": "Highlight the required skills in the 'skills.tex' section of the template.",
+    "experience": "Provide more details about the experience with the required skills in the 'employment.tex' section of the template.",
+    "education": "If applicable, add a section for education in the template.",
+    "languages": "If applicable, add a section for languages in the template.",
+    "certifications": "If applicable, add a section for certifications in the template."
+  },
+  "metadata": {
+    "creation_date": "2025-04-27 23:54:50",
+    "version": "1.0",
+    "generated_by": "AdaptiveCV Template Analyzer"
+  }
+}

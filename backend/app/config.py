@@ -1,6 +1,19 @@
 import os
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 from typing import Optional, Dict, Any
+import sys
+import os.path
+
+# Add the project root to sys.path to enable absolute imports
+# This assumes the backend folder is directly under the project root
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+# Define base directories that are needed by other modules
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+ASSETS_DIR = os.path.abspath(os.path.join(BASE_DIR, "assets"))
+TEMPLATE_DIR = os.path.abspath(os.path.join(ASSETS_DIR, "templates", "templates_extracted"))
 
 class Settings(BaseSettings):
     ENV: str = os.getenv("ENV", "local")

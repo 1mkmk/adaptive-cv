@@ -1,0 +1,67 @@
+{
+  "template": {
+    "path": "C:\\Users\\macie\\OneDrive\\Pulpit\\adaptive-cv\\adaptive-cv\\assets\\templates\\templates_extracted\\a_customised_curve",
+    "structure": "curve",
+    "main_files": [
+      "cv-llt.tex",
+      "publications.tex",
+      "referee-full.tex"
+    ],
+    "support_files": [
+      "settings.sty"
+    ]
+  },
+  "detected_fields": {
+    "cv-llt.tex": {
+      "commands": [],
+      "environments": [],
+      "custom_commands": [],
+      "placeholders": [
+        "Your Name",
+        "your name"
+      ]
+    },
+    "education.tex": {
+      "commands": [],
+      "environments": [],
+      "custom_commands": [],
+      "placeholders": []
+    },
+    "employment.tex": {
+      "commands": [],
+      "environments": [],
+      "custom_commands": [],
+      "placeholders": []
+    },
+    "misc.tex": {
+      "commands": [],
+      "environments": [],
+      "custom_commands": [],
+      "placeholders": []
+    },
+    "publications.tex": {
+      "commands": [],
+      "environments": [],
+      "custom_commands": [],
+      "placeholders": []
+    },
+    "referee-full.tex": {
+      "commands": [],
+      "environments": [],
+      "custom_commands": [],
+      "placeholders": []
+    },
+    "referee.tex": {
+      "commands": [],
+      "environments": [],
+      "custom_commands": [],
+      "placeholders": []
+    },
+    "skills.tex": {
+      "commands": [],
+      "environments": [],
+      "custom_commands": [],
+      "placeholders": []
+    }
+  }
+}

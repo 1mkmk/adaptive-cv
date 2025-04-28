@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .database import create_database, get_db, SessionLocal
-from .models.candidate import CandidateProfile
-from .models.user import User  # Import User model here to ensure it's loaded before database creation
+# Import models with full package path to avoid duplicate registrations
+from app.models.candidate import CandidateProfile
+from app.models.user import User  # Import User model here to ensure it's loaded before database creation
 import sys
 import os
 import logging

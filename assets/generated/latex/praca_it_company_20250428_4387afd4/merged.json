@@ -1,0 +1,211 @@
+{
+  "profile": {
+    "id": 1,
+    "user_id": 1,
+    "name": "Jan Kowalski",
+    "email": "jan.kowalski@example.com",
+    "phone": "+48 123 456 789",
+    "summary": "Experienced Security Engineer with expertise in Microsoft security solutions.",
+    "location": "Wrocław, Poland",
+    "linkedin": "linkedin.com/in/jankowalski",
+    "website": "jankowalski.com",
+    "photo": null,
+    "job_title": "Junior Security Engineer",
+    "skills": [
+      "MS Sentinel",
+      "Microsoft Defender for Cloud",
+      "Windows Server",
+      "Active Directory",
+      "Windows",
+      "Linux",
+      "Cybersecurity",
+      "Security Analysis"
+    ],
+    "experience": [
+      {
+        "company": "Be in IT",
+        "position": "Junior Security Engineer",
+        "start_date": "2024-01",
+        "end_date": "",
+        "current": true,
+        "description": "Managing security alerts in MS Sentinel, configuring Microsoft Defender for Cloud, administering Windows Server and Active Directory environments."
+      },
+      {
+        "company": "Tech Solutions",
+        "position": "IT Support Specialist",
+        "start_date": "2022-06",
+        "end_date": "2023-12",
+        "current": false,
+        "description": "Provided technical support for Windows and Linux systems. Assisted with basic security configurations and troubleshooting."
+      }
+    ],
+    "education": [
+      {
+        "institution": "Wrocław University of Technology",
+        "degree": "Bachelor's",
+        "field": "Computer Science",
+        "start_date": "2018-10",
+        "end_date": "2022-06",
+        "current": false
+      }
+    ],
+    "languages": [
+      {
+        "name": "Polish",
+        "level": "Native"
+      },
+      {
+        "name": "English",
+        "level": "Advanced"
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Microsoft Security Operations Analyst",
+        "issuer": "Microsoft",
+        "date": "2023-05",
+        "url": "https://learn.microsoft.com/certifications/security-operations-analyst/"
+      }
+    ],
+    "projects": [
+      {
+        "name": "Security Monitoring System",
+        "description": "Implemented a comprehensive security monitoring system using MS Sentinel for a mid-size company.",
+        "url": "https://github.com/jankowalski/security-monitoring",
+        "start_date": "2023-06",
+        "end_date": "2023-09"
+      }
+    ],
+    "references": [],
+    "address": {
+      "line1": "ul. Przykładowa 12",
+      "line2": "Apt 45",
+      "city": "Wrocław",
+      "state": "Dolnośląskie",
+      "postalCode": "50-234",
+      "country": "Poland"
+    },
+    "interests": [
+      {
+        "type": "professional",
+        "description": "Cybersecurity, cloud security solutions, security automation"
+      },
+      {
+        "type": "personal",
+        "description": "Photography, hiking, chess"
+      }
+    ],
+    "awards": [
+      {
+        "title": "Best Security Implementation",
+        "date": "2023-11",
+        "issuer": "Local IT Community",
+        "description": "Award for implementing the most effective security monitoring solution"
+      }
+    ],
+    "presentations": [
+      {
+        "title": "Modern Security Monitoring with MS Sentinel",
+        "date": "2023-10",
+        "venue": "Local Tech Meetup",
+        "description": "Presented an overview of MS Sentinel capabilities and best practices for implementation"
+      }
+    ],
+    "skill_categories": [
+      {
+        "name": "Security Tools",
+        "skills": [
+          "MS Sentinel",
+          "Microsoft Defender for Cloud",
+          "Wireshark",
+          "Nmap"
+        ]
+      },
+      {
+        "name": "Operating Systems",
+        "skills": [
+          "Windows Server",
+          "Windows",
+          "Linux"
+        ]
+      },
+      {
+        "name": "Infrastructure",
+        "skills": [
+          "Active Directory",
+          "Azure AD",
+          "Network Security"
+        ]
+      }
+    ],
+    "creativity_levels": {
+      "personal_info": 3,
+      "summary": 5,
+      "experience": 4,
+      "education": 2,
+      "skills": 4,
+      "projects": 5,
+      "awards": 3,
+      "presentations": 4,
+      "interests": 3
+    },
+    "is_default": true,
+    "updated_at": "2025-04-28T10:15:30"
+  },
+  "job_requirements": {
+    "required_skills": [
+      "MS Sentinel",
+      "Microsoft Defender for Cloud",
+      "Windows Server",
+      "Active Directory"
+    ],
+    "required_experience": "At least one year of commercial experience as a Junior Security Engineer or similar",
+    "required_knowledge": [
+      "Microsoft Windows system and its extensions",
+      "Microsoft Active Directory environment",
+      "Windows Server"
+    ]
+  },
+  "template": {
+    "strengths": "The 'a_customised_curve' template is a versatile LaTeX template that supports multiple sections such as 'cv-llt.tex', 'publications.tex', 'referee-full.tex', etc. It allows for a structured presentation of information, making it easy for recruiters to find key details.",
+    "weaknesses": "The template does not seem to have any custom commands, environments, or placeholders in most of the sections, which may limit the customization options.",
+    "optimal_uses": "This template is best suited for candidates with a diverse range of experiences and qualifications, as it has multiple sections to showcase different aspects of the candidate's profile.",
+    "customization_options": {
+      "name": "The 'cv-llt.tex' section has placeholders for the candidate's name, allowing for easy customization.",
+      "other": "Other sections do not have detected placeholders, indicating that customization may require more advanced LaTeX knowledge."
+    },
+    "section_mapping": {
+      "cv-llt.tex": "Candidate's name",
+      "publications.tex": "Candidate's publications, if any",
+      "referee-full.tex": "References provided by the candidate"
+    },
+    "job_match": {
+      "extracted_requirements": {
+        "required_skills": [
+          "MS Sentinel",
+          "Microsoft Defender for Cloud",
+          "Windows Server",
+          "Active Directory"
+        ],
+        "required_experience": "At least one year of commercial experience as a Junior Security Engineer or similar",
+        "required_knowledge": [
+          "Microsoft Windows system and its extensions",
+          "Microsoft Active Directory environment",
+          "Windows Server"
+        ]
+      },
+      "profile_enhancement": {
+        "matches": "The candidate has experience as a Junior Security Engineer and has worked with MS Sentinel, Microsoft Defender for Cloud, Windows Server, and Active Directory, which match the job requirements.",
+        "gaps": "The candidate's profile does not mention any specific skills, education, languages, or certifications, which could be potential areas of improvement.",
+        "improvement_suggestions": "The candidate could enhance their profile by adding specific skills, education details, languages known, and any relevant certifications. They could also provide more details about their experience, such as key achievements, projects worked on, and specific roles and responsibilities."
+      },
+      "template_specific_recommendations": "The candidate can use the 'publications.tex' section to highlight any relevant publications or projects. The 'referee-full.tex' section can be used to provide references who can vouch for the candidate's skills and experience."
+    },
+    "document_structure": {
+      "analysis": "The LaTeX document is structured into multiple sections, each represented by a separate '.tex' file. This modular structure allows for easy customization and updating of different sections of the CV."
+    },
+    "optimization_suggestions": {
+      "suggestions": "The candidate could optimize their CV for this job posting by highlighting their experience as a Junior Security Engineer and their knowledge of MS Sentinel, Microsoft Defender for Cloud, Windows Server, and Active Directory. They could also add a 'Skills' section to list these and any other relevant skills, and a 'Certifications' section to showcase any relevant certifications."
+    }
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "id": 1,
+  "user_id": 1,
+  "name": "Jan Kowalski",
+  "email": "jan.kowalski@example.com",
+  "phone": "+48 123 456 789",
+  "summary": "Experienced Security Engineer with expertise in Microsoft security solutions.",
+  "location": "Wrocław, Poland",
+  "linkedin": "linkedin.com/in/jankowalski",
+  "website": "jankowalski.com",
+  "photo": null,
+  "job_title": "Junior Security Engineer",
+  "skills": [
+    "MS Sentinel",
+    "Microsoft Defender for Cloud",
+    "Windows Server",
+    "Active Directory",
+    "Windows",
+    "Linux",
+    "Cybersecurity",
+    "Security Analysis"
+  ],
+  "experience": [
+    {
+      "company": "Be in IT",
+      "position": "Junior Security Engineer",
+      "start_date": "2024-01",
+      "end_date": "",
+      "current": true,
+      "description": "Managing security alerts in MS Sentinel, configuring Microsoft Defender for Cloud, administering Windows Server and Active Directory environments."
+    },
+    {
+      "company": "Tech Solutions",
+      "position": "IT Support Specialist",
+      "start_date": "2022-06",
+      "end_date": "2023-12",
+      "current": false,
+      "description": "Provided technical support for Windows and Linux systems. Assisted with basic security configurations and troubleshooting."
+    }
+  ],
+  "education": [
+    {
+      "institution": "Wrocław University of Technology",
+      "degree": "Bachelor's",
+      "field": "Computer Science",
+      "start_date": "2018-10",
+      "end_date": "2022-06",
+      "current": false
+    }
+  ],
+  "languages": [
+    {
+      "name": "Polish",
+      "level": "Native"
+    },
+    {
+      "name": "English",
+      "level": "Advanced"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Microsoft Security Operations Analyst",
+      "issuer": "Microsoft",
+      "date": "2023-05",
+      "url": "https://learn.microsoft.com/certifications/security-operations-analyst/"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Security Monitoring System",
+      "description": "Implemented a comprehensive security monitoring system using MS Sentinel for a mid-size company.",
+      "url": "https://github.com/jankowalski/security-monitoring",
+      "start_date": "2023-06",
+      "end_date": "2023-09"
+    }
+  ],
+  "references": [],
+  "address": {
+    "line1": "ul. Przykładowa 12",
+    "line2": "Apt 45",
+    "city": "Wrocław",
+    "state": "Dolnośląskie",
+    "postalCode": "50-234",
+    "country": "Poland"
+  },
+  "interests": [
+    {
+      "type": "professional",
+      "description": "Cybersecurity, cloud security solutions, security automation"
+    },
+    {
+      "type": "personal",
+      "description": "Photography, hiking, chess"
+    }
+  ],
+  "awards": [
+    {
+      "title": "Best Security Implementation",
+      "date": "2023-11",
+      "issuer": "Local IT Community",
+      "description": "Award for implementing the most effective security monitoring solution"
+    }
+  ],
+  "presentations": [
+    {
+      "title": "Modern Security Monitoring with MS Sentinel",
+      "date": "2023-10",
+      "venue": "Local Tech Meetup",
+      "description": "Presented an overview of MS Sentinel capabilities and best practices for implementation"
+    }
+  ],
+  "skill_categories": [
+    {
+      "name": "Security Tools",
+      "skills": [
+        "MS Sentinel",
+        "Microsoft Defender for Cloud",
+        "Wireshark",
+        "Nmap"
+      ]
+    },
+    {
+      "name": "Operating Systems",
+      "skills": [
+        "Windows Server",
+        "Windows",
+        "Linux"
+      ]
+    },
+    {
+      "name": "Infrastructure",
+      "skills": [
+        "Active Directory",
+        "Azure AD",
+        "Network Security"
+      ]
+    }
+  ],
+  "creativity_levels": {
+    "personal_info": 3,
+    "summary": 5,
+    "experience": 4,
+    "education": 2,
+    "skills": 4,
+    "projects": 5,
+    "awards": 3,
+    "presentations": 4,
+    "interests": 3
+  },
+  "is_default": true,
+  "updated_at": "2025-04-28T10:15:30"
+}

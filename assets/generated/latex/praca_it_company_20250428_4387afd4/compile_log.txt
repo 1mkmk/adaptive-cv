@@ -1,0 +1,788 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex.fmt)
+ restricted \write18 enabled.
+entering extended mode
+(cv.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-03-26>
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/curve\curve.cls
+Document Class: curve 2010/12/14 v1.16 Curriculum Vitae class for LaTeX2e
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/carlisle\ltxtable.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/tools\calc.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/filehook\filehook.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/filehook\filehook-2020.
+sty)) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\size11.clo))
+ (settings.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/silence\silence.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifxetex.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifluatex.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
+fg)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+))) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
+*************************************
+* Local config file bblopts.cfg used
+*
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/babel-english\english.l
+df))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/en\babel
+-english.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome5\fontawesom
+e5.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
+tex.def))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/l3keys2e\l3k
+eys2e.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/xparse\xpars
+e.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome5\fontawesom
+e5-generic-helper.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome5\fontawesom
+e5-mapping.def)))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/simpleicons\simpleicons
+.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/simpleicons\simpleicons
+glyphs-pdftex.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/relsize\relsize.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
+) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics\dvipsnam.def
+) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\svgnam.def)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/frontendlayer\tikz.
+sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfrcs.st
+y
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
+-common.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
+-latex.def)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfrcs.
+code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf\pgf.revision.tex)
+))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgfcore.
+sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/systemlayer\pgfsys.
+sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+s.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
+.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
+libraryfiltered.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf.c
+fg)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+s-pdftex.def
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+s-common-pdf.def)))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+ssoftpath.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+sprotocol.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+e.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code
+.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathutil.
+code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathparse
+r.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.basic.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.trigonometric.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.random.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.comparison.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.base.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.round.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.misc.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.integerarithmetics.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathcalc.
+code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfloat
+.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfint.code.
+tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epoints.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epathconstruct.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epathusage.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+escopes.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+egraphicstate.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+etransformations.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+equick.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eobjects.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epathprocessing.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+earrows.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eshade.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eimage.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eexternal.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+elayers.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+etransparency.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epatterns.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+erdf.code.tex)))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
+shapes.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
+plot.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
+mp-version-0-65.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
+mp-version-1-18.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgffor.st
+y
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfkeys.s
+ty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
+.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/math\pgfmath.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code
+.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffor.
+code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z\tikz.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
+aryplothandlers.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
+matrix.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibrarytopaths.code.tex)))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshapes.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshapes.geometric.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
+pgflibraryshapes.geometric.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshapes.misc.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
+pgflibraryshapes.misc.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshapes.symbols.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
+pgflibraryshapes.symbols.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshapes.arrows.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
+pgflibraryshapes.arrows.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshapes.callouts.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
+pgflibraryshapes.callouts.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshapes.multipart.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
+pgflibraryshapes.multipart.code.tex)))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshadows.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryfadings.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
+aryfadings.code.tex)))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/comment\comment.sty
+Excluding comment 'comment')
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds
+.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.s
+ty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty))
+ (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty)
+
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+)) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/logreq\logreq.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/logreq\logreq.def))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\blx-dm.def)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\blx-compat.def
+) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.def
+)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex-ieee\ieee.bbx
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\numeric-co
+mp.bbx
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\numeric.bb
+x
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\standard.b
+bx)))
+
+Package biblatex Warning: Macro 'volume+number' undefined.
+(biblatex)                Using \newbibmacro.
+
+)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex-ieee\ieee.cbx
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/cbx\numeric-ve
+rb.cbx))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.cfg)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\blx-case-expl3
+.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/csquotes\csquotes.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/csquotes\csquotes.def)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/csquotes\csquotes.cfg))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/xpatch\xpatch.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefine
+keys.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.s
+ty) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettit
+lestring.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.s
+ty) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
+) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc
+.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\atbegshi-ltx.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\atveryend-ltx.sty)
+
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
+echeck.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquec
+ounter.sty))))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/cochineal\cochineal.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/xkeyval\xkeyval.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkeyval.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkvutils.tex)
+)) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\textcomp.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/xstring\xstring.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/xstring\xstring.tex))
+ (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/carlisle\scalefnt.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/fontaxes\fontaxes.sty))
+ (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/cabin\cabin.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/cochineal\t1cochineal-t
+lf.fd)))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/inconsolata\zi4.sty
+`inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe))
+Include comment 'fullonly' Including 'fullonly' comment.
+Straight input of comment.cut. (comment.cut)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/cochineal\t1cochineal-o
+sf.fd)
+No file cv.aux.
+
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
+ii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+ase.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
+fg))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/lbx\english.lb
+x)
+No file cv.bbl.
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/upquote\upquote.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/cabin\t1cabin-tlf.fd)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome5\ufontaweso
+mefree1.fd)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/inconsolata\t1zi4.fd)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/simpleicons\usimpleicon
+sonethree.fd)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome5\ufontaweso
+mebrands0.fd) (employment.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome5\ufontaweso
+mefree0.fd)) (employment.tex) (employment.tex) (employment.tex) (education.tex)
+(education.tex) (education.tex) (education.tex) (publications.tex
+
+Package biblatex Warning: Type 'article' not found on input line 10.
+
+
+LaTeX Warning: Empty bibliography on input line 10.
+
+
+Package biblatex Warning: Type 'inproceedings' not found on input line 12.
+
+
+LaTeX Warning: Empty bibliography on input line 12.
+
+
+LaTeX Warning: Empty bibliography on input line 14.
+
+) (skills.tex) (skills.tex) (skills.tex) (skills.tex) (misc.tex) (misc.tex)
+(misc.tex) (misc.tex) (referee.tex) (referee.tex) (referee.tex)
+[1{C:/Users/macie/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/ma
+cie/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cabin/cbn_i3ioen.enc}{C:/User
+s/macie/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/fontawesome5/fa5free1.enc
+}{C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/inconsolata/i4-t
+1-5.enc}{C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/simpleico
+ns/simpleiconsonethree.enc}{C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/
+enc/dvips/fontawesome5/fa5brands0.enc}{C:/Users/macie/AppData/Local/Programs/Mi
+KTeX/fonts/enc/dvips/cochineal/coch_mzvjrl.enc}{C:/Users/macie/AppData/Local/Pr
+ograms/MiKTeX/fonts/enc/dvips/fontawesome5/fa5free0.enc}{C:/Users/macie/AppData
+/Local/Programs/MiKTeX/fonts/enc/dvips/cochineal/coch_qyvxxn.enc}{C:/Users/maci
+e/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cochineal/coch_rftgut.enc} <C:/
+Users/macie/AppData/Local/Programs/MiKTeX/tex/latex/pas-cv/photo.png>] (cv.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+Package rerunfilecheck Warning: File `cv.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                cv
+(biblatex)                and rerun LaTeX afterwards.
+
+ )<C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/type1/impallari/cabin/Cab
+in-Bold.pfb><C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/type1/public/co
+chineal/Cochineal-Bold.pfb><C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/
+type1/public/cochineal/Cochineal-Italic.pfb><C:/Users/macie/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/cochineal/Cochineal-Roman.pfb><C:/Users/macie/App
+Data/Local/Programs/MiKTeX/fonts/type1/public/fontawesome5/FontAwesome5Brands-R
+egular.pfb><C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/type1/public/fon
+tawesome5/FontAwesome5Free-Regular.pfb><C:/Users/macie/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/fontawesome5/FontAwesome5Free-Solid.pfb><C:/Users/maci
+e/AppData/Local/Programs/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4r
+.pfb><C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/type1/public/simpleico
+ns/SimpleIcons.pfb><C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb>
+Output written on cv.pdf (1 page, 225065 bytes).
+Transcript written on cv.log.
+
+
+--- SECOND RUN ---
+
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex.fmt)
+ restricted \write18 enabled.
+entering extended mode
+(cv.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-03-26>
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/curve\curve.cls
+Document Class: curve 2010/12/14 v1.16 Curriculum Vitae class for LaTeX2e
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/carlisle\ltxtable.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/tools\calc.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/filehook\filehook.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/filehook\filehook-2020.
+sty)) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\size11.clo))
+ (settings.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/silence\silence.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifxetex.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifluatex.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
+fg)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+))) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
+*************************************
+* Local config file bblopts.cfg used
+*
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/babel-english\english.l
+df))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/en\babel
+-english.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome5\fontawesom
+e5.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
+tex.def))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/l3keys2e\l3k
+eys2e.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/xparse\xpars
+e.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome5\fontawesom
+e5-generic-helper.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome5\fontawesom
+e5-mapping.def)))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/simpleicons\simpleicons
+.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/simpleicons\simpleicons
+glyphs-pdftex.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/relsize\relsize.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
+) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/graphics\dvipsnam.def
+) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\svgnam.def)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/frontendlayer\tikz.
+sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfrcs.st
+y
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
+-common.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
+-latex.def)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfrcs.
+code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf\pgf.revision.tex)
+))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgfcore.
+sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/systemlayer\pgfsys.
+sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+s.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
+.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
+libraryfiltered.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf.c
+fg)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+s-pdftex.def
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+s-common-pdf.def)))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+ssoftpath.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+sprotocol.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+e.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code
+.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathutil.
+code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathparse
+r.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.basic.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.trigonometric.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.random.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.comparison.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.base.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.round.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.misc.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.integerarithmetics.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathcalc.
+code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfloat
+.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfint.code.
+tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epoints.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epathconstruct.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epathusage.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+escopes.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+egraphicstate.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+etransformations.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+equick.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eobjects.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epathprocessing.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+earrows.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eshade.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eimage.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eexternal.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+elayers.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+etransparency.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epatterns.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+erdf.code.tex)))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
+shapes.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
+plot.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
+mp-version-0-65.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
+mp-version-1-18.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgffor.st
+y
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfkeys.s
+ty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
+.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/pgf/math\pgfmath.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code
+.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffor.
+code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z\tikz.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
+aryplothandlers.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
+matrix.code.tex)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibrarytopaths.code.tex)))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshapes.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshapes.geometric.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
+pgflibraryshapes.geometric.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshapes.misc.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
+pgflibraryshapes.misc.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshapes.symbols.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
+pgflibraryshapes.symbols.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshapes.arrows.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
+pgflibraryshapes.arrows.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshapes.callouts.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
+pgflibraryshapes.callouts.code.tex))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshapes.multipart.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
+pgflibraryshapes.multipart.code.tex)))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshadows.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryfadings.code.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
+aryfadings.code.tex)))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/comment\comment.sty
+Excluding comment 'comment')
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds
+.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.s
+ty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty))
+ (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty)
+
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+)) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/logreq\logreq.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/logreq\logreq.def))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\blx-dm.def)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\blx-compat.def
+) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.def
+)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex-ieee\ieee.bbx
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\numeric-co
+mp.bbx
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\numeric.bb
+x
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\standard.b
+bx)))
+
+Package biblatex Warning: Macro 'volume+number' undefined.
+(biblatex)                Using \newbibmacro.
+
+)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex-ieee\ieee.cbx
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/cbx\numeric-ve
+rb.cbx))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.cfg)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\blx-case-expl3
+.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/csquotes\csquotes.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/csquotes\csquotes.def)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/csquotes\csquotes.cfg))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/xpatch\xpatch.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefine
+keys.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.s
+ty) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettit
+lestring.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.s
+ty) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
+) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc
+.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\atbegshi-ltx.sty))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\atveryend-ltx.sty)
+
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
+echeck.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquec
+ounter.sty))))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/cochineal\cochineal.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/xkeyval\xkeyval.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkeyval.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkvutils.tex)
+)) (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\textcomp.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/xstring\xstring.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/generic/xstring\xstring.tex))
+ (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/carlisle\scalefnt.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/fontaxes\fontaxes.sty))
+ (C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/cabin\cabin.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/cochineal\t1cochineal-t
+lf.fd)))
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/inconsolata\zi4.sty
+`inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe))
+Include comment 'fullonly' Including 'fullonly' comment.
+Straight input of comment.cut. (comment.cut)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/cochineal\t1cochineal-o
+sf.fd) (cv.aux)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
+ii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+ase.sty
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
+fg))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/lbx\english.lb
+x)
+No file cv.bbl.
+(cv.out) (cv.out)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/upquote\upquote.sty)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/cabin\t1cabin-tlf.fd)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome5\ufontaweso
+mefree1.fd)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/inconsolata\t1zi4.fd)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/simpleicons\usimpleicon
+sonethree.fd)
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome5\ufontaweso
+mebrands0.fd) (employment.tex
+(C:\Users\macie\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome5\ufontaweso
+mefree0.fd)) (employment.tex) (employment.tex) (employment.tex) (education.tex)
+(education.tex) (education.tex) (education.tex) (publications.tex
+
+Package biblatex Warning: Type 'article' not found on input line 10.
+
+
+LaTeX Warning: Empty bibliography on input line 10.
+
+
+Package biblatex Warning: Type 'inproceedings' not found on input line 12.
+
+
+LaTeX Warning: Empty bibliography on input line 12.
+
+
+LaTeX Warning: Empty bibliography on input line 14.
+
+) (skills.tex) (skills.tex) (skills.tex) (skills.tex) (misc.tex) (misc.tex)
+(misc.tex) (misc.tex) (referee.tex) (referee.tex) (referee.tex) (referee.tex)
+[1{C:/Users/macie/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/ma
+cie/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cabin/cbn_i3ioen.enc}{C:/User
+s/macie/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/fontawesome5/fa5free1.enc
+}{C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/inconsolata/i4-t
+1-5.enc}{C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/simpleico
+ns/simpleiconsonethree.enc}{C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/
+enc/dvips/fontawesome5/fa5brands0.enc}{C:/Users/macie/AppData/Local/Programs/Mi
+KTeX/fonts/enc/dvips/cochineal/coch_mzvjrl.enc}{C:/Users/macie/AppData/Local/Pr
+ograms/MiKTeX/fonts/enc/dvips/fontawesome5/fa5free0.enc}{C:/Users/macie/AppData
+/Local/Programs/MiKTeX/fonts/enc/dvips/cochineal/coch_qyvxxn.enc}{C:/Users/maci
+e/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cochineal/coch_rftgut.enc} <C:/
+Users/macie/AppData/Local/Programs/MiKTeX/tex/latex/pas-cv/photo.png>] (cv.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                cv
+(biblatex)                and rerun LaTeX afterwards.
+
+ )<C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/type1/impallari/cabin/Cab
+in-Bold.pfb><C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/type1/public/co
+chineal/Cochineal-Bold.pfb><C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/
+type1/public/cochineal/Cochineal-Italic.pfb><C:/Users/macie/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/cochineal/Cochineal-Roman.pfb><C:/Users/macie/App
+Data/Local/Programs/MiKTeX/fonts/type1/public/fontawesome5/FontAwesome5Brands-R
+egular.pfb><C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/type1/public/fon
+tawesome5/FontAwesome5Free-Regular.pfb><C:/Users/macie/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/fontawesome5/FontAwesome5Free-Solid.pfb><C:/Users/maci
+e/AppData/Local/Programs/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4r
+.pfb><C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/type1/public/simpleico
+ns/SimpleIcons.pfb><C:/Users/macie/AppData/Local/Programs/MiKTeX/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb>
+Output written on cv.pdf (1 page, 225065 bytes).
+Transcript written on cv.log.

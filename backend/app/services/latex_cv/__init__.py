@@ -13,7 +13,6 @@ from .config import (
 from .compilation import LaTeXCompiler
 from .template_utils import get_available_templates, normalize_template_id
 from .document_builder import LaTeXDocumentBuilder
-from .profile_processor import ProfileProcessor
 from .template_analyzer import TemplateAnalyzer
 from .generator import LaTeXCVGenerator
 
@@ -21,7 +20,6 @@ __all__ = [
     'LaTeXCVGenerator',
     'LaTeXCompiler',
     'LaTeXDocumentBuilder',
-    'ProfileProcessor',
     'TemplateAnalyzer',
     'get_available_templates',
     'normalize_template_id',
