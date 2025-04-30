@@ -3,7 +3,7 @@ import { Routes, Route, Navigate, useLocation } from 'react-router';
 import Navbar from './components/ui/Navbar';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
-import Templates from './pages/Templates';
+import Templates from './pages/templates';
 import Jobs from './pages/Jobs';
 import Login from './pages/auth/Login';
 import { useAuth } from './context/AuthContext';

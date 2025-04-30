@@ -1,0 +1,62 @@
+{
+  "template_analysis": {
+    "strengths": "The 'a_customised_curve' template has a clean and professional layout that is suitable for a wide range of job applications. It includes sections for personal information, education, employment history, skills, and references.",
+    "weaknesses": "The template does not have specific sections for languages or certifications, which might be important for some job applications. Also, the template does not support custom commands or environments, which limits its customization options.",
+    "optimal_uses": "This template is best suited for job applications that require a detailed breakdown of skills and work experience. It is also suitable for candidates who do not have a lot of certifications or language skills to list."
+  },
+  "customization_options": {
+    "personal_info": "The candidate's name can be customized in the 'cv-llt.tex' file.",
+    "education": "The 'education.tex' file can be customized to include the candidate's educational background.",
+    "employment": "The 'employment.tex' file can be customized to include the candidate's work experience.",
+    "skills": "The 'skills.tex' file can be customized to include the candidate's skills.",
+    "publications": "The 'publications.tex' file can be customized to include the candidate's publications, if any.",
+    "references": "The 'referee-full.tex' and 'referee.tex' files can be customized to include the candidate's references."
+  },
+  "section_mapping": {
+    "personal_info": "name, email, phone, address",
+    "education": "education",
+    "employment": "experience",
+    "skills": "skills",
+    "publications": "N/A",
+    "references": "N/A"
+  },
+  "job_match": {
+    "extracted_requirements": {
+      "required_skills": [
+        "MS Sentinel",
+        "Microsoft Defender for Cloud",
+        "Windows Server",
+        "Active Directory",
+        "Windows"
+      ],
+      "preferred_skills": [],
+      "years_of_experience": "At least one year of commercial experience as a Junior Security Engineer or similar role.",
+      "education": "Not specified",
+      "location": "Wroc\u0142aw, dolno\u015bl\u0105skie"
+    },
+    "profile_enhancement": {
+      "matches": "The candidate has all the required skills and the necessary experience for the job. The candidate's location also matches the job location.",
+      "gaps": "The candidate does not have any listed education, languages, or certifications, which might be important for the job.",
+      "improvement_suggestions": "The candidate should consider adding information about their education, languages, and any relevant certifications. They should also consider adding more details about their experience with the required skills."
+    },
+    "template_specific_recommendations": "The candidate should highlight their skills and experience in the 'skills.tex' and 'employment.tex' sections of the template. They should also consider adding a section for education, languages, and certifications, if applicable."
+  },
+  "document_structure": {
+    "main_files": [
+      "cv-llt.tex",
+      "publications.tex",
+      "referee-full.tex"
+    ],
+    "support_files": [
+      "settings.sty"
+    ],
+    "structure": "curve"
+  },
+  "optimization_suggestions": {
+    "skills": "Highlight the required skills in the 'skills.tex' section of the template.",
+    "experience": "Provide more details about the experience with the required skills in the 'employment.tex' section of the template.",
+    "education": "If applicable, add a section for education in the template.",
+    "languages": "If applicable, add a section for languages in the template.",
+    "certifications": "If applicable, add a section for certifications in the template."
+  }
+}

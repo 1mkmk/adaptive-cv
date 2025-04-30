@@ -8,6 +8,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { API_BASE_URL, fetchApi } from '@/services/api';
 import { generatePdfCV, downloadCV, Template, getTemplates } from '@/services/templateService';
 import { useLocation } from 'react-router';
+import { createJob, getJobs } from '@/services/jobService';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 // Interface for job type
 interface Job {
@@ -20,7 +29,61 @@ interface Job {
   created_at: string;
   cv?: string; // Generated CV content
   cv_format?: 'markdown' | 'pdf'; // Format of the generated CV
+  ai_summary?: string; // OpenAI extracted summary from the job posting
 }
+
+/**
+ * Extracts a smart summary from a job description
+ */
+const getSmartSummary = (description: string, maxLength: number = 300): string => {
+  // Remove extra whitespace and normalize line breaks
+  const cleanText = description.replace(/\s+/g, ' ').trim();
+  
+  // For very short descriptions, just return them directly
+  if (cleanText.length <= maxLength) {
+    return cleanText;
+  }
+  
+  // Try to extract the first paragraph that's reasonably sized
+  const paragraphs = description.split(/\n\s*\n/);
+  const firstParagraph = paragraphs[0]?.trim() || '';
+  
+  if (firstParagraph.length >= 100 && firstParagraph.length <= maxLength) {
+    return firstParagraph;
+  }
+  
+  // If no good paragraph, take the first portion
+  return cleanText.substring(0, maxLength) + '...';
+};
+
+/**
+ * Extracts key points from a job description
+ */
+const extractKeyPoints = (description: string): string[] => {
+  // Try to find list items (lines starting with -, *, •, or numbers)
+  const listItemRegex = /(?:^|\n)[\s-•*]+(.*?)(?=\n|$)/g;
+  const listItems = [...description.matchAll(listItemRegex)]
+    .map(match => match[1]?.trim())
+    .filter(item => item && item.length > 10 && item.length < 200)
+    .slice(0, 5);
+  
+  // If we don't have enough list items, extract sentences that might be requirements
+  if (listItems.length < 3) {
+    // Look for sentences mentioning requirements, skills, experience, etc.
+    const keywordRegex = /(?:requirements?|qualifications?|skills?|experience|we are looking for|you will|you should|you have|proficient in|familiar with)/i;
+    
+    const sentences = description
+      .replace(/\n/g, ' ')
+      .split(/(?<=\.|\?|\!)\s+/)
+      .map(s => s.trim())
+      .filter(s => s.length > 20 && s.length < 150 && keywordRegex.test(s))
+      .slice(0, 5 - listItems.length);
+    
+    return [...listItems, ...sentences];
+  }
+  
+  return listItems;
+};
 
 const Jobs: React.FC = () => {
   const location = useLocation();
@@ -87,8 +150,12 @@ const Jobs: React.FC = () => {
   const fetchJobs = async () => {
     setLoading(true);
     try {
-      const data = await fetchApi('/jobs');
-      setJobs(data);
+      const data = await getJobs();
+      // Sort jobs by creation date (newest first)
+      const sortedJobs = [...data].sort((a, b) => 
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
+      setJobs(sortedJobs);
       
       // Extract unique companies for filtering
       const uniqueCompanies = Array.from(new Set(data.map((job: Job) => job.company))) as string[];
@@ -124,19 +191,16 @@ const Jobs: React.FC = () => {
       const formData = new FormData();
       formData.append('job_url', jobUrl);
       
-      const response = await fetch(`${API_BASE_URL}/jobs/create`, {
-        method: 'POST',
-        body: formData,
-      });
+      const response = await createJob({ job_url: jobUrl });
       
-      if (!response.ok) {
+      if (response) {
+        setSuccess('Job imported successfully!');
+        setJobUrl('');
+        // Refresh job list and make sure it's sorted by creation date
+        fetchJobs();
+      } else {
         throw new Error('Failed to import job');
       }
-      
-      await response.json();
-      setSuccess('Job imported successfully!');
-      setJobUrl('');
-      fetchJobs(); // Refresh job list
     } catch (err) {
       setError('Failed to import job. Please check the URL and try again.');
       console.error(err);
@@ -165,18 +229,21 @@ const Jobs: React.FC = () => {
       formData.append('location', 'Not specified');
       formData.append('description', jobListing);
       
-      const response = await fetch(`${API_BASE_URL}/jobs/create`, {
-        method: 'POST',
-        body: formData
+      const response = await createJob({
+        title: '',
+        company: '',
+        location: 'Not specified',
+        description: jobListing
       });
       
-      if (!response.ok) {
+      if (response) {
+        setSuccess('Job processed and added successfully with AI-extracted details!');
+        setJobListing('');
+        // Refresh job list and ensure it's sorted by creation date
+        fetchJobs();
+      } else {
         throw new Error('Failed to add job');
       }
-      
-      setSuccess('Job processed and added successfully with AI-extracted details!');
-      setJobListing('');
-      fetchJobs(); // Refresh job list
     } catch (err) {
       setError('Failed to add job. Please try again.');
       console.error(err);
@@ -482,11 +549,14 @@ const Jobs: React.FC = () => {
               <div className="space-y-4 max-h-[75vh] overflow-y-auto pr-2">
                 {/* Filter the jobs based on search and company filter */}
                 {jobs
+                  // Sort jobs by creation date - newest first
+                  .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
                   .filter(job => {
                     const matchesSearch = searchTerm === '' || 
                       job.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                       job.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                      job.description.toLowerCase().includes(searchTerm.toLowerCase());
+                      job.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      (job.ai_summary && job.ai_summary.toLowerCase().includes(searchTerm.toLowerCase()));
                     
                     const matchesCompany = filterCompany === '' || job.company === filterCompany;
                     
@@ -504,11 +574,13 @@ const Jobs: React.FC = () => {
                         <CardTitle className="text-base">
                           {job.title} - {job.company}
                         </CardTitle>
-                        <CardDescription className="text-xs">{job.location || 'No location specified'}</CardDescription>
+                        <CardDescription className="text-xs">
+                          {job.location || 'No location specified'} · Added {new Date(job.created_at).toLocaleDateString()}
+                        </CardDescription>
                       </CardHeader>
                       <CardContent className="pb-2">
                         <p className="line-clamp-2 text-sm text-muted-foreground">
-                          {job.description.substring(0, 120)}...
+                          {job.ai_summary ? job.ai_summary : getSmartSummary(job.description, 120)}
                         </p>
                       </CardContent>
                       <CardFooter className="flex-col gap-2">
@@ -529,21 +601,163 @@ const Jobs: React.FC = () => {
                               return <>Template: {getTemplateNameById(templateId)}</>;
                             })()}
                           </div>
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              // First select the job to show its details
-                              setSelectedJob(job);
-                              // Then generate the CV
-                              generateCv(job);
-                            }}
-                            disabled={generatingCv && selectedJob?.id === job.id}
-                            className="h-7 px-2 py-0 text-xs"
-                          >
-                            {generatingCv && selectedJob?.id === job.id ? 'Generating...' : 'Generate'}
-                          </Button>
+                          <div className="flex gap-2">
+                            <Dialog>
+                              <DialogTrigger asChild>
+                                <Button 
+                                  variant="outline" 
+                                  size="sm"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="h-7 px-2 py-0 text-xs"
+                                >
+                                  Details
+                                </Button>
+                              </DialogTrigger>
+                              <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                                <DialogHeader>
+                                  <DialogTitle className="text-xl">{job.title}</DialogTitle>
+                                  <DialogDescription className="text-base font-medium">
+                                    {job.company} • {job.location || 'No location specified'} • 
+                                    Added on {new Date(job.created_at).toLocaleDateString()} at {new Date(job.created_at).toLocaleTimeString()}
+                                  </DialogDescription>
+                                </DialogHeader>
+                                
+                                <Tabs defaultValue="structured" className="mt-4">
+                                  <TabsList className="grid w-full grid-cols-3">
+                                    <TabsTrigger value="structured">Smart Overview</TabsTrigger>
+                                    <TabsTrigger value="full">Full Description</TabsTrigger>
+                                    <TabsTrigger value="details">Job Details</TabsTrigger>
+                                  </TabsList>
+                                  
+                                  {/* Structured Tab with smart job overview */}
+                                  <TabsContent value="structured" className="py-4">
+                                    <div className="space-y-6">
+                                      <div className="bg-primary/5 p-4 rounded-md">
+                                        <h3 className="font-medium mb-2 text-primary">Job Overview</h3>
+                                        <p className="text-sm whitespace-pre-line">
+                                          {job.ai_summary || getSmartSummary(job.description, 300)}
+                                        </p>
+                                      </div>
+                                      
+                                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div className="bg-muted/20 p-4 rounded-md">
+                                          <h3 className="font-medium mb-2">Key Information</h3>
+                                          <ul className="list-disc list-inside text-sm space-y-1">
+                                            {extractKeyPoints(job.description).map((point, idx) => (
+                                              <li key={idx}>{point}</li>
+                                            ))}
+                                          </ul>
+                                        </div>
+                                        
+                                        <div className="bg-muted/20 p-4 rounded-md">
+                                          <h3 className="font-medium mb-2">Company & Role</h3>
+                                          <div className="text-sm space-y-2">
+                                            <p><strong>Company:</strong> {job.company}</p>
+                                            <p><strong>Position:</strong> {job.title}</p>
+                                            <p><strong>Location:</strong> {job.location || 'Not specified'}</p>
+                                            <p><strong>Added:</strong> {new Date(job.created_at).toLocaleString()}</p>
+                                            {job.source_url && (
+                                              <p>
+                                                <strong>Source:</strong>{' '}
+                                                <a 
+                                                  href={job.source_url} 
+                                                  target="_blank" 
+                                                  rel="noopener noreferrer"
+                                                  className="text-primary hover:underline"
+                                                >
+                                                  View original posting
+                                                </a>
+                                              </p>
+                                            )}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </TabsContent>
+                                  
+                                  {/* Full Description Tab */}
+                                  <TabsContent value="full" className="py-4">
+                                    <div className="whitespace-pre-wrap text-sm bg-muted/10 p-6 rounded-md max-h-[500px] overflow-y-auto">
+                                      {job.description}
+                                    </div>
+                                  </TabsContent>
+                                  
+                                  {/* Details Tab */}
+                                  <TabsContent value="details" className="py-4">
+                                    <div className="space-y-4">
+                                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div className="bg-muted/10 p-4 rounded-md">
+                                          <h3 className="font-medium mb-3">Job Information</h3>
+                                          <div className="space-y-2 text-sm">
+                                            <p><strong>Title:</strong> {job.title}</p>
+                                            <p><strong>Company:</strong> {job.company}</p>
+                                            <p><strong>Location:</strong> {job.location || 'Not specified'}</p>
+                                            <p><strong>Added:</strong> {new Date(job.created_at).toLocaleString()}</p>
+                                          </div>
+                                        </div>
+                                        
+                                        <div className="bg-muted/10 p-4 rounded-md">
+                                          <h3 className="font-medium mb-3">Application Status</h3>
+                                          <div className="space-y-2 text-sm">
+                                            <p><strong>CV Generated:</strong> {job.cv ? 'Yes' : 'No'}</p>
+                                            <p><strong>Template:</strong> {getTemplateNameById(getJobTemplate(job.id))}</p>
+                                            {job.source_url && (
+                                              <p>
+                                                <strong>Source URL:</strong>{' '}
+                                                <a 
+                                                  href={job.source_url} 
+                                                  target="_blank" 
+                                                  rel="noopener noreferrer"
+                                                  className="text-primary hover:underline break-all"
+                                                >
+                                                  {job.source_url}
+                                                </a>
+                                              </p>
+                                            )}
+                                          </div>
+                                        </div>
+                                      </div>
+                                      
+                                      <div className="flex justify-end mt-4">
+                                        <Button 
+                                          onClick={() => {
+                                            // First select the job to show its details
+                                            setSelectedJob(job);
+                                            // Then generate the CV
+                                            generateCv(job);
+                                            // Close the dialog
+                                            const closeButton = document.querySelector('[data-state="open"] button[aria-label="Close"]');
+                                            if (closeButton) {
+                                              (closeButton as HTMLButtonElement).click();
+                                            }
+                                          }}
+                                          disabled={generatingCv && selectedJob?.id === job.id}
+                                        >
+                                          {generatingCv && selectedJob?.id === job.id ? 'Generating...' : 'Generate CV for this Job'}
+                                        </Button>
+                                      </div>
+                                    </div>
+                                  </TabsContent>
+                                </Tabs>
+                              </DialogContent>
+                            </Dialog>
+                            
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                // First select the job to show its details
+                                setSelectedJob(job);
+                                // Then generate the CV
+                                generateCv(job);
+                              }}
+                              disabled={generatingCv && selectedJob?.id === job.id}
+                              className="h-7 px-2 py-0 text-xs"
+                            >
+                              {generatingCv && selectedJob?.id === job.id ? 'Generating...' : 'Generate'}
+                            </Button>
+                          </div>
                         </div>
                       </CardFooter>
                     </Card>
@@ -632,7 +846,10 @@ const Jobs: React.FC = () => {
                   <>
                     <CardHeader>
                       <CardTitle>CV for {selectedJob.title} - {selectedJob.company}</CardTitle>
-                      <CardDescription>{selectedJob.location || 'No location specified'}</CardDescription>
+                      <CardDescription>
+                        {selectedJob.location || 'No location specified'} · 
+                        Added on {new Date(selectedJob.created_at).toLocaleDateString()} at {new Date(selectedJob.created_at).toLocaleTimeString()}
+                      </CardDescription>
                     </CardHeader>
                     <CardContent>
                       {selectedJob.cv ? (
@@ -885,6 +1102,30 @@ const Jobs: React.FC = () => {
                               // Pokazuj informację o pomyślnym wygenerowaniu
                               <p className="text-green-600 text-sm">CV successfully generated!</p>
                             )}
+                            
+                            {/* Display Job Summary */}
+                            <div className="mt-4 p-3 bg-muted/30 rounded-md text-left">
+                              <div className="flex justify-between items-center mb-2">
+                                <h4 className="font-medium text-sm">Job Summary:</h4>
+                                <span className="text-xs text-muted-foreground">
+                                  Added: {new Date(selectedJob.created_at).toLocaleString()}
+                                </span>
+                              </div>
+                              <div className="text-sm text-muted-foreground whitespace-pre-line">
+                                {selectedJob.ai_summary || getSmartSummary(selectedJob.description, 300)}
+                              </div>
+                              
+                              {!selectedJob.ai_summary && (
+                                <div className="mt-3">
+                                  <h5 className="font-medium text-xs mb-1">Key Points:</h5>
+                                  <ul className="list-disc list-inside text-xs space-y-1 text-muted-foreground">
+                                    {extractKeyPoints(selectedJob.description).map((point, idx) => (
+                                      <li key={idx}>{point}</li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
                       ) : (

@@ -1,14 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
+import JobForm from '@/components/JobForm';
+import { useAuth } from '@/context/AuthContext';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { isAuthenticated } = useAuth();
+  
+  // Check for pending job listings after login
+  useEffect(() => {
+    if (isAuthenticated) {
+      // Handle any pending job listings saved in localStorage
+      const pendingJobListing = localStorage.getItem('pendingJobListing');
+      const pendingJobUrl = localStorage.getItem('pendingJobUrl');
+      
+      if (pendingJobListing || pendingJobUrl) {
+        // Clear localStorage
+        localStorage.removeItem('pendingJobListing');
+        localStorage.removeItem('pendingJobUrl');
+        
+        // Navigate to jobs page
+        navigate('/jobs');
+      }
+    }
+  }, [isAuthenticated, navigate]);
   
   return (
     <>
@@ -67,6 +88,19 @@ const Home: React.FC = () => {
                 <p className="text-indigo-600 mt-2 font-medium">– Maciej Kasik, Developer</p>
               </div>
             </div>
+          </div>
+        </div>
+        
+        {/* Quick Job Add Section */}
+        <div className="container mx-auto px-6 py-12">
+          <div className="max-w-4xl mx-auto bg-gradient-to-r from-indigo-50 to-purple-50 p-6 md:p-8 rounded-xl border border-purple-100">
+            <h2 className="text-2xl font-bold mb-4 text-center">Try It Now</h2>
+            <p className="text-gray-600 text-center mb-8">
+              Paste a job description below and let our AI create a tailored CV for you.
+              {!isAuthenticated && " You'll be prompted to log in to save your job."}
+            </p>
+            
+            <JobForm />
           </div>
         </div>
         

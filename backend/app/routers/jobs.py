@@ -6,22 +6,21 @@ from datetime import datetime
 import logging
 import traceback
 
-# Fix the import to use the correct path
-from app.database import get_db
-from app.models.job import Job
-from app.models.user import User
-from app.schemas.job import JobResponse, JobCreate
-from app.services.job_scraper import extract_from_url
-from app.services.job_service import extract_job_details_with_ai
-from app.auth.oauth import get_current_user
-from app.auth.decorators import require_authentication
+# Fix imports to use relative paths
+from ..database import get_db
+from ..models.job import Job
+from ..models.user import User
+from ..schemas.job import JobResponse, JobCreate
+from ..services.job_scraper import extract_from_url
+from ..services.job_service import extract_job_details_with_ai
+from ..auth.oauth import get_current_user
+from ..auth.decorators import require_authentication
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 router = APIRouter(
-    prefix="/jobs",
     tags=["jobs"]
 )
 

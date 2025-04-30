@@ -69,7 +69,7 @@ class SkillCategoryItem(BaseModel):
     name: str
     skills: List[str] = []
 
-class CandidateProfile(BaseModel):
+class CandidateProfileSchema(BaseModel):
     name: str
     email: EmailStr
     phone: Optional[str] = None
@@ -119,7 +119,7 @@ class CandidateUpdate(BaseModel):
     skill_categories: Optional[List[SkillCategoryItem]] = None
     creativity_levels: Optional[Dict[str, int]] = None
 
-class CandidateResponse(CandidateProfile):
+class CandidateResponse(CandidateProfileSchema):
     id: Optional[int] = None
     updated_at: datetime
     

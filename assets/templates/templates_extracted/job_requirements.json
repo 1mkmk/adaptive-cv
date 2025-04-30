@@ -1,0 +1,17 @@
+{
+  "job_requirements": {
+    "required_skills": [
+      "MS Sentinel",
+      "Microsoft Defender for Cloud",
+      "Windows Server",
+      "Active Directory",
+      "Windows"
+    ],
+    "preferred_skills": [],
+    "years_of_experience": "At least one year of commercial experience as a Junior Security Engineer or similar role.",
+    "education": "Not specified",
+    "location": "Wroc\u0142aw, dolno\u015bl\u0105skie"
+  },
+  "creation_date": "2025-04-27 23:54:50",
+  "extracted_from": "Job description analysis via OpenAI"
+}

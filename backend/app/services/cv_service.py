@@ -1,8 +1,4 @@
 from sqlalchemy.orm import Session
-from app.models.job import Job
-from app.models.candidate import CandidateProfile
-from app.schemas.job import JobCreate
-from typing import List, Dict, Any, Optional
 import os
 import json
 import openai
@@ -10,12 +6,14 @@ import logging
 import re
 from datetime import datetime
 import base64
-from pathlib import Path
+from typing import List, Dict, Any, Optional
 from tenacity import retry, stop_after_attempt, wait_exponential
 
-# Import our LaTeX CV generator
-# Import our LaTeX CV generator
-from app.services.latex_cv_generator import LaTeXCVGenerator
+from app.models.job import Job
+from app.models.candidate import CandidateProfile
+from app.schemas.job import JobCreate
+from app.config import TEMPLATE_DIR
+from app.services.latex_cv import LaTeXCVGenerator
 
 # Configure OpenAI
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -23,17 +21,34 @@ OPENAI_TIMEOUT = 15  # seconds
 OPENAI_MAX_RETRIES = 3
 
 # Setup logging
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 class CVGenerator:
     """Main CV generation service class"""
 
     def __init__(self, db: Session):
         self.db = db
+        self._latex_generator = None
+
+    @property
+    def latex_generator(self):
+        """Lazy-loaded LaTeX generator instance"""
+        if self._latex_generator is None:
+            self._latex_generator = LaTeXCVGenerator(
+                template_dir=TEMPLATE_DIR,
+                openai_api_key=openai.api_key
+            )
+        return self._latex_generator
 
     # Database operations
+    def get_jobs(self, skip: int = 0, limit: int = 10) -> List[Job]:
+        """Get list of jobs with pagination"""
+        return self.db.query(Job).offset(skip).limit(limit).all()
+
+    def get_job(self, job_id: int) -> Optional[Job]:
+        """Get a single job by ID"""
+        return self.db.query(Job).filter(Job.id == job_id).first()
+
     def create_job(self, job: JobCreate) -> Job:
         """Create a new job posting"""
         try:
@@ -46,14 +61,6 @@ class CVGenerator:
             self.db.rollback()
             logger.error(f"Error creating job: {e}")
             raise
-
-    def get_jobs(self, skip: int = 0, limit: int = 10) -> List[Job]:
-        """Get list of jobs with pagination"""
-        return self.db.query(Job).offset(skip).limit(limit).all()
-
-    def get_job(self, job_id: int) -> Optional[Job]:
-        """Get a single job by ID"""
-        return self.db.query(Job).filter(Job.id == job_id).first()
 
     def update_job(self, job_id: int, job: JobCreate) -> Optional[Job]:
         """Update an existing job"""
@@ -84,10 +91,34 @@ class CVGenerator:
             logger.error(f"Error deleting job {job_id}: {e}")
             raise
 
-    @retry(
-        stop=stop_after_attempt(OPENAI_MAX_RETRIES),
-        wait=wait_exponential(multiplier=1, min=4, max=10)
-    )
+    def get_candidate_profile(self, user_id: int = None) -> Dict[str, Any]:
+        """Retrieve candidate profile from database"""
+        query = self.db.query(CandidateProfile)
+        if user_id:
+            candidate = query.filter(CandidateProfile.user_id == user_id).first()
+        else:
+            candidate = query.first()
+            
+        if not candidate:
+            return {}
+
+        profile = candidate.__dict__
+        
+        # Parse JSON fields
+        json_fields = ['skills', 'experience', 'education', 'languages', 'certifications', 'projects']
+        for field in json_fields:
+            if profile.get(field) and isinstance(profile[field], str):
+                try:
+                    profile[field] = json.loads(profile[field])
+                except json.JSONDecodeError:
+                    profile[field] = []
+        
+        # Remove SQLAlchemy internal field
+        profile.pop('_sa_instance_state', None)
+        
+        return profile
+
+    @retry(stop=stop_after_attempt(OPENAI_MAX_RETRIES), wait=wait_exponential(multiplier=1, min=4, max=10))
     def extract_job_requirements(self, job_description: str) -> Dict[str, Any]:
         """Extract key requirements from job description using OpenAI"""
         if not openai.api_key:
@@ -100,10 +131,7 @@ class CVGenerator:
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[
-                    {
-                        "role": "system", 
-                        "content": "You are an expert ATS analyst who extracts requirements from job descriptions."
-                    },
+                    {"role": "system", "content": "You are an expert ATS analyst who extracts requirements from job descriptions."},
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.2,
@@ -117,6 +145,156 @@ class CVGenerator:
             logger.error(f"Error extracting job requirements: {e}")
             return self._default_job_requirements()
 
+    def generate_cv(self, job_description: str, job_id: int = None, format: str = "markdown", template_id: str = None) -> Dict[str, Any]:
+        """Generate a tailored CV based on profile and job description"""
+        try:
+            # Try PDF generation first if requested
+            if format.lower() == "pdf" and job_id is not None:
+                try:
+                    return self.generate_cv_from_template(job_id, template_id)
+                except Exception as e:
+                    logger.error(f"PDF generation failed: {e}")
+                    format = "markdown"  # Fallback to markdown
+
+            # Fallback if no OpenAI API
+            if not openai.api_key:
+                return {
+                    "content": self.generate_fallback_cv(job_description),
+                    "format": "markdown",
+                    "is_fallback": True
+                }
+
+            # Get profile and requirements
+            profile = self.get_candidate_profile()
+            if not profile:
+                raise ValueError("No candidate profile found")
+
+            requirements = self._safe_extract_requirements(job_description)
+            
+            # Generate CV content
+            cv_content = self._generate_cv_with_openai(profile, job_description, requirements)
+
+            # Save to job if specified
+            if job_id is not None and format.lower() != "pdf":
+                self._save_cv_to_job(job_id, cv_content)
+
+            return {
+                "content": cv_content,
+                "format": format,
+                "is_fallback": False
+            }
+
+        except Exception as e:
+            logger.error(f"CV generation error: {e}")
+            return {
+                "content": self.generate_fallback_cv(job_description),
+                "format": "markdown",
+                "is_fallback": True,
+                "error": str(e)
+            }
+            
+    def _safe_extract_requirements(self, job_description: str) -> Dict[str, Any]:
+        """Safely extract job requirements with error handling"""
+        try:
+            return self.extract_job_requirements(job_description)
+        except Exception as e:
+            logger.warning(f"Requirements extraction failed: {e}")
+            return self._default_job_requirements()
+            
+    def generate_cv_from_template(self, job_id: int, template_id: str = None, model: str = None, custom_context: str = None) -> Dict[str, str]:
+        """Generate CV using LaTeX template"""
+        try:
+            job = self.get_job(job_id)
+            if not job:
+                raise ValueError(f"Job {job_id} not found")
+                
+            result = self.latex_generator.generate_cv(
+                template_name=template_id or "default",
+                job_title=job.title,
+                company_name=job.company,
+                template_data={
+                    "job": job.__dict__,
+                    "profile": self.get_candidate_profile(),
+                    "custom_context": custom_context
+                },
+                output_id=str(job_id)
+            )
+            
+            if not result.get("pdf_path"):
+                raise ValueError("PDF generation failed")
+                
+            # Read PDF and create preview
+            with open(result["pdf_path"], "rb") as f:
+                pdf_content = base64.b64encode(f.read()).decode('utf-8')
+                
+            preview_content = ""
+            if os.path.exists(os.path.join(result["latex_path"], "preview.jpg")):
+                with open(os.path.join(result["latex_path"], "preview.jpg"), "rb") as f:
+                    preview_content = base64.b64encode(f.read()).decode('utf-8')
+            
+            return {
+                "pdf": pdf_content,
+                "preview": preview_content,
+                "pdf_path": result["pdf_path"],
+                "latex_path": result["latex_path"]
+            }
+            
+        except Exception as e:
+            logger.error(f"Template CV generation failed: {e}")
+            # Fallback to markdown
+            job = self.get_job(job_id)
+            markdown_content = self.generate_cv(job.description, job_id, "markdown").get("content", "Error generating CV")
+            
+            return {
+                "pdf": None,
+                "markdown": markdown_content,
+                "error": str(e)
+            }
+
+    def _generate_cv_with_openai(self, profile: Dict[str, Any], job_description: str, requirements: Dict[str, Any]) -> str:
+        """Generate CV content using OpenAI"""
+        prompt = self._build_cv_generation_prompt(profile, job_description, requirements)
+        
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "You are a professional CV writer who creates resumes tailored to job requirements."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.5,
+                max_tokens=1000,
+                request_timeout=OPENAI_TIMEOUT
+            )
+            
+            cv_content = response.choices[0].message.content.strip()
+            return f"{cv_content}\n\n---\n*CV generated on {datetime.now().strftime('%Y-%m-%d')}*"
+            
+        except Exception as e:
+            logger.error(f"OpenAI CV generation failed: {e}")
+            raise
+
+    def generate_fallback_cv(self, job_description: str) -> str:
+        """Generate basic CV without OpenAI"""
+        profile = self.get_candidate_profile()
+        if not profile:
+            return "Error: No candidate profile found"
+
+        keywords = self._extract_keywords(job_description)
+        
+        # Build CV sections
+        sections = [
+            self._build_header_section(profile),
+            self._build_summary_section(profile),
+            self._build_skills_section(profile, keywords),
+            self._build_experience_section(profile, keywords),
+            self._build_education_section(profile),
+            self._build_job_match_section(job_description, keywords)
+        ]
+        
+        return "\n\n".join(filter(None, sections))
+
+    # Helper methods for building prompts and processing responses
     def _build_job_requirements_prompt(self, job_description: str) -> str:
         """Construct the prompt for job requirements extraction"""
         return f"""
@@ -173,157 +351,12 @@ class CVGenerator:
             "exact_phrases": []
         }
 
-    def get_candidate_profile(self, user_id: int = None) -> Dict[str, Any]:
-        """Retrieve candidate profile from database"""
-        query = self.db.query(CandidateProfile)
-        if user_id:
-            candidate = query.filter(CandidateProfile.user_id == user_id).first()
-        else:
-            candidate = query.first()
-            
-        if not candidate:
-            return {}
-
-        profile = candidate.__dict__
-        
-        # Parse JSON fields
-        for field in ['skills', 'experience', 'education', 'languages', 'certifications', 'projects']:
-            if profile.get(field) and isinstance(profile[field], str):
-                try:
-                    profile[field] = json.loads(profile[field])
-                except json.JSONDecodeError:
-                    profile[field] = []
-        
-        # Remove SQLAlchemy internal field
-        profile.pop('_sa_instance_state', None)
-        
-        return profile
-
-    def generate_cv(
-        self,
-        job_description: str,
-        job_id: int = None,
-        format: str = "markdown",
-        template_id: str = None
-    ) -> Dict[str, Any]:
-        """
-        Generate a tailored CV based on profile and job description
-        
-        Args:
-            job_description: Job description text
-            job_id: Optional job ID to save to
-            format: Output format ("markdown", "latex", "pdf")
-            template_id: Template ID for PDF generation
-            
-        Returns:
-            Dictionary with CV content and metadata
-        """
-        try:
-            # Try PDF generation first if requested
-            if format.lower() == "pdf" and job_id is not None:
-                try:
-                    logger.info(f"Generating PDF CV for job {job_id}")
-                    return self.generate_cv_from_template(job_id, template_id)
-                except Exception as e:
-                    logger.error(f"PDF generation failed: {e}")
-                    # Fallback to markdown
-                    format = "markdown"
-
-            # Fallback if no OpenAI API
-            if not openai.api_key:
-                logger.warning("Using fallback CV generator")
-                return {
-                    "content": self.generate_fallback_cv(job_description),
-                    "format": "markdown",
-                    "is_fallback": True
-                }
-
-            # Get candidate profile
-            profile = self.get_candidate_profile()
-            if not profile:
-                raise ValueError("No candidate profile found")
-
-            # Extract job requirements
-            try:
-                requirements = self.extract_job_requirements(job_description)
-            except Exception as e:
-                logger.warning(f"Requirements extraction failed: {e}")
-                requirements = self._default_job_requirements()
-
-            # Generate CV content
-            cv_content = self._generate_cv_with_openai(profile, job_description, requirements)
-
-            # Save to job if specified
-            if job_id is not None and format.lower() != "pdf":
-                self._save_cv_to_job(job_id, cv_content)
-
-            return {
-                "content": cv_content,
-                "format": format,
-                "is_fallback": False
-            }
-
-        except Exception as e:
-            logger.error(f"CV generation error: {e}")
-            return {
-                "content": self.generate_fallback_cv(job_description),
-                "format": "markdown",
-                "is_fallback": True,
-                "error": str(e)
-            }
-
-    def _generate_cv_with_openai(
-        self,
-        profile: Dict[str, Any],
-        job_description: str,
-        requirements: Dict[str, Any]
-    ) -> str:
-        """Generate CV content using OpenAI"""
-        prompt = self._build_cv_generation_prompt(profile, job_description, requirements)
-        
-        try:
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "You are a professional CV writer who creates resumes tailored to job requirements."
-                    },
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=0.5,
-                max_tokens=1000,
-                request_timeout=OPENAI_TIMEOUT
-            )
-            
-            cv_content = response.choices[0].message.content.strip()
-            return f"{cv_content}\n\n---\n*CV generated on {datetime.now().strftime('%Y-%m-%d')}*"
-            
-        except Exception as e:
-            logger.error(f"OpenAI CV generation failed: {e}")
-            raise
-
-    def _build_cv_generation_prompt(
-        self,
-        profile: Dict[str, Any],
-        job_description: str,
-        requirements: Dict[str, Any]
-    ) -> str:
+    def _build_cv_generation_prompt(self, profile: Dict[str, Any], job_description: str, requirements: Dict[str, Any]) -> str:
         """Construct the prompt for CV generation"""
-        skills = ", ".join(profile.get("skills", []))
+        skills = ", ".join(s.get('name', s) if isinstance(s, dict) else s for s in profile.get("skills", []))[:300]
         
-        experience = "\n".join(
-            f"- {exp.get('position')} at {exp.get('company')} "
-            f"({exp.get('start_date', '')} to {exp.get('end_date', 'Present' if exp.get('current', False) else '')})\n"
-            f"  {exp.get('description', '')}"
-            for exp in profile.get("experience", [])
-        )
-        
-        education = "\n".join(
-            f"- {edu.get('degree')} in {edu.get('field')} from {edu.get('institution')} "
-            f"({edu.get('start_date', '')} to {edu.get('end_date', 'Present' if edu.get('current', False) else '')}"
-            for edu in profile.get("education", [])
-        )
+        experience = self._format_experience_for_prompt(profile.get("experience", []))[:500]
+        education = self._format_education_for_prompt(profile.get("education", []))[:300]
         
         return f"""Create a CV that matches these job requirements:
         
@@ -335,13 +368,13 @@ class CVGenerator:
         Email: {profile.get('email')}
         Phone: {profile.get('phone', '')}
         Summary: {profile.get('summary', '')[:200]}
-        Skills: {skills[:300]}
+        Skills: {skills}
         
         Experience:
-        {experience[:500]}
+        {experience}
         
         Education:
-        {education[:300]}
+        {education}
         
         Instructions:
         1. Match ALL key requirements from the job
@@ -351,6 +384,34 @@ class CVGenerator:
         5. Format with Summary, Skills, Experience, Education
         6. Ensure ATS compatibility with keywords
         """
+        
+    def _format_experience_for_prompt(self, experiences) -> str:
+        """Format experience items for the prompt"""
+        result = []
+        for exp in experiences:
+            position = exp.get('position') or exp.get('title', '')
+            company = exp.get('company', '')
+            start = exp.get('start_date', '')
+            end = exp.get('end_date', 'Present' if exp.get('current', False) else '')
+            desc = exp.get('description', '')
+            
+            result.append(f"- {position} at {company} ({start} to {end})\n  {desc}")
+            
+        return "\n".join(result)
+        
+    def _format_education_for_prompt(self, educations) -> str:
+        """Format education items for the prompt"""
+        result = []
+        for edu in educations:
+            degree = edu.get('degree', '')
+            field = edu.get('field', '')
+            institution = edu.get('institution', '')
+            start = edu.get('start_date', '')
+            end = edu.get('end_date', 'Present' if edu.get('current', False) else '')
+            
+            result.append(f"- {degree} in {field} from {institution} ({start} to {end})")
+            
+        return "\n".join(result)
 
     def _save_cv_to_job(self, job_id: int, cv_content: str) -> None:
         """Save generated CV to job record"""
@@ -360,26 +421,7 @@ class CVGenerator:
             self.db.commit()
             logger.info(f"Saved CV to job {job_id}")
 
-    def generate_fallback_cv(self, job_description: str) -> str:
-        """Generate basic CV without OpenAI"""
-        profile = self.get_candidate_profile()
-        if not profile:
-            return "Error: No candidate profile found"
-
-        keywords = self._extract_keywords(job_description)
-        
-        # Build CV sections
-        sections = [
-            self._build_header_section(profile),
-            self._build_summary_section(profile),
-            self._build_skills_section(profile, keywords),
-            self._build_experience_section(profile, keywords),
-            self._build_education_section(profile),
-            self._build_job_match_section(job_description, keywords)
-        ]
-        
-        return "\n\n".join(filter(None, sections))
-
+    # Fallback CV generation methods for when OpenAI is not available
     def _build_header_section(self, profile: Dict[str, Any]) -> str:
         """Build the header section of the CV"""
         header = f"# CV: {profile.get('name', 'Your Name')}\n\n## Contact Information\n"
@@ -392,11 +434,7 @@ class CVGenerator:
             ("Website", profile.get('website'))
         ]
         
-        for label, value in fields:
-            if value:
-                header += f"- {label}: {value}\n"
-                
-        return header
+        return header + "\n".join(f"- {label}: {value}" for label, value in fields if value)
 
     def _build_summary_section(self, profile: Dict[str, Any]) -> str:
         """Build the professional summary section"""
@@ -407,10 +445,18 @@ class CVGenerator:
 
     def _build_skills_section(self, profile: Dict[str, Any], keywords: List[str]) -> str:
         """Build the skills section with keyword matching"""
-        skills = profile.get('skills', [])
-        if not skills:
+        skills_raw = profile.get('skills', [])
+        if not skills_raw:
             return ""
             
+        # Extract skill names from various formats
+        skills = []
+        for skill in skills_raw:
+            if isinstance(skill, dict):
+                skills.append(skill.get('name', ''))
+            else:
+                skills.append(skill)
+                
         matched = [s for s in skills if any(k.lower() in s.lower() for k in keywords)]
         others = [s for s in skills if s not in matched]
         
@@ -433,30 +479,19 @@ class CVGenerator:
         section = "## Professional Experience\n"
         
         for exp in experiences:
-            position = exp.get('position', '')
+            position = exp.get('position') or exp.get('title', '')
             company = exp.get('company', '')
-            dates = f"{exp.get('start_date', '')} - {exp.get('end_date', 'Present' if exp.get('current', False) else '')}"
+            start = exp.get('start_date', '')
+            end = exp.get('end_date', 'Present' if exp.get('current', False) else '')
             desc = self._highlight_keywords(exp.get('description', ''), keywords)
             
             section += (
                 f"### {position} | {company}\n"
-                f"*{dates}*\n\n"
+                f"*{start} - {end}*\n\n"
                 f"{desc}\n\n"
             )
             
         return section
-
-    def _highlight_keywords(self, text: str, keywords: List[str]) -> str:
-        """Highlight keywords in text"""
-        for keyword in keywords:
-            if keyword.lower() in text.lower():
-                text = re.sub(
-                    f"(?<!\\*)\\b{re.escape(keyword)}\\b(?!\\*)",
-                    f"**{keyword}**",
-                    text,
-                    flags=re.IGNORECASE
-                )
-        return text
 
     def _build_education_section(self, profile: Dict[str, Any]) -> str:
         """Build the education section"""
@@ -470,11 +505,12 @@ class CVGenerator:
             degree = edu.get('degree', '')
             field = edu.get('field', '')
             institution = edu.get('institution', '')
-            dates = f"{edu.get('start_date', '')} - {edu.get('end_date', 'Present' if edu.get('current', False) else '')}"
+            start = edu.get('start_date', '')
+            end = edu.get('end_date', 'Present' if edu.get('current', False) else '')
             
             section += (
                 f"### {degree} in {field} | {institution}\n"
-                f"*{dates}*\n\n"
+                f"*{start} - {end}*\n\n"
             )
             
         return section
@@ -489,6 +525,18 @@ class CVGenerator:
             f"---\n*CV generated on {datetime.now().strftime('%Y-%m-%d')}*"
         )
 
+    def _highlight_keywords(self, text: str, keywords: List[str]) -> str:
+        """Highlight keywords in text"""
+        for keyword in keywords:
+            if keyword.lower() in text.lower():
+                text = re.sub(
+                    f"(?<!\\*)\\b{re.escape(keyword)}\\b(?!\\*)",
+                    f"**{keyword}**",
+                    text,
+                    flags=re.IGNORECASE
+                )
+        return text
+
     def _extract_keywords(self, job_description: str) -> List[str]:
         """Extract keywords from job description"""
         common_keywords = [
@@ -500,191 +548,45 @@ class CVGenerator:
             "Communication", "Teamwork", "Problem-solving"
         ]
         
-        return [kw for kw in common_keywords if kw.lower() in job_description.lower()] or [
-            "experience", "skills", "knowledge"
-        ]
+        return [kw for kw in common_keywords if kw.lower() in job_description.lower()] or ["experience", "skills", "knowledge"]
 
-    def generate_cv_from_template(
-        self,
-        job_id: int,
-        template_id: str = None,
-        model: str = None,
-        custom_context: str = None
-    ) -> Dict[str, str]:
-        """
-        Generate CV using LaTeX template
-        
-        Args:
-            job_id: Job ID to generate CV for
-            template_id: Template ID to use
-            model: Language model to use
-            custom_context: Additional context
-            
-        Returns:
-            Dictionary with PDF content and paths
-        """
-        try:
-            logger.info(
-                f"Generating CV with template for job {job_id}, "
-                f"model={model}, context={'provided' if custom_context else 'not provided'}"
-            )
-            
-            # Get job details
-            job = self.get_job(job_id)
-            if not job:
-                raise ValueError(f"Job {job_id} not found")
-                
-            # Generate content (implementation depends on your LaTeX generator)
-            # This is a placeholder - implement according to your LaTeXCVGenerator
-            latex_gen = LaTeXCVGenerator(
-                template_path="templates",
-                output_dir_latex="output/latex",
-                output_dir_pdf="output/pdf"
-            )
-            
-            result = latex_gen.generate_cv(
-                template_name=template_id or "default",
-                job_title=job.title,
-                company_name=job.company,
-                template_data={
-                    "job": job.__dict__,
-                    "profile": self.get_candidate_profile(),
-                    "custom_context": custom_context
-                },
-                output_id=str(job_id)
-            )
-            
-            if not result.get("pdf_path"):
-                raise ValueError("PDF generation failed")
-                
-            # Read PDF and create preview
-            with open(result["pdf_path"], "rb") as f:
-                pdf_content = base64.b64encode(f.read()).decode('utf-8')
-                
-            preview_content = ""
-            if result.get("preview_path"):
-                with open(result["preview_path"], "rb") as f:
-                    preview_content = base64.b64encode(f.read()).decode('utf-8')
-            
-            return {
-                "pdf": pdf_content,
-                "preview": preview_content,
-                "pdf_path": result["pdf_path"],
-                "latex_path": result["latex_path"]
-            }
-            
-        except Exception as e:
-            logger.error(f"Template CV generation failed: {e}")
-            # Fallback to markdown
-            markdown_content = self.generate_cv(
-                job.description,
-                job_id,
-                "markdown"
-            ).get("content", "Error generating CV")
-            
-            return {
-                "pdf": None,
-                "markdown": markdown_content,
-                "error": str(e)
-            }
 
-# Add this function export at the bottom of your cv_service.py file
+# Utility functions for access from routers
 def generate_cv(db, prompt, job_id=None, format="markdown"):
-    """
-    Generate a CV based on a job description prompt
-    This function is used by all the routers
-    
-    Args:
-        db: Database session
-        prompt: Job description or prompt
-        job_id: Optional job ID to associate with the CV
-        format: Output format ("markdown" or "pdf")
-        
-    Returns:
-        Generated CV content
-    """
+    """Generate a CV based on a job description prompt"""
     generator = CVGenerator(db)
+    
     # If we have a job ID, retrieve job description
-    job_description = None
     if job_id:
         job = generator.get_job(job_id)
         if job:
-            job_description = job.description
+            prompt = job.description
     
-    # Get user profile
-    profile = generator.get_candidate_profile(user_id=None)  # Get default profile
-    
-    # Generate CV content based on format
     if format.lower() == "pdf":
-        # Generate PDF
-        requirements = generator.extract_job_requirements(prompt) if prompt else {}
-        return generator._generate_cv_with_openai(profile, prompt, requirements)
+        # For PDF generation, use the LaTeX generator
+        return generator.latex_generator.generate_with_template(
+            template_name="default",
+            job_description=prompt,
+            format=format
+        )
     else:
         # Generate Markdown
+        profile = generator.get_candidate_profile()
         requirements = generator.extract_job_requirements(prompt) if prompt else {}
         return generator._generate_cv_with_openai(profile, prompt, requirements)
 
-# Add these functions at the end of your cv_service.py file
-
-def generate_cv(db, prompt, job_id=None, format="markdown"):
-    """
-    Generate a CV based on a job description prompt
+def generate_cv_with_template(db, job_id, template_id=None, model=None, custom_context=None, user_id=None, format="pdf"):
+    """Generate a CV using a specific LaTeX template"""
+    generator = CVGenerator(db)
+    job = generator.get_job(job_id) if job_id else None
     
-    Args:
-        db: Database session
-        prompt: Job description or prompt
-        job_id: Optional job ID to associate with the CV
-        format: Output format ("markdown" or "pdf")
-        
-    Returns:
-        Generated CV content
-    """
-    # Implement this based on your existing code
-    # For example:
-    latex_generator = LaTeXCVGenerator()
-    # Generate and return CV content
-    return latex_generator.generate_cv(prompt, format=format)
-
-def generate_cv_with_template(db, template_name, job_id=None, user_id=None, format="pdf"):
-    """
-    Generate a CV using a specific LaTeX template
-    
-    Args:
-        db: Database session
-        template_name: Name of the template to use
-        job_id: Optional job ID to associate with the CV
-        user_id: User ID for whom to generate the CV
-        format: Output format (default: "pdf")
-        
-    Returns:
-        Generated CV content (typically PDF as base64)
-    """
-    # Get the job if job_id is provided
-    job = None
-    if job_id:
-        job = get_job(db, job_id)
-    
-    # Create LaTeX generator
-    latex_generator = LaTeXCVGenerator()
-    
-    # Generate CV using the specified template
-    return latex_generator.generate_with_template(
-        template_name=template_name,
+    return generator.latex_generator.generate_with_template(
+        template_name=template_id or "default",
         job_description=job.description if job else None,
         user_id=user_id,
         format=format
     )
 
 def get_job(db, job_id):
-    """
-    Get job by ID
-    
-    Args:
-        db: Database session
-        job_id: Job ID
-        
-    Returns:
-        Job object or None if not found
-    """
-    from app.models.job import Job
+    """Get job by ID"""
     return db.query(Job).filter(Job.id == job_id).first()

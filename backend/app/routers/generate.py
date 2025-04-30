@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Body, Response
+from fastapi import APIRouter, Depends, HTTPException, Body, Response, Request
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import Dict
@@ -6,15 +6,20 @@ import logging
 from datetime import datetime
 import base64
 import os
+import re
+import time
+import fnmatch
+import shutil
 from fastapi.responses import FileResponse, StreamingResponse
 import io
 
-from app.database import get_db
-from app.models.job import Job
-from app.services.cv_service import generate_cv as cv_generate_service
-from app.services.cv_service import generate_cv_with_template
-from app.services.cv_service import get_job
-from app.services.latex_cv_generator import PDF_OUTPUT_DIR, LATEX_OUTPUT_DIR, TEMPLATE_DIR, get_available_templates
+from ..database import get_db
+from ..models.job import Job
+from ..services.cv_service import generate_cv as cv_generate_service
+from ..services.cv_service import generate_cv_with_template
+from ..services.cv_service import get_job
+from ..services.latex_cv.config import PDF_OUTPUT_DIR, LATEX_OUTPUT_DIR, TEMPLATE_DIR
+from ..services.latex_cv import get_available_templates
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -27,7 +32,6 @@ class PromptRequest(BaseModel):
     photo_path: str = None  # Add this new field to track user's profile photo
 
 router = APIRouter(
-    prefix="/generate",
     tags=["generate"]
 )
 
@@ -165,12 +169,24 @@ def generate_pdf_cv(
     template_id: str = None, 
     model: str = None,
     custom_context: str = None,
+    download: bool = False,  # New parameter to force download instead of viewing in browser
+    request: Request = None,
     db: Session = Depends(get_db)
 ):
     """Generate a PDF CV using LaTeX template for a specific job"""
     try:
         # Log the generation request with new parameters
         logger.info(f"Generating PDF CV for job_id: {job_id} with template: {template_id or 'default'}, model: {model or 'default'}")
+        
+        # Get job information for filename
+        job = get_job(db, job_id)
+        if not job:
+            raise HTTPException(status_code=404, detail=f"Job with ID: {job_id} not found")
+            
+        # Generate a nice filename for the PDF
+        filename = f"CV_{job.title.strip()}-{job.company.strip()}_{datetime.now().strftime('%Y%m%d')}.pdf"
+        # Replace invalid characters with underscores
+        filename = filename.replace(" ", "_").replace("/", "_").replace("\\", "_").replace(":", "_")
         
         # Use template-based generation with additional parameters
         # Pass model and custom_context to the generation service
@@ -189,19 +205,60 @@ def generate_pdf_cv(
                 "format": "markdown",
                 "error": result.get("error", "PDF generation failed, fallback to markdown")
             }
-        
-        # Normal response with PDF
-        response = {
-            "result": result["pdf"],
-            "format": "pdf"
-        }
-        
-        # Add preview if available
-        if result.get("preview"):
-            response["preview"] = result["preview"]
-            logger.info("CV preview was generated and attached to the response")
             
-        return response
+        # Get the PDF path from the result
+        pdf_path = result.get("pdf_path")
+        if not pdf_path or not os.path.exists(pdf_path):
+            # If no PDF path or file doesn't exist, return an error
+            logger.error(f"PDF generation completed but no valid file path returned: {pdf_path}")
+            raise HTTPException(status_code=500, detail="PDF generation failed - no valid file produced")
+            
+        try:
+            # Read the file and send it as a stream
+            with open(pdf_path, "rb") as file:
+                content = file.read()
+            
+            # Determine disposition based on download flag
+            disposition = "attachment" if download else "inline"
+            
+            # Check if it's a mobile device by examining user-agent
+            is_mobile = False
+            if request and request.headers.get("user-agent"):
+                user_agent = request.headers.get("user-agent").lower()
+                mobile_patterns = ["mobile", "android", "iphone", "ipad", "ipod", "windows phone"]
+                is_mobile = any(pattern in user_agent for pattern in mobile_patterns)
+            
+            # If we're downloading or the client is a mobile device (where inline viewing is often problematic)
+            if download or is_mobile:
+                # Force download
+                return StreamingResponse(
+                    io.BytesIO(content),
+                    media_type="application/pdf",
+                    headers={
+                        "Content-Disposition": f"attachment; filename={filename}",
+                        "Content-Type": "application/pdf",
+                        "Content-Length": str(len(content))
+                    }
+                )
+            else:
+                # For normal browser viewing, return a response with both PDF data and preview for frontend flexibility
+                response = {
+                    "result": base64.b64encode(content).decode('utf-8'),
+                    "format": "pdf",
+                    "pdf_path": pdf_path,
+                    "download_url": f"/generate/download/{job_id}?template_id={template_id or ''}"
+                }
+                
+                # Add preview if available
+                if result.get("preview"):
+                    response["preview"] = result["preview"]
+                    logger.info("CV preview was generated and attached to the response")
+                
+                return response
+                
+        except Exception as e:
+            logger.error(f"Error reading PDF file: {e}")
+            raise HTTPException(status_code=500, detail=f"Error reading PDF file: {str(e)}")
     
     except Exception as e:
         logger.error(f"Error in generate_pdf_cv endpoint: {e}")
@@ -232,8 +289,7 @@ def download_cv(
     Returns a file for download instead of JSON data.
     
     First checks if a file already exists in the PDF_OUTPUT_DIR folder.
-    If not, generates the CV and saves it in the appropriate folder.
-    Now supports model selection and custom context for generation.
+    If not, uses the file generated by the /generate/pdf endpoint rather than regenerating.
     """
     try:
         # Get job information
@@ -241,35 +297,120 @@ def download_cv(
         if not job:
             raise HTTPException(status_code=404, detail=f"Job with ID: {job_id} not found")
         
-        # Check if we already have a saved PDF file for this job and template
-        # Only use cached version if no model or custom context is specified
-        if job.cv_key and not model and not custom_context:
+        # Generate filename for the user with position-company format
+        filename = f"CV_{job.title.strip()}-{job.company.strip()}_{datetime.now().strftime('%Y%m%d')}.pdf"
+        # Replace invalid characters with underscores
+        filename = filename.replace(" ", "_").replace("/", "_").replace("\\", "_").replace(":", "_")
+        
+        # STEP 1: First check if PDF already exists in the expected job directory structure
+        # Create an output directory name pattern like "job_title_company_date_ID"
+        sanitized_name = re.sub(r'[^a-zA-Z0-9_]', '_', job.title.lower())[:50]
+        sanitized_company = re.sub(r'[^a-zA-Z0-9_]', '_', job.company.lower())[:30] if job.company else ""
+        
+        # Look for directories matching this job in PDF_OUTPUT_DIR
+        date_today = time.strftime('%Y%m%d')
+        dir_pattern = f"{sanitized_name}_{sanitized_company}_{date_today}_*"
+        
+        # Find matching directories - first in PDF directory
+        pdf_job_dirs = []
+        for item in os.listdir(PDF_OUTPUT_DIR):
+            item_path = os.path.join(PDF_OUTPUT_DIR, item)
+            if os.path.isdir(item_path) and fnmatch.fnmatch(item, dir_pattern):
+                # Check if this directory has a cv.pdf file
+                pdf_path = os.path.join(item_path, "cv.pdf")
+                if os.path.exists(pdf_path):
+                    pdf_job_dirs.append((item_path, pdf_path))
+        
+        # If we found PDF files, use the most recent one
+        if pdf_job_dirs:
+            # Sort by directory modification time (most recent first)
+            pdf_job_dirs.sort(key=lambda x: os.path.getmtime(x[0]), reverse=True)
+            
+            # Use the most recent PDF
+            _, pdf_path = pdf_job_dirs[0]
+            logger.info(f"Found recent PDF file: {pdf_path}")
+            
+            # Read the file and send it as a stream to ensure it's transmitted correctly
+            try:
+                with open(pdf_path, "rb") as file:
+                    content = file.read()
+                
+                return StreamingResponse(
+                    io.BytesIO(content),
+                    media_type="application/pdf",
+                    headers={
+                        "Content-Disposition": f"attachment; filename={filename}",
+                        "Content-Type": "application/pdf",
+                        "Content-Length": str(len(content))
+                    }
+                )
+            except Exception as e:
+                logger.error(f"Error reading PDF file: {e}")
+                raise HTTPException(status_code=500, detail=f"Error reading PDF file: {str(e)}")
+        
+        # STEP 2: If not found in PDF_OUTPUT_DIR, look in LATEX_OUTPUT_DIR
+        latex_job_dirs = []
+        for item in os.listdir(LATEX_OUTPUT_DIR):
+            item_path = os.path.join(LATEX_OUTPUT_DIR, item)
+            if os.path.isdir(item_path) and fnmatch.fnmatch(item, dir_pattern):
+                # Check if this directory has a cv.pdf file (sometimes generated directly there)
+                pdf_path = os.path.join(item_path, "cv.pdf")
+                if os.path.exists(pdf_path):
+                    latex_job_dirs.append((item_path, pdf_path))
+        
+        # If we found PDF files in latex directories, use the most recent one
+        if latex_job_dirs:
+            # Sort by directory modification time (most recent first)
+            latex_job_dirs.sort(key=lambda x: os.path.getmtime(x[0]), reverse=True)
+            
+            # Use the most recent PDF
+            _, pdf_path = latex_job_dirs[0]
+            logger.info(f"Found recent PDF file in LaTeX directory: {pdf_path}")
+            
+            # Copy to PDF directory for future use
+            pdf_dir = os.path.join(PDF_OUTPUT_DIR, os.path.basename(os.path.dirname(pdf_path)))
+            os.makedirs(pdf_dir, exist_ok=True)
+            pdf_dest = os.path.join(pdf_dir, "cv.pdf")
+            try:
+                shutil.copy2(pdf_path, pdf_dest)
+                logger.info(f"Copied PDF from LaTeX to PDF directory: {pdf_dest}")
+            except Exception as e:
+                logger.warning(f"Could not copy PDF to PDF directory: {e}")
+            
+            # Read the file and send it as a stream to ensure it's transmitted correctly
+            try:
+                with open(pdf_path, "rb") as file:
+                    content = file.read()
+                
+                return StreamingResponse(
+                    io.BytesIO(content),
+                    media_type="application/pdf",
+                    headers={
+                        "Content-Disposition": f"attachment; filename={filename}",
+                        "Content-Type": "application/pdf",
+                        "Content-Length": str(len(content))
+                    }
+                )
+            except Exception as e:
+                logger.error(f"Error reading PDF file: {e}")
+                raise HTTPException(status_code=500, detail=f"Error reading PDF file: {str(e)}")
+        
+        # STEP 3: If no PDF found for the current day, try to use legacy naming format with cv_key
+        if job.cv_key:
             pdf_path = os.path.join(PDF_OUTPUT_DIR, f"cv_{job.cv_key}.pdf")
             
             if os.path.exists(pdf_path):
-                logger.info(f"Found existing PDF file: {pdf_path}")
-                
-                # Generate filename for the user with position-company format
-                filename = f"CV_{job.title.strip()}-{job.company.strip()}_{datetime.now().strftime('%Y%m%d')}.pdf"
-                # Replace invalid characters with underscores
-                filename = filename.replace(" ", "_").replace("/", "_").replace("\\", "_").replace(":", "_")
-                
-                # Return existing file
+                logger.info(f"Found legacy PDF file: {pdf_path}")
                 return FileResponse(
                     pdf_path,
                     media_type="application/pdf",
                     filename=filename
                 )
         
-        # If we don't have a saved file or custom parameters were specified, generate CV
-        logger.info(f"Generating new CV for job_id: {job_id} with model: {model or 'default'}")
+        # STEP 4: If still not found, generate the PDF directly
+        logger.info(f"No existing PDF found for job {job_id}, generating it directly")
         
-        # Generate filename based on job information with position-company format
-        filename = f"CV_{job.title.strip()}-{job.company.strip()}_{datetime.now().strftime('%Y%m%d')}.pdf"
-        # Replace invalid characters in filename
-        filename = filename.replace(" ", "_").replace("/", "_").replace("\\", "_").replace(":", "_")
-        
-        # Generate CV and save in appropriate folders
+        # Use template-based generation with additional parameters
         result = generate_cv_with_template(
             db, 
             job_id, 
@@ -278,29 +419,33 @@ def download_cv(
             custom_context=custom_context
         )
         
-        if not result.get("pdf"):
-            raise HTTPException(status_code=404, detail="Could not generate CV in PDF format")
-        
-        # Check if we have a PDF file path in the result
+        # Check if we now have a PDF path
         if result.get("pdf_path") and os.path.exists(result["pdf_path"]):
-            # Return file from disk
-            return FileResponse(
-                result["pdf_path"],
-                media_type="application/pdf",
-                filename=filename
-            )
-        else:
-            # As a last resort, use base64 if we don't have a file
-            pdf_data = base64.b64decode(result["pdf"])
+            pdf_path = result["pdf_path"]
+            logger.info(f"Successfully generated PDF file: {pdf_path}")
             
-            # Create StreamingResponse for PDF data
-            return StreamingResponse(
-                io.BytesIO(pdf_data),
-                media_type="application/pdf",
-                headers={
-                    "Content-Disposition": f"attachment; filename={filename}"
-                }
-            )
+            # Read the file and send it as a stream
+            try:
+                with open(pdf_path, "rb") as file:
+                    content = file.read()
+                
+                return StreamingResponse(
+                    io.BytesIO(content),
+                    media_type="application/pdf",
+                    headers={
+                        "Content-Disposition": f"attachment; filename={filename}",
+                        "Content-Type": "application/pdf",
+                        "Content-Length": str(len(content))
+                    }
+                )
+            except Exception as e:
+                logger.error(f"Error reading newly generated PDF file: {e}")
+                raise HTTPException(status_code=500, detail=f"Error reading PDF file: {str(e)}")
+        else:
+            # If generation failed, return an error
+            error_msg = result.get("error", "Unknown error during PDF generation")
+            logger.error(f"Failed to generate PDF: {error_msg}")
+            raise HTTPException(status_code=500, detail=f"Failed to generate PDF: {error_msg}")
             
     except HTTPException:
         # Przekazuj dalej wyjątki HTTPException

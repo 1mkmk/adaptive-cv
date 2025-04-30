@@ -91,11 +91,56 @@ export async function downloadCV(
     url += `?${queryParams.join('&')}`;
   }
   
-  // For downloads, we need to handle this differently - generate a download link
-  const downloadUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${url}`;
-  
-  // Open in a new tab to trigger download
-  window.open(downloadUrl, '_blank');
+  try {
+    // For downloads, we need to handle this differently - generate a download link
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+    const downloadUrl = `${apiUrl}${url}`;
+    
+    // Use fetch with blob response to handle the download properly
+    const response = await fetch(downloadUrl);
+    
+    if (!response.ok) {
+      throw new Error(`Failed to download CV: ${response.status} ${response.statusText}`);
+    }
+    
+    // Get the filename from the Content-Disposition header if available
+    const contentDisposition = response.headers.get('Content-Disposition');
+    let filename = `CV_Job_${jobId}.pdf`;
+    
+    if (contentDisposition) {
+      const filenameMatch = contentDisposition.match(/filename="(.+)"/i);
+      if (filenameMatch && filenameMatch[1]) {
+        filename = filenameMatch[1];
+      }
+    }
+    
+    // Get the blob from the response
+    const blob = await response.blob();
+    
+    // Create a download link and trigger it
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = filename;
+    
+    // Append to the document, click it, and remove it
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+    
+    // Clean up the URL.createObjectURL
+    setTimeout(() => URL.revokeObjectURL(downloadLink.href), 100);
+    
+    return true;
+  } catch (error) {
+    console.error('Error downloading CV:', error);
+    
+    // Fallback to the traditional window.open method if fetch fails
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+    const downloadUrl = `${apiUrl}${url}`;
+    window.open(downloadUrl, '_blank');
+    
+    return false;
+  }
 }
 
 /**
@@ -113,11 +158,56 @@ export async function downloadLatexSource(
   
   console.log("Downloading LaTeX source file");
   
-  // Generate the download URL
-  const downloadUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${url}`;
-  
-  // Open in a new tab to trigger download
-  window.open(downloadUrl, '_blank');
+  try {
+    // For downloads, we need to handle this differently - generate a download link
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+    const downloadUrl = `${apiUrl}${url}`;
+    
+    // Use fetch with blob response to handle the download properly
+    const response = await fetch(downloadUrl);
+    
+    if (!response.ok) {
+      throw new Error(`Failed to download LaTeX: ${response.status} ${response.statusText}`);
+    }
+    
+    // Get the filename from the Content-Disposition header if available
+    const contentDisposition = response.headers.get('Content-Disposition');
+    let filename = `CV_Latex_${jobId}.zip`;
+    
+    if (contentDisposition) {
+      const filenameMatch = contentDisposition.match(/filename="(.+)"/i);
+      if (filenameMatch && filenameMatch[1]) {
+        filename = filenameMatch[1];
+      }
+    }
+    
+    // Get the blob from the response
+    const blob = await response.blob();
+    
+    // Create a download link and trigger it
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = filename;
+    
+    // Append to the document, click it, and remove it
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+    
+    // Clean up the URL.createObjectURL
+    setTimeout(() => URL.revokeObjectURL(downloadLink.href), 100);
+    
+    return true;
+  } catch (error) {
+    console.error('Error downloading LaTeX source:', error);
+    
+    // Fallback to the traditional window.open method if fetch fails
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+    const downloadUrl = `${apiUrl}${url}`;
+    window.open(downloadUrl, '_blank');
+    
+    return false;
+  }
 }
 
 /**
