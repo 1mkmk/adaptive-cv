@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import JobForm from '@/components/JobForm';
 import { useAuth } from '@/context/AuthContext';
+import { ParallaxProvider, Parallax } from 'react-scroll-parallax';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -32,38 +33,49 @@ const Home: React.FC = () => {
   }, [isAuthenticated, navigate]);
   
   return (
-    <>
+    <ParallaxProvider>
       <div className="relative">
         {/* Hero Section with Background */}
         <div className="bg-gradient-to-r from-indigo-700 to-purple-700 text-white py-24">
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-block mb-6 rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold">
-                {t('footer.tagline')}
-              </div>
-              <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 drop-shadow-sm">
-                AdaptiveCV
-              </h1>
-              <p className="text-xl md:text-2xl mb-10 leading-relaxed">
-                {t('home.title')} {t('home.subtitle')}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-5 justify-center">
-                <Button 
-                  size="lg" 
-                  className="bg-white text-indigo-700 hover:bg-white/90 text-base font-semibold px-8"
-                  onClick={() => navigate('/login')}
-                >
-                  {t('profile.profileDesc')}
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  className="bg-white/10 hover:bg-white/20 text-white border-white/50 text-base font-semibold px-8"
-                  onClick={() => navigate('/login')}
-                >
-                  {t('jobs.generateCV')}
-                </Button>
-              </div>
+              <Parallax translateY={[-10, 10]}>
+                <div className="inline-block mb-6 rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold">
+                  {t('footer.tagline')}
+                </div>
+              </Parallax>
+              
+              <Parallax translateY={[-20, 20]} speed={-2}>
+                <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 drop-shadow-sm">
+                  AdaptiveCV
+                </h1>
+              </Parallax>
+              
+              <Parallax translateY={[-15, 15]}>
+                <p className="text-xl md:text-2xl mb-10 leading-relaxed">
+                  {t('home.title')} {t('home.subtitle')}
+                </p>
+              </Parallax>
+              
+              <Parallax translateY={[-5, 5]}>
+                <div className="flex flex-col sm:flex-row gap-5 justify-center">
+                  <Button 
+                    size="lg" 
+                    className="bg-white text-indigo-700 hover:bg-white/90 text-base font-semibold px-8"
+                    onClick={() => navigate('/login')}
+                  >
+                    {t('profile.profileDesc')}
+                  </Button>
+                  <Button 
+                    size="lg" 
+                    variant="outline"
+                    className="bg-white/10 hover:bg-white/20 text-white border-white/50 text-base font-semibold px-8"
+                    onClick={() => navigate('/login')}
+                  >
+                    {t('jobs.generateCV')}
+                  </Button>
+                </div>
+              </Parallax>
             </div>
           </div>
           
@@ -75,22 +87,23 @@ const Home: React.FC = () => {
         
         {/* Creator Note Section */}
         <div className="container mx-auto px-6 py-12">
-          <div className="max-w-4xl mx-auto bg-gradient-to-r from-indigo-50 to-purple-50 p-6 md:p-8 rounded-xl border border-purple-100">
-            <div className="flex flex-col md:flex-row gap-6 items-center">
-              <div className="w-24 h-24 shrink-0 rounded-full bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white text-3xl font-bold">
-                MK
-              </div>
-              <div>
-                <h3 className="text-xl font-medium text-gray-800 mb-2">From the creator</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  AdaptiveCV was born from my own struggles with job applications. I found myself constantly rewriting my CV for different positions, trying to emphasize different skills based on job requirements. This project combines my passion for AI and practical problem-solving to create something that I hope makes the job search process easier for everyone.
-                </p>
-                <p className="text-indigo-600 mt-2 font-medium">– Maciej Kasik, Developer</p>
+          <Parallax translateY={[-15, 15]} opacity={[0.8, 1]}>
+            <div className="max-w-4xl mx-auto bg-gradient-to-r from-indigo-50 to-purple-50 p-6 md:p-8 rounded-xl border border-purple-100">
+              <div className="flex flex-col md:flex-row gap-6 items-center">
+                <div className="w-24 h-24 shrink-0 rounded-full bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white text-3xl font-bold">
+                  MK
+                </div>
+                <div>
+                  <h3 className="text-xl font-medium text-gray-800 mb-2">From the creator</h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    AdaptiveCV was born from my own struggles with job applications. I found myself constantly rewriting my CV for different positions, trying to emphasize different skills based on job requirements. This project combines my passion for AI and practical problem-solving to create something that I hope makes the job search process easier for everyone.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          </Parallax>
         </div>
-        
+
         {/* Quick Job Add Section */}
         <div className="container mx-auto px-6 py-12">
           <div className="max-w-4xl mx-auto bg-gradient-to-r from-indigo-50 to-purple-50 p-6 md:p-8 rounded-xl border border-purple-100">
@@ -347,7 +360,7 @@ const Home: React.FC = () => {
           </div>
         </footer>
       </div>
-    </>
+    </ParallaxProvider>
   );
 };
 

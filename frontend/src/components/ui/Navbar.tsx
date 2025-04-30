@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
             <img 
               src="/adaptivecv-logo.jpg" 
               alt="AdaptiveCV Logo" 
-              className="h-8 w-auto mr-2" 
+              className="h-10 w-auto mr-2 rounded-md" 
             />
           </Link>
           <span className="font-bold text-xl">{t('common.appName')}</span>
