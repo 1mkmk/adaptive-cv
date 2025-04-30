@@ -1,0 +1,67 @@
+{
+  "template": {
+    "path": "/Users/maciejkasik/Desktop/adaptive-cv/assets/templates/templates_extracted/latexs_wenneker_resume__v1.1",
+    "structure": "memoir",
+    "main_files": [
+      "cv_15.tex",
+      "structure.tex"
+    ],
+    "support_files": []
+  },
+  "detected_fields": {
+    "cv_15.tex": {
+      "commands": [],
+      "environments": [],
+      "custom_commands": [],
+      "placeholders": [
+        "your name",
+        "Your name",
+        "Your email",
+        "Your phone"
+      ]
+    },
+    "structure.tex": {
+      "commands": [],
+      "environments": [],
+      "custom_commands": [
+        {
+          "name": "userinformation",
+          "definition": "\\renewcommand{\\userinformation"
+        },
+        {
+          "name": "cvheading",
+          "definition": "{\\Huge\\bfseries\\color{RoyalBlue"
+        },
+        {
+          "name": "cvsubheading",
+          "definition": "{\\Large\\bfseries #1"
+        },
+        {
+          "name": "Sep",
+          "definition": "\\vspace{1em"
+        },
+        {
+          "name": "SmallSep",
+          "definition": "\\vspace{0.5em"
+        },
+        {
+          "name": "aboutme",
+          "definition": " % New command for the about me section\n\\textbf{\\color{RoyalBlue"
+        },
+        {
+          "name": "CVSection",
+          "definition": " % New command for the headings within sections\n{\\Large\\textbf{#1"
+        },
+        {
+          "name": "CVItem",
+          "definition": " % New command for the item descriptions\n\\textbf{\\color{RoyalBlue"
+        },
+        {
+          "name": "bluebullet",
+          "definition": "\\textcolor{RoyalBlue"
+        }
+      ],
+      "placeholders": []
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "profile": {
+    "name": "Candidate Name",
+    "email": "email@example.com",
+    "phone": "+1 234 567 890",
+    "address": "City, Country",
+    "profile_summary": "Experienced professional with expertise matching the job requirements.",
+    "skills": [],
+    "experience": [],
+    "education": [],
+    "languages": [],
+    "certifications": []
+  },
+  "job_requirements": {
+    "required_skills": [
+      "programowanie blokowe",
+      "modelowanie 3D",
+      "Java",
+      "Python",
+      "HTML"
+    ],
+    "preferred_skills": [
+      "umiej\u0119tno\u015b\u0107 pracy zespo\u0142owej"
+    ],
+    "required_experience": [
+      "zdolno\u015b\u0107 przekazywania wiedzy w prosty i zrozumia\u0142y spos\u00f3b",
+      "inspirowanie i motywowanie do nauki",
+      "cierpliwo\u015b\u0107, otwarto\u015b\u0107 i wyrozumia\u0142o\u015b\u0107"
+    ],
+    "required_education": [],
+    "required_languages": [],
+    "required_certifications": []
+  },
+  "template": {
+    "strengths": "The latexs_wenneker_resume__v1.1 template is highly customizable with several custom commands for user information, CV headings, subheadings, about me section, CV sections and items. It also includes commands for spacing and color customization. The structure of the document is based on the memoir class, which is flexible and suitable for a variety of document types.",
+    "weaknesses": "The template does not have any detected fields in the support files, which may limit the complexity of the CV. The template also lacks pre-defined sections for skills, experience, education, languages, and certifications, which are common sections in a CV.",
+    "optimal_uses": "This template is best used for creating a CV with a clean and professional look. It is suitable for candidates who want to highlight their personal information, about me section, and various CV sections in a structured manner.",
+    "customization_options": "The template can be customized using the custom commands provided. These include commands for user information, CV headings, subheadings, about me section, CV sections and items. The color and spacing can also be customized using the provided commands.",
+    "section_mapping": {
+      "name": "your name",
+      "email": "Your email",
+      "phone": "Your phone"
+    },
+    "job_match": {
+      "extracted_requirements": {
+        "required_skills": [
+          "programowanie blokowe",
+          "modelowanie 3D",
+          "Java",
+          "Python",
+          "HTML"
+        ],
+        "preferred_skills": [
+          "umiej\u0119tno\u015b\u0107 pracy zespo\u0142owej"
+        ],
+        "required_experience": [
+          "zdolno\u015b\u0107 przekazywania wiedzy w prosty i zrozumia\u0142y spos\u00f3b",
+          "inspirowanie i motywowanie do nauki",
+          "cierpliwo\u015b\u0107, otwarto\u015b\u0107 i wyrozumia\u0142o\u015b\u0107"
+        ],
+        "required_education": [],
+        "required_languages": [],
+        "required_certifications": []
+      },
+      "profile_enhancement": {
+        "matches": [],
+        "gaps": [
+          "programowanie blokowe",
+          "modelowanie 3D",
+          "Java",
+          "Python",
+          "HTML",
+          "umiej\u0119tno\u015b\u0107 pracy zespo\u0142owej",
+          "zdolno\u015b\u0107 przekazywania wiedzy w prosty i zrozumia\u0142y spos\u00f3b",
+          "inspirowanie i motywowanie do nauki",
+          "cierpliwo\u015b\u0107, otwarto\u015b\u0107 i wyrozumia\u0142o\u015b\u0107"
+        ],
+        "improvement_suggestions": [
+          "Add the required and preferred skills to the skills section of the CV. Include any experience that demonstrates the required experience in the experience section. If the candidate has any relevant education, languages, or certifications, these should also be added to the CV."
+        ]
+      },
+      "template_specific_recommendations": [
+        "Use the custom commands to highlight the required and preferred skills in the CV. For example, use the CVItem command to list each skill. Use the aboutme command to describe the candidate's experience and motivation. Use the CVSection command to create sections for skills, experience, education, languages, and certifications."
+      ]
+    },
+    "document_structure": "The document is structured using the memoir class. The main files are cv_15.tex and structure.tex. The cv_15.tex file contains placeholders for the candidate's name, email, and phone. The structure.tex file contains custom commands for user information, CV headings, subheadings, about me section, CV sections and items.",
+    "optimization_suggestions": [
+      "Use the custom commands to highlight the required and preferred skills in the CV. For example, use the CVItem command to list each skill. Use the aboutme command to describe the candidate's experience and motivation. Use the CVSection command to create sections for skills, experience, education, languages, and certifications. Add the required and preferred skills to the skills section of the CV. Include any experience that demonstrates the required experience in the experience section. If the candidate has any relevant education, languages, or certifications, these should also be added to the CV."
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "template_name": "latexs_wenneker_resume__v1.1",
+  "job_match_score": 70,
+  "recommended_sections": [
+    "experience",
+    "skills",
+    "education"
+  ],
+  "highlighted_skills": [],
+  "customize_profile_summary": true,
+  "template_specific_recommendations": {},
+  "content_optimization": {
+    "summary": "Highlight your relevant experience and skills that match the job requirements.",
+    "experience": "Focus on quantifiable achievements and relevant responsibilities.",
+    "skills": "List the most relevant technical skills first."
+  }
+}

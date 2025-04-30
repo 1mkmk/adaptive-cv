@@ -1,0 +1,635 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex.fmt)
+ restricted \write18 enabled.
+entering extended mode
+(cv.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-03-26>
+
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/memoir/memoir.cls
+Document Class: memoir 2025/03/10 v3.8.3b configurable book, report, article do
+cument class
+
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/xpatch/xpatch.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3kernel/expl3.st
+y
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3backend/l3backe
+nd-pdftex.def))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3packages/xparse
+/xparse.sty)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/etoolbox/etoolbox
+.sty))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/iftex.sty
+)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/memoir/mem12.clo)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/array.sty)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/dcolumn.sty
+)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/delarray.st
+y)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/tabularx.st
+y)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/booktabs/booktabs.sty)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/hyperref/nameref.
+sty
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/refcount/refcount.sty
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/gener
+ic/ltxcmds/ltxcmds.sty)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/gener
+ic/infwarerr/infwarerr.sty))
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/gener
+ic/gettitlestring/gettitlestring.sty
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/kvoptions/kvoptions.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/keyval.s
+ty)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/kvsetkeys/kvsetkeys.sty))))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/verbatim.st
+y)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/shortvrb.sty
+)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/textcase/textcase.sty)) (structure.tex
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/xcharter/XCharter.sty
+`XCharter' v1.25, 2023/07/21 Text macros for XCharter, an extension of Charter 
+(msharpe)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/xkeyval/xkeyval.s
+ty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/xkeyval/xkeyval
+.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/xkeyval/xkvutil
+s.tex)))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/textcomp.sty
+)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/xstring/xstring.sty
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/gener
+ic/xstring/xstring.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/ifthen.sty)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/carlisle/scalefnt.sty)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/fontenc.sty)
+
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/fontaxes/fontaxes.sty))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/inputenc.sty
+)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/fontenc.sty
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/xcharter/T1XCharter-TLF.fd))
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/geometry/geometry.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/ifvtex.st
+y)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/geometry/geometry.cfg))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphicx
+.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphics
+.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/trig.sty
+)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/grap
+hics.cfg)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-def/pdft
+ex.def)))
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/flowfram/flowfram.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/afterpage.s
+ty)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/xfor/xfor.sty)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/color.st
+y
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/colo
+r.cfg)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/mathcolo
+r.ltx)))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/url/url.sty)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/xcolor/xcolor.sty
+
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/colo
+r.cfg)
+
+Package xcolor Warning: Package option `usenames' is obsolete and ignored on in
+put line 265.
+
+
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/mathcolo
+r.ltx))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/dvipsnam
+.def)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/frontendlayer
+/tikz.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/basiclayer/pg
+f.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/utilities/pgf
+rcs.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfutil-common.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfutil-latex.def)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfrcs.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/pgf.revisio
+n.tex)))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/basiclayer/pg
+fcore.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/systemlayer/p
+gfsys.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgfsys.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfkeys.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfkeyslibraryfiltered.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgf.cfg)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgfsys-pdftex.def
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgfsys-common-pdf.def)))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgfsyssoftpath.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgfsysprotocol.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcore.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+h.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hutil.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hparser.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.basic.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.trigonometric.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.random.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.comparison.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.base.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.round.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.misc.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.integerarithmetics.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hcalc.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfloat.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfint
+.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorepoints.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorepathconstruct.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorepathusage.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorescopes.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoregraphicstate.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoretransformations.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorequick.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoreobjects.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorepathprocessing.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorearrows.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoreshade.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoreimage.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoreexternal.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorelayers.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoretransparency.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorepatterns.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorerdf.code.tex)))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/modules/pgf
+moduleshapes.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/modules/pgf
+moduleplot.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/compatibility
+/pgfcomp-version-0-65.sty)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/compatibility
+/pgfcomp-version-1-18.sty))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/utilities/pgf
+for.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/utilities/pgf
+keys.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfkeys.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/math/pgfmath.
+sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+h.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gffor.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/tikz.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/p
+gflibraryplothandlers.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/modules/pgf
+modulematrix.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibrarytopaths.code.tex)))
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/enumitem/enumitem.sty))
+No file cv.aux.
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+
+(/Library/Application Support/MiKTeX/texmfs/install/tex/context/base/mkii/supp-
+pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/epstopdf-pkg/epst
+opdf-base.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/00miktex/epstopdf
+-sys.cfg))
+
+LaTeX Warning: File `photo.jpg' not found on input line 52.
+
+
+cv.tex:52: Package pdftex.def Error: File `photo.jpg' not found: using draft se
+tting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.52 \userinformation
+                      % Print your information in the left column
+
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/xcharter/TS1XCharter-TLF.fd) [1{/Users/maciejkasik/Library/Application Support
+/MiKTeX/texmfs/data/fonts/map/pdftex/pdftex.map}]
+
+LaTeX Warning: File `photo.jpg' not found on input line 174.
+
+
+cv.tex:174: Package pdftex.def Error: File `photo.jpg' not found: using draft s
+etting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.174 \userinformation
+                       % Print your information in the left column
+[2] (cv.aux) )
+(see the transcript file for additional information){/Users/maciejkasik/Library
+/Application Support/MiKTeX/texmfs/install/fonts/enc/dvips/xcharter/xch_yelf2i.
+enc}{/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/fonts
+/enc/dvips/xcharter/xch1_co4ru4.enc}{/Users/maciejkasik/Library/Application Sup
+port/MiKTeX/texmfs/install/fonts/enc/dvips/xcharter/xch_rydp4l.enc} </Users/mac
+iejkasik/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappe
+n/ec/dpi600/ectt1095.pk> </Users/maciejkasik/Library/Application Support/MiKTeX
+/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ectt1200.pk></Users/maciejkasik
+/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/xcharter/
+XCharter-Bold.pfb></Users/maciejkasik/Library/Application Support/MiKTeX/texmfs
+/install/fonts/type1/public/xcharter/XCharter-BoldItalic.pfb></Users/maciejkasi
+k/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/xcharter
+/XCharter-Roman.pfb></Library/Application Support/MiKTeX/texmfs/install/fonts/t
+ype1/public/amsfonts/cm/cmsy10.pfb>
+Output written on cv.pdf (2 pages, 187706 bytes).
+Transcript written on cv.log.
+
+
+--- SECOND RUN ---
+
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex.fmt)
+ restricted \write18 enabled.
+entering extended mode
+(cv.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-03-26>
+
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/memoir/memoir.cls
+Document Class: memoir 2025/03/10 v3.8.3b configurable book, report, article do
+cument class
+
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/xpatch/xpatch.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3kernel/expl3.st
+y
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3backend/l3backe
+nd-pdftex.def))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3packages/xparse
+/xparse.sty)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/etoolbox/etoolbox
+.sty))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/iftex.sty
+)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/memoir/mem12.clo)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/array.sty)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/dcolumn.sty
+)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/delarray.st
+y)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/tabularx.st
+y)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/booktabs/booktabs.sty)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/hyperref/nameref.
+sty
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/refcount/refcount.sty
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/gener
+ic/ltxcmds/ltxcmds.sty)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/gener
+ic/infwarerr/infwarerr.sty))
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/gener
+ic/gettitlestring/gettitlestring.sty
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/kvoptions/kvoptions.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/keyval.s
+ty)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/kvsetkeys/kvsetkeys.sty))))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/verbatim.st
+y)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/shortvrb.sty
+)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/textcase/textcase.sty)) (structure.tex
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/xcharter/XCharter.sty
+`XCharter' v1.25, 2023/07/21 Text macros for XCharter, an extension of Charter 
+(msharpe)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/xkeyval/xkeyval.s
+ty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/xkeyval/xkeyval
+.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/xkeyval/xkvutil
+s.tex)))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/textcomp.sty
+)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/xstring/xstring.sty
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/gener
+ic/xstring/xstring.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/ifthen.sty)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/carlisle/scalefnt.sty)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/fontenc.sty)
+
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/fontaxes/fontaxes.sty))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/inputenc.sty
+)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/fontenc.sty
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/xcharter/T1XCharter-TLF.fd))
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/geometry/geometry.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/ifvtex.st
+y)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/geometry/geometry.cfg))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphicx
+.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphics
+.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/trig.sty
+)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/grap
+hics.cfg)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-def/pdft
+ex.def)))
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/flowfram/flowfram.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/afterpage.s
+ty)
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/xfor/xfor.sty)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/color.st
+y
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/colo
+r.cfg)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/mathcolo
+r.ltx)))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/url/url.sty)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/xcolor/xcolor.sty
+
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/colo
+r.cfg)
+
+Package xcolor Warning: Package option `usenames' is obsolete and ignored on in
+put line 265.
+
+
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/mathcolo
+r.ltx))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/dvipsnam
+.def)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/frontendlayer
+/tikz.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/basiclayer/pg
+f.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/utilities/pgf
+rcs.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfutil-common.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfutil-latex.def)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfrcs.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/pgf.revisio
+n.tex)))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/basiclayer/pg
+fcore.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/systemlayer/p
+gfsys.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgfsys.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfkeys.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfkeyslibraryfiltered.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgf.cfg)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgfsys-pdftex.def
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgfsys-common-pdf.def)))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgfsyssoftpath.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgfsysprotocol.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcore.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+h.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hutil.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hparser.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.basic.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.trigonometric.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.random.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.comparison.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.base.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.round.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.misc.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.integerarithmetics.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hcalc.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfloat.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfint
+.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorepoints.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorepathconstruct.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorepathusage.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorescopes.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoregraphicstate.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoretransformations.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorequick.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoreobjects.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorepathprocessing.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorearrows.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoreshade.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoreimage.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoreexternal.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorelayers.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoretransparency.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorepatterns.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorerdf.code.tex)))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/modules/pgf
+moduleshapes.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/modules/pgf
+moduleplot.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/compatibility
+/pgfcomp-version-0-65.sty)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/compatibility
+/pgfcomp-version-1-18.sty))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/utilities/pgf
+for.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/utilities/pgf
+keys.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfkeys.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/math/pgfmath.
+sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+h.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gffor.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/tikz.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/p
+gflibraryplothandlers.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/modules/pgf
+modulematrix.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibrarytopaths.code.tex)))
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/enumitem/enumitem.sty)) (cv.aux)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+
+(/Library/Application Support/MiKTeX/texmfs/install/tex/context/base/mkii/supp-
+pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/epstopdf-pkg/epst
+opdf-base.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/00miktex/epstopdf
+-sys.cfg))
+
+LaTeX Warning: File `photo.jpg' not found on input line 52.
+
+
+cv.tex:52: Package pdftex.def Error: File `photo.jpg' not found: using draft se
+tting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.52 \userinformation
+                      % Print your information in the left column
+
+(/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/tex/latex
+/xcharter/TS1XCharter-TLF.fd) [1{/Users/maciejkasik/Library/Application Support
+/MiKTeX/texmfs/data/fonts/map/pdftex/pdftex.map}]
+
+LaTeX Warning: File `photo.jpg' not found on input line 174.
+
+
+cv.tex:174: Package pdftex.def Error: File `photo.jpg' not found: using draft s
+etting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.174 \userinformation
+                       % Print your information in the left column
+[2] (cv.aux) )
+(see the transcript file for additional information){/Users/maciejkasik/Library
+/Application Support/MiKTeX/texmfs/install/fonts/enc/dvips/xcharter/xch_yelf2i.
+enc}{/Users/maciejkasik/Library/Application Support/MiKTeX/texmfs/install/fonts
+/enc/dvips/xcharter/xch1_co4ru4.enc}{/Users/maciejkasik/Library/Application Sup
+port/MiKTeX/texmfs/install/fonts/enc/dvips/xcharter/xch_rydp4l.enc} </Users/mac
+iejkasik/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappe
+n/ec/dpi600/ectt1095.pk> </Users/maciejkasik/Library/Application Support/MiKTeX
+/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ectt1200.pk></Users/maciejkasik
+/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/xcharter/
+XCharter-Bold.pfb></Users/maciejkasik/Library/Application Support/MiKTeX/texmfs
+/install/fonts/type1/public/xcharter/XCharter-BoldItalic.pfb></Users/maciejkasi
+k/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/xcharter
+/XCharter-Roman.pfb></Library/Application Support/MiKTeX/texmfs/install/fonts/t
+ype1/public/amsfonts/cm/cmsy10.pfb>
+Output written on cv.pdf (2 pages, 187706 bytes).
+Transcript written on cv.log.
