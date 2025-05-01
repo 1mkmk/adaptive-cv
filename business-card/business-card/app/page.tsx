@@ -10,8 +10,8 @@ import { Footer } from '@/components/home/Footer';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/lib/translations';
 
-// Frontend URL - change to the actual frontend URL
-const FRONTEND_URL = "http://localhost:3000";
+// Frontend URL - bezpośredni adres do frontendu
+const FRONTEND_URL = "http://localhost:5173";
 
 export default function Home() {
   const { t } = useTranslation();

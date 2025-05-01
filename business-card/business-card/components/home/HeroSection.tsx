@@ -5,8 +5,8 @@ import { useTranslation } from "@/lib/translations";
 import { Header } from "./Header";
 import { useEffect, useState } from "react";
 
-// Frontend URL - change this to the actual URL of your frontend app
-const FRONTEND_URL = "http://localhost:3000";
+// Frontend URL - bezpośredni adres do frontendu
+const FRONTEND_URL = "http://localhost:5173";
 
 export function HeroSection() {
   const { t } = useTranslation();

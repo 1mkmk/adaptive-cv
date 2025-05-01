@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { Separator } from "@/components/ui/separator";
 import { useTranslation } from "@/lib/translations";
 
-// Frontend URL for redirects
-const FRONTEND_URL = "http://localhost:3000";
+// Frontend URL for redirects - zaktualizowane do naszego proxy
+const FRONTEND_URL = "http://localhost:3001/app";
 
 export function Footer() {
   const { t } = useTranslation();

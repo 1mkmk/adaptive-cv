@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # AdaptiveCV Startup Script for macOS/Linux
-# Wersja: 2.5 — z loggingiem, obsługą SIGTERM/SIGINT, status, port checks, auto-kill, ścieżkami absolutnymi i virtualenv
+# Wersja: 2.6 — z loggingiem, obsługą SIGTERM/SIGINT, status, port checks, auto-kill, ścieżkami absolutnymi, virtualenv i business-card
 
 set -euo pipefail
 
@@ -11,6 +11,7 @@ set -euo pipefail
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKEND_DIR="$BASE_DIR/backend"
 FRONTEND_DIR="$BASE_DIR/frontend"
+BUSINESS_CARD_DIR="$BASE_DIR/business-card/business-card"
 PID_DIR="$BASE_DIR/.pids"
 LOG_DIR="$BASE_DIR/logs"
 VENV_DIR="$BASE_DIR/.venv"
@@ -18,6 +19,7 @@ VENV_DIR="$BASE_DIR/.venv"
 # Ports
 BACKEND_PORT=8000
 FRONTEND_PORT=5173
+BUSINESS_CARD_PORT=3002
 
 # Colors
 GREEN='\033[0;32m'; BLUE='\033[0;34m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; NC='\033[0m'
@@ -244,6 +246,18 @@ start_proxy() {
   info "Proxy PID $(read_pid proxy), log: $(basename $LOG_DIR)/proxy.log"
 }
 
+start_business_card() {
+  info "Sprawdzam port $BUSINESS_CARD_PORT..."
+  check_port_free "$BUSINESS_CARD_PORT"
+  info "Uruchamiam business-card..."
+  cd "$BUSINESS_CARD_DIR" || error_exit "Nie znaleziono katalogu business-card"
+  npm run dev -- --port $BUSINESS_CARD_PORT \
+    >> "$LOG_DIR/business-card.log" 2>&1 &
+  write_pid business-card $!
+  cd "$BASE_DIR" >/dev/null
+  info "Business-Card PID $(read_pid business-card), log: $(basename $LOG_DIR)/business-card.log"
+}
+
 generate_template_previews() {
   info "Generowanie podglądów szablonów..."
   
@@ -311,11 +325,23 @@ install_deps() {
   fi
   
   cd "$BASE_DIR" >/dev/null
+  
+  info "Instaluję zależności business-card..."
+  cd "$BUSINESS_CARD_DIR" || error_exit "Nie znaleziono katalogu business-card"
+  
+  # Check if npm is available
+  if command_exists npm; then
+    npm install
+  else
+    warn "npm not found. Please install Node.js and npm."
+  fi
+  
+  cd "$BASE_DIR" >/dev/null
 }
 
 stop_services() {
   info "Zatrzymuję serwisy..."
-  for name in backend frontend proxy; do
+  for name in backend frontend proxy business-card; do
     pid=$(read_pid "$name")
     if [[ -n "$pid" ]] && kill -0 "$pid" 2>/dev/null; then
       kill "$pid" && info "Zatrzymano $name (PID $pid)"
@@ -328,11 +354,11 @@ stop_services() {
 
 status_services() {
   echo
-  for name in backend frontend proxy; do
+  for name in backend frontend proxy business-card; do
     if service_running "$name"; then
-      printf "%-8s: ${GREEN}RUNNING${NC} (PID %s)\n" "$name" "$(read_pid $name)"
+      printf "%-12s: ${GREEN}RUNNING${NC} (PID %s)\n" "$name" "$(read_pid $name)"
     else
-      printf "%-8s: ${RED}STOPPED${NC}\n" "$name"
+      printf "%-12s: ${RED}STOPPED${NC}\n" "$name"
     fi
   done
   echo
@@ -354,6 +380,7 @@ case "${1:-start}" in
     fi
     start_backend
     start_frontend
+    start_business_card
     start_proxy
     ;;
 
@@ -372,6 +399,7 @@ case "${1:-start}" in
     fi
     start_backend
     start_frontend
+    start_business_card
     start_proxy
     ;;
 

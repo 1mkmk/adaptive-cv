@@ -5,8 +5,8 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/lib/translations';
 
-// Frontend URL for redirects
-const FRONTEND_URL = "http://localhost:3000";
+// Frontend URL for redirects - bezpośredni adres do frontendu
+const FRONTEND_URL = "http://localhost:5173";
 
 export function Header() {
   const { t } = useTranslation();

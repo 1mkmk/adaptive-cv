@@ -90,6 +90,12 @@ const App: React.FC = () => {
           } 
         />
         
+        {/* New route: Redirect to business-card landing page */}
+        <Route 
+          path="/landing/*" 
+          element={<Navigate to={window.location.origin + "/landing"} replace />} 
+        />
+        
         {/* Catch all for 404 */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

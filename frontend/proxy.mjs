@@ -7,7 +7,7 @@ const PORT = 3001;
 
 // 1) Globalny CORS dla wszystkich endpointów
 app.use(cors({
-  origin: ['http://localhost:5173','http://localhost:3000'],
+  origin: ['http://localhost:5173','http://localhost:3000', 'http://localhost:3002'],
   credentials: true,
   methods: ['GET','POST','PUT','DELETE','OPTIONS','PATCH'],
   allowedHeaders: ['Content-Type','Authorization','Accept','Cookie','Origin','X-Requested-With'],
@@ -27,7 +27,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// 5) Proxy z ręcznym dopisaniem CORS
+// 5) Proxy z ręcznym dopisaniem CORS dla API backendu
 app.use('/api', createProxyMiddleware({
   target: 'http://localhost:8000',
   changeOrigin: true,
@@ -48,12 +48,28 @@ app.use('/api', createProxyMiddleware({
   ws: true
 }));
 
-// 6) Root health check
+// 6) Proxy dla business-card (strona marketingowa) na ścieżce /business
+app.use('/business', createProxyMiddleware({
+  target: 'http://localhost:3002', // Port, na którym uruchomimy stronę business-card
+  changeOrigin: true,
+  pathRewrite: { '^/business': '' },
+  ws: true
+}));
+
+// 7) Przekierowanie z / na /business dla głównej strony
 app.get('/', (req, res) => {
-  res.json({ status: 'ok', message: 'Proxy działa. Użyj /api/*' });
+  res.redirect('/business');
+});
+
+// 8) Root health check pod /health
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Proxy działa. Użyj /api/* lub /business/*' });
 });
 
 const server = app.listen(PORT, () => {
   console.log(`Proxy running at http://localhost:${PORT}`);
+  console.log(`- Main app available at http://localhost:${PORT}/app`);
+  console.log(`- Business card available at http://localhost:${PORT}/business`);
+  console.log(`- API available at http://localhost:${PORT}/api`);
 });
 server.timeout = 180000;
