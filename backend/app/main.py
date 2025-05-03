@@ -14,6 +14,7 @@ from .routers.jobs import router as jobs_router
 from .routers.generate import router as generate_router
 from .routers.profile import router as profile_router
 from .routers.auth import router as auth_router
+from .routers.subscription import router as subscription_router
 
 # ASCII Logo
 ascii_logo = "ADAPTIVECV\n"
@@ -134,6 +135,7 @@ app.include_router(jobs_router, prefix="/jobs", tags=["jobs"])
 app.include_router(generate_router, prefix="/generate", tags=["generate"])
 app.include_router(profile_router, prefix="/profile", tags=["profile"])
 app.include_router(auth_router, prefix="/auth", tags=["authentication"])
+app.include_router(subscription_router, tags=["subscription"])
 logger.info("All API routes registered successfully")
 
 @app.get("/")

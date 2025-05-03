@@ -33,4 +33,7 @@ PyMuPDF  # Alternate PDF renderer
 pytesseract  # OCR for scanned PDFs
 tika  # Java-based document parser as a fallback
 poppler-utils  # Required by pdf2image
-paramiko  # For SSH connections to remote LaTeX servertenacity
+paramiko  # For SSH connections to remote LaTeX server
+tenacity
+# Payment processing
+stripe

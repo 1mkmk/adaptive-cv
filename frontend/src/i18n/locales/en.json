@@ -18,7 +18,9 @@
     "clearFilters": "Clear Filters",
     "next": "Next",
     "previous": "Previous",
-    "back": "Back"
+    "back": "Back",
+    "guestUser": "Guest User",
+    "clickToSettings": "Click to manage account"
   },
   "auth": {
     "signIn": "Sign In",
@@ -141,6 +143,27 @@
     "advanced": "Advanced Settings",
     "aiModel": "Default AI Model",
     "creativityLevel": "Default Creativity Level"
+  },
+  "account": {
+    "accountSettings": "Account Settings",
+    "profile": "Profile",
+    "manageYourProfile": "View and manage your profile information",
+    "subscription": "Subscription",
+    "subscriptionPlans": "Subscription Plans",
+    "chooseYourPlan": "Choose the plan that works best for you",
+    "unlockAllFeatures": "Unlock all premium features",
+    "subscribe": "Subscribe Now",
+    "cancelSubscription": "Cancel Subscription",
+    "subscriptionDisclaimer": "You can cancel your subscription at any time. Changes will take effect at the end of your billing period.",
+    "security": "Security",
+    "manageYourSecurity": "Manage your account security settings",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password", 
+    "changePassword": "Change Password",
+    "guestUserNotice": "You're signed in as a guest",
+    "passwordChangeUnavailable": "Password management is only available for registered users",
+    "switchToRegularAccount": "Create Regular Account"
   },
   "errors": {
     "generic": "Something went wrong. Please try again.",

@@ -20,6 +20,9 @@ class User(Base):
     # For guest user
     is_guest = Column(Boolean, default=False)
     
+    # Subscription related
+    has_selected_plan = Column(Boolean, default=False)
+    
     # Timestamps
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
@@ -27,6 +30,7 @@ class User(Base):
     # Relationships
     candidate_profiles = relationship("CandidateProfile", back_populates="user", cascade="all, delete-orphan")
     jobs = relationship("Job", back_populates="user", cascade="all, delete-orphan")
+    subscription = relationship("Subscription", back_populates="user", uselist=False, cascade="all, delete-orphan")
     
     def __repr__(self):
         return f"<User {self.email}>"

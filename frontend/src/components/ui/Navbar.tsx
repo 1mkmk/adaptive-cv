@@ -17,11 +17,20 @@ const Navbar: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
   
+  // Funkcja generująca inicjały dla avatar placeholder
+  const getInitials = (name: string): string => {
+    return name
+      .split(' ')
+      .map(part => part.charAt(0).toUpperCase())
+      .slice(0, 2)
+      .join('');
+  };
+  
   return (
     <div className="border-b">
       <div className="flex h-16 items-center px-4 container mx-auto">
         <div className="mr-6 flex items-center">
-          <Link to="/">
+          <Link to={isAuthenticated ? "/jobs" : "/login"}>
             <img 
               src="/adaptivecv-logo.jpg" 
               alt="AdaptiveCV Logo" 
@@ -33,12 +42,6 @@ const Navbar: React.FC = () => {
         
         <NavigationMenu className="flex-1">
           <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link to="/" className={navigationMenuTriggerStyle()}>
-                {t('navigation.home')}
-              </Link>
-            </NavigationMenuItem>
-            
             {isAuthenticated && (
               <>
                 <NavigationMenuItem>
@@ -68,19 +71,28 @@ const Navbar: React.FC = () => {
           {isAuthenticated ? (
             <>
               {user && (
-                <div className="flex items-center mr-2">
-                  {user.picture && (
+                <Link to="/account-settings" className="flex items-center mr-2 hover:opacity-80 transition-opacity group">
+                  {user.picture ? (
                     <img 
                       src={user.picture} 
                       alt={user.name} 
-                      className="h-8 w-8 rounded-full mr-2"
+                      className="h-8 w-8 rounded-full mr-2 group-hover:ring-2 group-hover:ring-indigo-400"
                       referrerPolicy="no-referrer"
                     />
+                  ) : (
+                    <div className="h-8 w-8 rounded-full mr-2 bg-indigo-600 flex items-center justify-center text-white text-xs font-medium group-hover:ring-2 group-hover:ring-indigo-400">
+                      {getInitials(user.name || 'Guest User')}
+                    </div>
                   )}
-                  <span className="text-sm font-medium">
-                    {user.name}
-                  </span>
-                </div>
+                  <div>
+                    <span className="text-sm font-medium block">
+                      {user.name}
+                    </span>
+                    <span className="text-xs text-gray-500 block">
+                      {user.is_guest ? t('common.guestUser') : t('common.clickToSettings')}
+                    </span>
+                  </div>
+                </Link>
               )}
               <Button 
                 variant="outline" 
